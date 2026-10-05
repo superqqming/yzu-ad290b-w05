@@ -415,8 +415,10 @@ document.getElementById("btnPrint").addEventListener("click", function () {
   try { embedded = (window.top !== window.self); } catch (e) { embedded = true; }   // 跨網域存取 top 會丟錯＝確實被內嵌
   if (embedded) {                                   // Google Sites 等 sandbox iframe 內 print() 可能靜默失效
     var href = window.location.href.split("#")[0];
-    var w = window.open(href, "_blank", "noopener,noreferrer");
-    if (!w) window.print();                         // 快顯被擋：仍嘗試就地列印
+    var w = window.open(href, "_blank");            // 不可加 noopener：依規範一律回傳 null，就無法判斷是否被擋
+    if (w) { try { w.opener = null; } catch (e) {}  // 開成功就只開分頁，不要同時叫出列印對話框
+      return; }
+    window.print();                                 // 快顯被擋才就地列印
     return;
   }
   window.print();
