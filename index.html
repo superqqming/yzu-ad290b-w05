@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>圖學基本知識速查表｜Technical Drawing Fundamentals</title>
+<meta name="description" content="AD290B W05 圖學基本知識速查表：製圖流程、第一角法與第三角法、線型與尺寸標註、交件前六項自查。繁中／English／Bahasa Indonesia／Tiếng Việt。">
+<meta name="color-scheme" content="light">
+<meta name="referrer" content="no-referrer">
+<style>
+  :root{
+    --bg:#faf7f2; --card:#fff; --ink:#1f2421; --ink-soft:#5a6560; --ink-faint:#6b716d;
+    --line:#e2ddd3; --accent:#d8572a; --accent-soft:#fdeee7; --accent-line:#f0c4ad;
+    --green:#1f6b4f; --green-soft:#e9f1ec; --green-line:#bcd6c8;
+    --radius:14px; --pad:clamp(14px,3.2vw,22px);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"PingFang TC","Noto Sans TC","Hiragino Sans TC","Heiti TC",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+    font-size:16px; line-height:1.6;
+  }
+  html[lang="en"] body,html[lang="id"] body,html[lang="vi"] body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","PingFang TC","Noto Sans TC",sans-serif;
+  }
+  .wrap{max-width:1040px; margin:0 auto; padding:0 var(--pad) 48px}
+  a{color:var(--green)}
+  .skip{position:absolute; left:-9999px; top:0; background:#fff; padding:10px 14px; border-radius:8px; z-index:20}
+  .skip:focus{left:12px; top:12px; outline:3px solid var(--accent)}
+  :focus-visible{outline:3px solid var(--accent); outline-offset:2px; border-radius:6px}
+
+  /* ------------------------------------------------ 控制列 */
+  .bar{
+    position:sticky; top:0; z-index:10; background:rgba(250,247,242,.95);
+    backdrop-filter:saturate(140%) blur(8px); border-bottom:1px solid var(--line);
+    padding:8px var(--pad); display:flex; gap:10px 14px; align-items:center; flex-wrap:wrap;
+  }
+  .bar .inner{max-width:1040px; margin:0 auto; width:100%; display:flex; gap:8px 14px; align-items:center; flex-wrap:wrap}
+  .langs{display:flex; gap:6px; flex-wrap:wrap}
+  .langs .lab{font-size:13px; color:var(--ink-faint); align-self:center; margin-right:2px}
+  button{font:inherit; cursor:pointer}
+  .lang{
+    border:1px solid var(--line); background:#fff; color:var(--ink);
+    border-radius:999px; padding:7px 14px; font-size:15px; font-weight:600; min-height:40px;
+  }
+  .lang:hover{background:#f3efe8}
+  .lang[aria-pressed="true"]{background:var(--green); border-color:var(--green); color:#fff}
+  .print{
+    margin-left:auto; border:1px solid var(--line); background:#fff; border-radius:10px;
+    padding:8px 14px; min-height:40px; font-weight:600; display:inline-flex; gap:7px; align-items:center;
+  }
+  .print:hover{background:#f3efe8}
+  .print-hint{font-size:12.5px; color:var(--ink-faint)}
+
+  /* ------------------------------------------------ 標頭 */
+  header.head{padding:22px 0 6px}
+  .badge{font-size:12.5px; letter-spacing:.08em; color:var(--ink-faint); font-variant-numeric:tabular-nums}
+  h1{font-size:clamp(26px,5.2vw,40px); line-height:1.2; margin:6px 0 2px; font-weight:700; letter-spacing:.01em}
+  .sub{color:var(--ink-soft); font-size:clamp(14px,2.6vw,17px); margin:6px 0 0; max-width:62ch}
+
+  /* ------------------------------------------------ 區塊 */
+  section{margin-top:clamp(26px,5vw,40px)}
+  .shead{display:flex; align-items:baseline; gap:12px; margin-bottom:14px; flex-wrap:wrap}
+  .snum{font-size:15px; font-weight:800; color:var(--accent); font-variant-numeric:tabular-nums; letter-spacing:.06em}
+  h2{font-size:clamp(19px,3.4vw,24px); margin:0; font-weight:700}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:var(--pad)}
+
+  /* 01 流程 */
+  .flow{display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:10px}
+  .step{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 10px; text-align:center}
+  .step .n{display:inline-flex; width:26px; height:26px; align-items:center; justify-content:center;
+    border-radius:50%; background:var(--green-soft); color:var(--green); font-weight:800; font-size:14px; margin-bottom:6px}
+  .step .t{font-size:15px; font-weight:650; line-height:1.35}
+  @media (max-width:420px){ .flow{grid-template-columns:repeat(2,1fr)} }
+
+  /* 02 投影法 */
+  .proj{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  @media (max-width:760px){ .proj{grid-template-columns:1fr} }
+  .pbox{border-radius:var(--radius); padding:var(--pad); border:1px solid}
+  .pbox.first{background:var(--accent-soft); border-color:var(--accent-line)}
+  .pbox.third{background:var(--green-soft); border-color:var(--green-line)}
+  .pbox h3{margin:0 0 12px; font-size:clamp(17px,3vw,21px); font-weight:700}
+  .pbox figure{margin:0}
+  .iso{display:grid; justify-items:center; margin:0 0 18px}
+  .iso svg{width:100%; max-width:200px; height:auto; display:block}
+  /* 視圖配置圖：單一 SVG（含淡投影線）＋ HTML 文字標籤疊放，標籤可換行 */
+  .vgrid{position:relative; max-width:380px; margin:0 auto}
+  .vgrid svg{width:100%; height:auto; display:block}
+  .vl{position:absolute; display:flex; justify-content:center; text-align:center;
+      font-size:14.5px; font-weight:600; line-height:1.25; color:var(--ink)}
+  .vl.top-band{top:0; height:13.33%; align-items:flex-end}
+  .vl.bottom-band{top:83.53%; height:16.47%; align-items:flex-start; padding-top:4px}
+  .a1 .c-wide{left:3.36%; width:47.90%}
+  .a1 .c-narrow{left:67.23%; width:29.41%}
+  .a3 .c-wide{left:48.74%; width:47.90%}
+  .a3 .c-narrow{left:3.36%; width:29.41%}
+  .rule{margin:16px 0 0; font-size:15px; font-weight:650}
+  .mnemo{margin:4px 0 0; font-size:14px; font-style:italic; color:var(--ink-soft)}
+  .pbox.first .mnemo{color:var(--accent)}
+  .pbox.third .mnemo{color:var(--green)}
+  .note{margin-top:14px; font-size:14.5px; color:var(--ink-soft); background:var(--card);
+    border:1px dashed var(--line); border-radius:12px; padding:10px 14px}
+
+  /* 03 線型 */
+  .lines{display:grid; grid-template-columns:minmax(240px,.85fr) minmax(280px,1fr); gap:clamp(14px,3vw,28px); align-items:center}
+  @media (max-width:760px){ .lines{grid-template-columns:1fr} }
+  .ltable{display:grid; gap:12px}
+  .lrow{display:grid; grid-template-columns:96px 1fr; gap:12px; align-items:center}
+  .lrow svg{width:96px; height:16px; display:block}
+  .lname{font-size:15px; font-weight:650; line-height:1.3}
+  .luse{font-size:13px; color:var(--ink-soft); line-height:1.35}
+  .fig svg{width:100%; height:auto; display:block}
+  .unit{margin:2px 0 0; font-size:13px; color:var(--ink-soft); text-align:right}
+  figcaption{font-size:13px; color:var(--ink-faint); margin-top:6px; text-align:center}
+  .bullets{display:grid; grid-template-columns:1fr 1fr; gap:10px 22px; margin-top:16px}
+  @media (max-width:760px){ .bullets{grid-template-columns:1fr} }
+  .bullets li{font-size:15px; margin:0 0 2px}
+  .bullets ul{margin:0; padding-left:1.1em}
+
+  /* 04 檢核 */
+  .checks{display:grid; grid-template-columns:repeat(3,1fr); gap:10px}
+  @media (max-width:860px){ .checks{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:520px){ .checks{grid-template-columns:1fr} }
+  .check{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:13px 14px; display:flex; gap:10px}
+  .check .box{flex:none; width:19px; height:19px; margin-top:2px; border:2px solid var(--green); border-radius:4px}
+  .check .cname{font-weight:700; font-size:16px; color:var(--green)}
+  .check .cdesc{font-size:14.5px; color:var(--ink-soft); margin-top:2px}
+
+  /* 頁尾 */
+  footer{margin-top:clamp(28px,5vw,44px); border-top:1px solid var(--line); padding-top:16px;
+    font-size:13.5px; color:var(--ink-faint); display:grid; gap:8px}
+  footer .motto{color:var(--accent); font-size:clamp(15px,2.8vw,18px); font-weight:650; text-align:center; margin:4px 0 10px}
+  footer ul{margin:4px 0 0; padding-left:1.1em}
+  footer a{word-break:break-all; display:inline-block; padding:6px 4px; min-height:32px}
+  footer li{margin-bottom:2px}
+  @media print{ footer a{display:inline; padding:0; min-height:0} }
+
+  /* 列印：A4 直式、只印目前語言、不印控制列 */
+  @page{size:A4 portrait; margin:12mm}
+  @media print{
+    body{background:#fff; font-size:10.2pt; line-height:1.42}
+    .bar,.skip,.print-hint{display:none !important}
+    .wrap{max-width:none; padding:0}
+    .card,.pbox{padding:4mm}
+    .bar{padding:0}
+    header.head{padding:0 0 2px}
+    h1{font-size:19pt} .sub{font-size:9.6pt}
+    section{margin-top:7mm; break-inside:avoid}
+    .card,.pbox,.step,.check,.note{break-inside:avoid; box-shadow:none}
+    .flow{grid-template-columns:repeat(7,1fr); gap:4px}
+    .step{padding:6px 4px} .step .t{font-size:8.6pt} .step .n{width:20px;height:20px;font-size:10px;margin-bottom:3px}
+    .proj{grid-template-columns:1fr 1fr; gap:6mm}
+    .iso svg{max-width:130px} .vgrid{max-width:250px} .vl{font-size:8.2pt}
+    .lines{grid-template-columns:1fr 1fr; gap:6mm}
+    .checks{grid-template-columns:repeat(3,1fr)}
+    footer{break-inside:avoid; font-size:8.4pt}
+    a{color:inherit; text-decoration:none}
+    a[href^="http"]::after{content:" (" attr(href) ")"; font-size:7.6pt; color:#777}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main" data-i="ui.skip">跳到主要內容</a>
+
+<div class="bar">
+  <div class="inner">
+    <div class="langs" role="group" aria-labelledby="langLab">
+      <span class="lab" id="langLab" data-i="ui.langLabel">語言</span>
+      <button type="button" class="lang" data-lang="zh-Hant" lang="zh-Hant" aria-pressed="true">繁中</button>
+      <button type="button" class="lang" data-lang="en" lang="en" aria-pressed="false">English</button>
+      <button type="button" class="lang" data-lang="id" lang="id" aria-pressed="false">Bahasa Indonesia</button>
+      <button type="button" class="lang" data-lang="vi" lang="vi" aria-pressed="false">Tiếng Việt</button>
+    </div>
+    <button type="button" class="print" id="btnPrint">
+      <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v7H6z"/></svg>
+      <span data-i="ui.print">列印／另存 PDF</span>
+    </button>
+    <span class="print-hint" data-i="ui.printHint">列印時只會印出目前語言</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <header class="head">
+    <div class="badge" data-i="badge">AD290B · W05 · 2026.10.06</div>
+    <h1 data-i="title">圖學基本知識速查表</h1>
+    <p class="sub" data-i="subtitle">把三維物件轉譯成別人能重建、量測與驗證的二維資訊。</p>
+  </header>
+
+  <main id="main">
+
+    <!-- 01 製圖流程 -->
+    <section aria-labelledby="h-s1">
+      <div class="shead"><span class="snum">01</span><h2 id="h-s1" data-i="s1.title">正確的製圖流程</h2></div>
+      <ol class="flow" style="list-style:none;margin:0;padding:0">
+        <li class="step"><span class="n">1</span><div class="t" data-i="s1.step1">目的與讀者</div></li>
+        <li class="step"><span class="n">2</span><div class="t" data-i="s1.step2">觀察與量測</div></li>
+        <li class="step"><span class="n">3</span><div class="t" data-i="s1.step3">選主視圖</div></li>
+        <li class="step"><span class="n">4</span><div class="t" data-i="s1.step4">選投影法</div></li>
+        <li class="step"><span class="n">5</span><div class="t" data-i="s1.step5">視圖對齊</div></li>
+        <li class="step"><span class="n">6</span><div class="t" data-i="s1.step6">線型與尺寸</div></li>
+        <li class="step"><span class="n">7</span><div class="t" data-i="s1.step7">重建驗證</div></li>
+      </ol>
+    </section>
+
+    <!-- 02 投影法 -->
+    <section aria-labelledby="h-s2">
+      <div class="shead"><span class="snum">02</span><h2 id="h-s2" data-i="s2.title">正投影與視圖配置</h2></div>
+      <figure class="iso">
+        <svg viewBox="0 0 156 114" role="img" aria-labelledby="isoT" focusable="false">
+          <title id="isoT" data-i="s2.iso.alt"></title>
+          <g stroke="#1f2421" stroke-width="2.4" stroke-linejoin="round">
+            <polygon points="20.1,3.0 125.1,37.0 153.0,37.6 48.0,3.6" fill="#d3e3da"/>
+            <polygon points="3.0,39.6 108.0,73.6 125.1,37.0 20.1,3.0" fill="#e9f1ec"/>
+            <polygon points="108.0,73.6 125.1,37.0 153.0,37.6" fill="#f7ddd0"/>
+            <polygon points="3.0,39.6 108.0,73.6 108.0,111.0 3.0,77.0" fill="#efeee8"/>
+            <polygon points="108.0,73.6 153.0,37.6 153.0,75.0 108.0,111.0" fill="#fdeee7"/>
+          </g>
+        </svg>
+        <figcaption data-i="s2.object">同一物件</figcaption>
+      </figure>
+      <div class="proj">
+        <div class="pbox first">
+          <h3 data-i="s2.first.name">第一角法</h3>
+          <div class="vgrid a1">
+            <svg viewBox="0 0 238 255" role="img" aria-labelledby="svg1t" focusable="false">
+              <title id="svg1t" data-i="s2.first.alt"></title>
+              <g stroke="#eab79c" stroke-width="1.6" stroke-dasharray="5 5">
+                <line x1="8" y1="109" x2="8" y2="142"/><line x1="122" y1="109" x2="122" y2="142"/><line x1="122" y1="38" x2="160" y2="38"/><line x1="122" y1="65" x2="160" y2="65"/><line x1="122" y1="109" x2="160" y2="109"/>
+              </g>
+              <g fill="none" stroke="#d8572a" stroke-width="2.8" stroke-linejoin="round">
+                <rect x="8" y="38" width="114" height="71"/><line x1="8" y1="65" x2="122" y2="65"/><rect x="8" y="142" width="114" height="70"/><line x1="8" y1="185" x2="122" y2="185"/><polygon points="160,109 160,65 203,38 230,65 230,109"/>
+              </g>
+            </svg>
+            <span class="vl top-band c-wide" data-i="view.front">正視圖</span>
+            <span class="vl top-band c-narrow" data-i="view.left">左側視圖</span>
+            <span class="vl bottom-band c-wide" data-i="view.top">俯視圖</span>
+          </div>
+          <p class="rule" data-i="s2.first.rule">左視圖放右邊；俯視圖放下方</p>
+          <p class="mnemo" data-i="s2.first.mnemo">視圖配置在相反側。</p>
+        </div>
+        <div class="pbox third">
+          <h3 data-i="s2.third.name">第三角法</h3>
+          <div class="vgrid a3">
+            <svg viewBox="0 0 238 255" role="img" aria-labelledby="svg2t" focusable="false">
+              <title id="svg2t" data-i="s2.third.alt"></title>
+              <g stroke="#a7c9b6" stroke-width="1.6" stroke-dasharray="5 5">
+                <line x1="116" y1="108" x2="116" y2="142"/><line x1="230" y1="108" x2="230" y2="142"/><line x1="78" y1="142" x2="116" y2="142"/><line x1="78" y1="169" x2="116" y2="169"/><line x1="78" y1="213" x2="116" y2="213"/>
+              </g>
+              <g fill="none" stroke="#1f6b4f" stroke-width="2.8" stroke-linejoin="round">
+                <rect x="116" y="38" width="114" height="70"/><line x1="116" y1="81" x2="230" y2="81"/><rect x="116" y="142" width="114" height="71"/><line x1="116" y1="169" x2="230" y2="169"/><polygon points="8,213 8,169 51,142 78,169 78,213"/>
+              </g>
+            </svg>
+            <span class="vl top-band c-wide" data-i="view.top">俯視圖</span>
+            <span class="vl bottom-band c-wide" data-i="view.front">正視圖</span>
+            <span class="vl bottom-band c-narrow" data-i="view.left">左側視圖</span>
+          </div>
+          <p class="rule" data-i="s2.third.rule">左視圖放左邊；俯視圖放上方</p>
+          <p class="mnemo" data-i="s2.third.mnemo">視圖配置在同一側。</p>
+        </div>
+      </div>
+      <p class="note" data-i="s2.note">不同標準與課堂要求可能不同，先確認再畫；不要只看視圖左右位置就猜投影法。</p>
+    </section>
+
+    <!-- 03 線型與尺寸 -->
+    <section aria-labelledby="h-s3">
+      <div class="shead"><span class="snum">03</span><h2 id="h-s3" data-i="s3.title">線型與尺寸標註</h2></div>
+      <div class="card">
+        <div class="lines">
+          <div class="ltable">
+            <div class="lrow">
+              <svg viewBox="0 0 96 16" aria-hidden="true"><line x1="2" y1="8" x2="94" y2="8" stroke="#1f2421" stroke-width="3.4"/></svg>
+              <div><div class="lname" data-i="s3.line1">粗實線</div><div class="luse" data-i="s3.line1.use">可見輪廓</div></div>
+            </div>
+            <div class="lrow">
+              <svg viewBox="0 0 96 16" aria-hidden="true"><line x1="2" y1="8" x2="94" y2="8" stroke="#1f2421" stroke-width="1.6" stroke-dasharray="9 6"/></svg>
+              <div><div class="lname" data-i="s3.line2">細虛線</div><div class="luse" data-i="s3.line2.use">隱藏邊線</div></div>
+            </div>
+            <div class="lrow">
+              <svg viewBox="0 0 96 16" aria-hidden="true"><line x1="2" y1="8" x2="94" y2="8" stroke="#1f2421" stroke-width="1.6" stroke-dasharray="14 5 2 5"/></svg>
+              <div><div class="lname" data-i="s3.line3">細點畫線</div><div class="luse" data-i="s3.line3.use">中心線／對稱</div></div>
+            </div>
+            <div class="lrow">
+              <svg viewBox="0 0 96 16" aria-hidden="true"><line x1="2" y1="8" x2="94" y2="8" stroke="#1f2421" stroke-width="1.1"/></svg>
+              <div><div class="lname" data-i="s3.line4">細實線</div><div class="luse" data-i="s3.line4.use">尺寸線／界線／作圖線</div></div>
+            </div>
+          </div>
+          <figure class="fig">
+            <svg viewBox="0 0 340 214" role="img" aria-labelledby="svg3t">
+              <title id="svg3t" data-i="s3.alt">範例圖：寬 80、高 50 的板件，中央有直徑 20 的圓孔，標註單位為公釐。</title>
+              <!-- 尺寸界線 -->
+              <g stroke="#1f2421" stroke-width="1.1">
+                <line x1="88" y1="40" x2="58" y2="40"/><line x1="88" y1="170" x2="58" y2="170"/>
+                <line x1="88" y1="170" x2="88" y2="206"/><line x1="296" y1="170" x2="296" y2="206"/>
+              </g>
+              <!-- 尺寸線＋箭頭 -->
+              <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0,1 L10,5 L0,9 z" fill="#1f2421"/></marker></defs>
+              <g stroke="#1f2421" stroke-width="1.1" marker-start="url(#ar)" marker-end="url(#ar)">
+                <line x1="66" y1="40" x2="66" y2="170"/><line x1="88" y1="198" x2="296" y2="198"/>
+              </g>
+              <!-- 板件外形：粗實線 -->
+              <rect x="88" y="40" width="208" height="130" fill="none" stroke="#1f2421" stroke-width="3.4"/>
+              <!-- 中心線：細點畫線 -->
+              <g stroke="#1f6b4f" stroke-width="1.3" stroke-dasharray="14 5 2 5">
+                <line x1="150" y1="105" x2="234" y2="105"/><line x1="192" y1="63" x2="192" y2="147"/>
+              </g>
+              <!-- 圓孔：粗實線。比例 2.6 px/mm，r=26 px 即 Ø20 mm，圓心與板件中心同為 (192,105) -->
+              <circle cx="192" cy="105" r="26" fill="none" stroke="#1f2421" stroke-width="3.4"/>
+              <!-- 直徑指引線：起點落在圓周上 -->
+              <line x1="210" y1="87" x2="274" y2="40" stroke="#1f2421" stroke-width="1.1" marker-start="url(#ar)"/>
+              <text x="268" y="33" font-size="16" fill="#d8572a" font-family="inherit">Ø20</text>
+              <text x="36" y="110" font-size="16" fill="#1f2421" font-family="inherit">50</text>
+              <text x="192" y="192" font-size="16" fill="#1f2421" font-family="inherit" text-anchor="middle">80</text>
+            </svg>
+            <p class="unit" data-i="s3.unit">統一單位 mm</p>
+            <figcaption data-i="s3.figcaption">範例：80 × 50 板件，中央 Ø20 圓孔</figcaption>
+          </figure>
+        </div>
+        <div class="bullets">
+          <ul>
+            <li data-i="s3.b1">同一種線在整張圖中保持一致。</li>
+            <li data-i="s3.b2">中心線略超出輪廓；虛線不能取代必要視圖。</li>
+          </ul>
+          <ul>
+            <li data-i="s3.b3">尺寸表示真實大小，不隨繪圖比例改變。</li>
+            <li data-i="s3.b4">尺寸要有歸屬，避免重複、遺漏與交叉。</li>
+            <li data-i="s3.b5">先標統一單位；直徑 Ø、半徑 R、角度 °。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 六項自查 -->
+    <section aria-labelledby="h-s4">
+      <div class="shead"><span class="snum">04</span><h2 id="h-s4" data-i="s4.title">交件前六項自查</h2></div>
+      <ul class="checks" style="list-style:none;margin:0;padding:0">
+        <li class="check"><span class="box" aria-hidden="true"></span><div><div class="cname" data-i="s4.c1.name">有目的</div><div class="cdesc" data-i="s4.c1.desc">知道圖要給誰使用</div></div></li>
+        <li class="check"><span class="box" aria-hidden="true"></span><div><div class="cname" data-i="s4.c2.name">有依據</div><div class="cdesc" data-i="s4.c2.desc">每條線與數字都有來源</div></div></li>
+        <li class="check"><span class="box" aria-hidden="true"></span><div><div class="cname" data-i="s4.c3.name">視圖足</div><div class="cdesc" data-i="s4.c3.desc">足以排除形體歧義</div></div></li>
+        <li class="check"><span class="box" aria-hidden="true"></span><div><div class="cname" data-i="s4.c4.name">標註清</div><div class="cdesc" data-i="s4.c4.desc">尺寸、方向、單位清楚</div></div></li>
+        <li class="check"><span class="box" aria-hidden="true"></span><div><div class="cname" data-i="s4.c5.name">能獨讀</div><div class="cdesc" data-i="s4.c5.desc">不靠作者口頭補充</div></div></li>
+        <li class="check"><span class="box" aria-hidden="true"></span><div><div class="cname" data-i="s4.c6.name">可驗證</div><div class="cdesc" data-i="s4.c6.desc">別人能重畫或重做</div></div></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p class="motto" data-i="footer.motto">圖畫得像，不等於圖面能用。</p>
+    <p data-i="footer.simplified">教學簡化版。實際專案應依指定標準執行。</p>
+    <div>
+      <strong data-i="footer.sources">參考標準</strong>
+      <ul>
+        <li>ISO 5456-2 — <a href="https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A5456%3A-2%3Aed-1%3Av1%3Aen" rel="noopener noreferrer nofollow" target="_blank">iso.org</a></li>
+        <li>ISO 128-2:2022 — <a href="https://www.iso.org/standard/83355.html" rel="noopener noreferrer nofollow" target="_blank">iso.org</a></li>
+        <li>ISO 129-1:2018 — <a href="https://www.iso.org/standard/64007.html" rel="noopener noreferrer nofollow" target="_blank">iso.org</a></li>
+      </ul>
+    </div>
+    <p id="draftNote" hidden data-i="footer.draft"></p>
+  </footer>
+</div>
+
+<script>
+"use strict";
+/* 四語字典。zh-Hant 與 en 來自教師定稿的 A4 講義；id、vi 為課堂翻譯稿。 */
+var I18N = {"zh-Hant":{"ui.skip":"跳到主要內容","ui.langLabel":"語言","ui.print":"列印／另存 PDF","ui.printHint":"列印時只會印出目前語言","badge":"AD290B · W05 · 2026.10.06","title":"圖學基本知識速查表","subtitle":"把三維物件轉譯成別人能重建、量測與驗證的二維資訊。","s1.title":"正確的製圖流程","s1.step1":"目的與讀者","s1.step2":"觀察與量測","s1.step3":"選主視圖","s1.step4":"選投影法","s1.step5":"視圖對齊","s1.step6":"線型與尺寸","s1.step7":"重建驗證","s2.title":"正投影與視圖配置","s2.object":"同一物件","s2.iso.alt":"等角立體圖：一個左右不對稱的塊體，上方有一道偏向後側的斜脊。下面兩種配置畫的都是這個物件。","s2.first.name":"第一角法","s2.first.rule":"左側視圖放右邊；俯視圖放下方","s2.first.mnemo":"視圖配置在相反側。","s2.first.alt":"第一角法視圖配置：正視圖在左上，左側視圖在正視圖右邊，俯視圖在正視圖下方；相鄰視圖以淡投影線對齊。","s2.third.name":"第三角法","s2.third.rule":"左側視圖放左邊；俯視圖放上方","s2.third.mnemo":"視圖配置在同一側。","s2.third.alt":"第三角法視圖配置：俯視圖在右上，正視圖在俯視圖下方，左側視圖在正視圖左邊；相鄰視圖以淡投影線對齊。","s2.note":"不同標準與課堂要求可能不同，先確認再畫；不要只看視圖左右位置就猜投影法。","view.front":"正視圖","view.top":"俯視圖","view.left":"左側視圖","s3.title":"線型與尺寸標註","s3.line1":"粗實線","s3.line1.use":"可見輪廓","s3.line2":"細虛線","s3.line2.use":"隱藏邊線","s3.line3":"細點畫線","s3.line3.use":"中心線／對稱","s3.line4":"細實線","s3.line4.use":"尺寸線／界線／作圖線","s3.unit":"統一單位 mm","s3.figcaption":"範例：80 × 50 板件，中央 Ø20 圓孔","s3.alt":"範例圖：寬 80、高 50 的板件，正中央有一個直徑 20 的圓孔，並畫出水平與垂直中心線；標註單位為公釐。","s3.b1":"同一種線在整張圖中保持一致。","s3.b2":"中心線略超出輪廓；虛線不能取代必要視圖。","s3.b3":"尺寸表示真實大小，不隨繪圖比例改變。","s3.b4":"尺寸要有歸屬，避免重複、遺漏與交叉。","s3.b5":"先標統一單位；直徑 Ø、半徑 R、角度 °。","s4.title":"交件前六項自查","s4.c1.name":"有目的","s4.c1.desc":"知道圖要給誰使用","s4.c2.name":"有依據","s4.c2.desc":"每條線與數字都有來源","s4.c3.name":"視圖足","s4.c3.desc":"足以排除形體歧義","s4.c4.name":"標註清","s4.c4.desc":"尺寸、方向、單位清楚","s4.c5.name":"能獨讀","s4.c5.desc":"不靠作者口頭補充","s4.c6.name":"可驗證","s4.c6.desc":"別人能重畫或重做","footer.motto":"圖畫得像，不等於圖面能用。","footer.simplified":"教學簡化版。實際專案應依指定標準執行。","footer.sources":"參考標準","footer.draft":""},"en":{"ui.skip":"Skip to main content","ui.langLabel":"Language","ui.print":"Print / Save as PDF","ui.printHint":"Only the current language is printed","badge":"AD290B · W05 · 2026.10.06","title":"Technical Drawing Fundamentals","subtitle":"Translate a 3D object into 2D information others can reconstruct, measure, and verify.","s1.title":"Drawing workflow","s1.step1":"Purpose & reader","s1.step2":"Observe & measure","s1.step3":"Choose front","s1.step4":"Projection","s1.step5":"Align views","s1.step6":"Lines & dimensions","s1.step7":"Reconstruct & verify","s2.title":"Orthographic projection and view layout","s2.object":"Same object","s2.iso.alt":"Isometric view of an asymmetric block with a sloping ridge set towards the rear. Both layouts below show this same object.","s2.first.name":"First-angle projection","s2.first.rule":"Left-side view on the right; top view below","s2.first.mnemo":"Views are placed on the opposite side.","s2.first.alt":"First-angle layout: front view top left, left-side view to its right, top view below it; adjacent views are tied together by faint projection lines.","s2.third.name":"Third-angle projection","s2.third.rule":"Left-side view on the left; top view above","s2.third.mnemo":"Views stay on the same side.","s2.third.alt":"Third-angle layout: top view top right, front view below it, left-side view to the left of the front view; adjacent views are tied together by faint projection lines.","s2.note":"Standards and course requirements differ — confirm before drawing; never guess the method from view positions alone.","view.front":"Front view","view.top":"Top view","view.left":"Left-side view","s3.title":"Line types and dimensioning","s3.line1":"Thick continuous","s3.line1.use":"Visible outlines","s3.line2":"Thin dashed","s3.line2.use":"Hidden edges","s3.line3":"Thin chain (dash-dot)","s3.line3.use":"Centre / symmetry","s3.line4":"Thin continuous","s3.line4.use":"Dimensions / extensions / construction","s3.unit":"Unit: mm","s3.figcaption":"Example: 80 × 50 plate with a central Ø20 hole","s3.alt":"Example drawing: an 80 by 50 plate with a Ø20 hole at its exact centre, shown with horizontal and vertical centre lines; dimensions in millimetres.","s3.b1":"Keep each line type consistent across the drawing.","s3.b2":"Centre lines extend slightly; hidden lines do not replace necessary views.","s3.b3":"Dimensions state true size, regardless of drawing scale.","s3.b4":"Show ownership; avoid duplicate, missing, or crossing dimensions.","s3.b5":"State units; use Ø for diameter, R for radius, and ° for angles.","s4.title":"Six checks before submission","s4.c1.name":"Purposeful","s4.c1.desc":"Know who will use the drawing","s4.c2.name":"Evidence-based","s4.c2.desc":"Every line and number has evidence","s4.c3.name":"Sufficient views","s4.c3.desc":"Enough views to remove ambiguity","s4.c4.name":"Unambiguous","s4.c4.desc":"Dimensions, direction, and units are clear","s4.c5.name":"Stand-alone","s4.c5.desc":"No verbal explanation is required","s4.c6.name":"Verifiable","s4.c6.desc":"Another person can redraw or reproduce it","footer.motto":"Looking right is not the same as communicating correctly.","footer.simplified":"Classroom summary; follow the specified standard in professional work.","footer.sources":"Reference standards","footer.draft":""},"id":{"title":"Lembar Ringkas Dasar Gambar Teknik","subtitle":"Menerjemahkan benda tiga dimensi menjadi informasi dua dimensi yang bisa direkonstruksi, diukur, dan diverifikasi orang lain.","badge":"AD290B · W05 · 2026.10.06","s1.title":"Alur kerja menggambar","s1.step1":"Tujuan & pembaca","s1.step2":"Amati & ukur","s1.step3":"Pilih pandangan depan","s1.step4":"Pilih metode proyeksi","s1.step5":"Sejajarkan pandangan","s1.step6":"Jenis garis & ukuran","s1.step7":"Rekonstruksi & verifikasi","s2.title":"Proyeksi ortogonal dan tata letak pandangan","s2.first.name":"Proyeksi sudut pertama (Eropa)","s2.first.rule":"Pandangan samping kiri diletakkan di sebelah kanan; pandangan atas di bawah","s2.third.name":"Proyeksi sudut ketiga (Amerika)","s2.third.rule":"Pandangan samping kiri diletakkan di sebelah kiri; pandangan atas di atas","s2.note":"Standar dan ketentuan kelas bisa berbeda — pastikan dulu sebelum menggambar; jangan menebak metode proyeksi hanya dari posisi pandangan.","view.front":"Pandangan depan","view.top":"Pandangan atas","s3.title":"Jenis garis dan pemberian ukuran","s3.line1":"Garis tebal kontinu","s3.line2":"Garis putus-putus tipis","s3.line3":"Garis strip-titik tipis","s3.line4":"Garis tipis kontinu","s3.unit":"Satuan seragam: mm","s3.b1":"Pakai setiap jenis garis secara konsisten di seluruh gambar.","s3.b2":"Garis sumbu menonjol sedikit melewati kontur; garis gores tidak menggantikan pandangan yang diperlukan.","s3.b3":"Ukuran menyatakan ukuran sebenarnya, tidak berubah mengikuti skala gambar.","s3.b4":"Setiap ukuran harus jelas milik bagian mana; hindari ukuran ganda, terlewat, atau bersilangan.","s3.b5":"Tulis satuan lebih dulu; Ø untuk diameter, R untuk radius, ° untuk sudut.","s3.figcaption":"Contoh: pelat 80 × 50 dengan lubang Ø20 di tengah","s4.title":"Enam pemeriksaan sebelum menyerahkan gambar","s4.c1.name":"Bertujuan","s4.c2.name":"Berdasar bukti","s4.c3.name":"Pandangan cukup","s4.c4.name":"Anotasi jelas","s4.c5.name":"Bisa dibaca sendiri","s4.c6.name":"Dapat diverifikasi","s4.c1.desc":"Tahu siapa yang akan memakai gambar ini","s4.c2.desc":"Setiap garis dan angka punya dasarnya","s4.c3.desc":"Cukup untuk menghilangkan ambiguitas bentuk","s4.c4.desc":"Ukuran, arah, dan satuan jelas","s4.c5.desc":"Tidak bergantung pada penjelasan lisan pembuatnya","s4.c6.desc":"Orang lain bisa menggambar ulang atau membuatnya kembali","footer.simplified":"Versi ringkas untuk kelas. Pada proyek nyata, ikuti standar yang ditetapkan.","footer.sources":"Standar acuan","footer.motto":"Gambar yang terlihat mirip belum tentu gambar yang bisa dipakai.","footer.draft":"Teks Bahasa Indonesia pada halaman ini adalah terjemahan kerja untuk keperluan kelas; istilah teknis tetap mengikuti standar yang ditetapkan dosen.","ui.langLabel":"Bahasa","ui.print":"Cetak / Simpan sebagai PDF","ui.printHint":"Hanya bahasa yang sedang aktif yang akan dicetak","ui.skip":"Lewati ke konten utama","s3.line1.use":"tepi tampak","s3.line2.use":"tepi tersembunyi","s3.line3.use":"garis sumbu / simetri","s3.line4.use":"ukuran / garis bantu / konstruksi","s2.object":"Benda yang sama","s2.iso.alt":"Gambar isometri sebuah balok tak simetris dengan bubungan miring yang letaknya condong ke belakang. Kedua tata letak di bawah menggambarkan benda yang sama.","view.left":"Pandangan samping kiri","s2.first.mnemo":"Pandangan diletakkan di sisi yang berlawanan.","s2.third.mnemo":"Pandangan tetap berada di sisi yang sama.","s2.first.alt":"Tata letak sudut pertama: pandangan depan di kiri atas, pandangan samping kiri di sebelah kanannya, pandangan atas di bawahnya; pandangan yang bersebelahan disejajarkan dengan garis proyeksi tipis.","s2.third.alt":"Tata letak sudut ketiga: pandangan atas di kanan atas, pandangan depan di bawahnya, pandangan samping kiri di sebelah kiri pandangan depan; pandangan yang bersebelahan disejajarkan dengan garis proyeksi tipis.","s3.alt":"Gambar contoh: pelat 80 kali 50 dengan lubang Ø20 tepat di tengah, dilengkapi garis sumbu mendatar dan tegak; ukuran dalam milimeter."},"vi":{"title":"Bảng tra nhanh kiến thức cơ bản về vẽ kỹ thuật","subtitle":"Chuyển vật thể ba chiều thành thông tin hai chiều mà người khác có thể dựng lại, đo và kiểm chứng.","badge":"AD290B · W05 · 2026.10.06","s1.title":"Quy trình lập bản vẽ kỹ thuật đúng cách","s1.step1":"Mục đích & người đọc","s1.step2":"Quan sát & đo","s1.step3":"Chọn hình chiếu đứng","s1.step4":"Chọn phương pháp chiếu","s1.step5":"Căn chỉnh các hình chiếu","s1.step6":"Nét vẽ & kích thước","s1.step7":"Dựng lại & kiểm chứng","s2.title":"Hình chiếu vuông góc và cách bố trí hình chiếu","s2.first.name":"Phương pháp góc chiếu thứ nhất","s2.first.rule":"Hình chiếu cạnh trái đặt ở bên phải; hình chiếu bằng đặt ở phía dưới","s2.third.name":"Phương pháp góc chiếu thứ ba","s2.third.rule":"Hình chiếu cạnh trái đặt ở bên trái; hình chiếu bằng đặt ở phía trên","s2.note":"Các tiêu chuẩn và yêu cầu của môn học có thể khác nhau — hãy xác nhận trước khi vẽ; không đoán phương pháp chiếu chỉ dựa vào vị trí trái phải của các hình chiếu.","view.front":"Hình chiếu đứng","view.top":"Hình chiếu bằng","s3.title":"Các loại nét vẽ và ghi kích thước","s3.line1":"Nét liền đậm","s3.line2":"Nét đứt mảnh","s3.line3":"Nét gạch chấm mảnh","s3.line4":"Nét liền mảnh","s3.unit":"Đơn vị thống nhất: mm","s3.b1":"Mỗi loại nét phải nhất quán trong toàn bộ bản vẽ.","s3.b2":"Đường tâm vượt ra ngoài đường bao một đoạn ngắn; nét đứt không thay thế được hình chiếu cần thiết.","s3.b3":"Số kích thước thể hiện kích thước thật của vật thể, không thay đổi theo tỉ lệ vẽ.","s3.b4":"Mỗi kích thước phải thuộc về một đối tượng rõ ràng; tránh ghi trùng, thiếu hoặc cắt nhau.","s3.b5":"Ghi đơn vị thống nhất trước; dùng Ø cho đường kính, R cho bán kính, ° cho góc.","s3.figcaption":"Ví dụ: tấm 80 × 50 có lỗ Ø20 ở giữa","s4.title":"Sáu điều tự kiểm tra trước khi nộp","s4.c1.name":"Có mục đích","s4.c2.name":"Có căn cứ","s4.c3.name":"Đủ hình chiếu","s4.c4.name":"Ghi kích thước rõ ràng","s4.c5.name":"Đọc độc lập được","s4.c6.name":"Kiểm chứng được","s4.c1.desc":"Biết bản vẽ dành cho ai sử dụng","s4.c2.desc":"Mọi đường nét và con số đều có nguồn gốc rõ ràng","s4.c3.desc":"Đủ hình chiếu để hình dạng không còn mơ hồ, không thể hiểu theo nhiều cách.","s4.c4.desc":"Kích thước, hướng và đơn vị đều rõ ràng","s4.c5.desc":"Không cần người vẽ giải thích thêm bằng lời","s4.c6.desc":"Người khác có thể vẽ lại hoặc làm lại","footer.simplified":"Bản tóm tắt dùng cho lớp học. Trong dự án thực tế phải làm theo tiêu chuẩn được chỉ định.","footer.sources":"Tiêu chuẩn tham khảo","footer.motto":"Hình vẽ trông giống không có nghĩa là bản vẽ dùng được.","footer.draft":"Phần tiếng Việt của trang này là bản dịch dùng trong lớp học; thuật ngữ chuyên môn vẫn theo tiêu chuẩn do giảng viên chỉ định.","ui.langLabel":"Ngôn ngữ","ui.print":"In / Lưu thành PDF","ui.printHint":"Khi in chỉ in ngôn ngữ đang chọn","ui.skip":"Chuyển đến nội dung chính","s3.line1.use":"cạnh thấy","s3.line2.use":"cạnh khuất","s3.line3.use":"đường tâm / đối xứng","s3.line4.use":"kích thước / đường gióng / đường dựng","s2.object":"Cùng một vật thể","s2.iso.alt":"Hình chiếu trục đo của một khối không đối xứng, có sống mái nghiêng lệch về phía sau. Cả hai cách bố trí bên dưới đều vẽ cùng vật thể này.","view.left":"Hình chiếu cạnh trái","s2.first.mnemo":"Các hình chiếu được đặt ở phía đối diện.","s2.third.mnemo":"Các hình chiếu nằm ở cùng một phía.","s2.first.alt":"Bố trí góc chiếu thứ nhất: hình chiếu đứng ở trên bên trái, hình chiếu cạnh trái nằm bên phải nó, hình chiếu bằng nằm bên dưới nó; các hình chiếu kề nhau được gióng bằng đường chiếu mảnh.","s2.third.alt":"Bố trí góc chiếu thứ ba: hình chiếu bằng ở trên bên phải, hình chiếu đứng nằm bên dưới nó, hình chiếu cạnh trái nằm bên trái hình chiếu đứng; các hình chiếu kề nhau được gióng bằng đường chiếu mảnh.","s3.alt":"Hình ví dụ: tấm 80 nhân 50 với một lỗ Ø20 nằm đúng tâm, có đường tâm ngang và dọc; kích thước tính bằng milimét."}};
+
+var LANGS = ["zh-Hant", "en", "id", "vi"];
+var KEY = "ad290b.w05.lang";
+
+function dict(code) { return I18N[code] || I18N["zh-Hant"]; }
+
+function apply(code) {
+  var d = dict(code), base = I18N["zh-Hant"];
+  var nodes = document.querySelectorAll("[data-i]");
+  for (var i = 0; i < nodes.length; i++) {
+    var k = nodes[i].getAttribute("data-i");
+    var v = (d && d[k]) || base[k];          // 缺鍵安全回退繁中
+    if (typeof v === "string") nodes[i].textContent = v;
+  }
+  document.documentElement.lang = code;
+  document.title = ((d && d.title) || base.title) + "｜AD290B W05";
+  var btns = document.querySelectorAll(".lang");
+  for (var j = 0; j < btns.length; j++) {
+    btns[j].setAttribute("aria-pressed", String(btns[j].getAttribute("data-lang") === code));
+  }
+  var note = document.getElementById("draftNote");
+  note.hidden = (code === "zh-Hant" || code === "en");   // 翻譯稿聲明只在 id／vi 顯示
+  try { localStorage.setItem(KEY, code); } catch (e) { /* 私密模式：當頁仍可切換 */ }
+  try {
+    var u = new URL(window.location.href);
+    u.searchParams.set("lang", code);
+    window.history.replaceState(null, "", u.toString());
+  } catch (e) {}
+}
+
+function initial() {
+  var q = null, hasParam = false;
+  try {
+    var sp = new URL(window.location.href).searchParams;
+    hasParam = sp.has("lang"); q = sp.get("lang");
+  } catch (e) {}
+  if (hasParam) return LANGS.indexOf(q) >= 0 ? q : "zh-Hant";   // 網址指定優先；未知值安全回到繁中
+  var saved = null;
+  try { saved = localStorage.getItem(KEY); } catch (e) {}
+  return LANGS.indexOf(saved) >= 0 ? saved : "zh-Hant";
+}
+
+var buttons = document.querySelectorAll(".lang");
+for (var b = 0; b < buttons.length; b++) {
+  buttons[b].addEventListener("click", function (ev) { apply(ev.currentTarget.getAttribute("data-lang")); });
+}
+document.getElementById("btnPrint").addEventListener("click", function () {
+  var embedded = false;
+  try { embedded = (window.top !== window.self); } catch (e) { embedded = true; }   // 跨網域存取 top 會丟錯＝確實被內嵌
+  if (embedded) {                                   // Google Sites 等 sandbox iframe 內 print() 可能靜默失效
+    var href = window.location.href.split("#")[0];
+    var w = window.open(href, "_blank", "noopener,noreferrer");
+    if (!w) window.print();                         // 快顯被擋：仍嘗試就地列印
+    return;
+  }
+  window.print();
+});
+apply(initial());
+</script>
+</body>
+</html>
