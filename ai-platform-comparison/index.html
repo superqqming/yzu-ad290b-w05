@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI 平台怎麼選：對話、執行、比較與驗證｜AD290B W05</title>
+<meta name="description" id="metaDesc" content="">
+<meta name="color-scheme" content="light">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%231f2421'/%3E%3Cpath%20d='M7%2010h12v8H11l-4%204z'%20fill='none'%20stroke='%23f6f2ea'%20stroke-width='2.2'%20stroke-linejoin='round'/%3E%3Cpath%20d='M17%2021l3%203%206-7'%20fill='none'%20stroke='%23d8572a'%20stroke-width='2.6'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#faf7f2; --card:#fff; --ink:#1f2421; --ink-soft:#5a6560; --ink-faint:#6b716d;
+    --line:#e2ddd3; --accent:#d8572a; --accent-soft:#fdeee7; --accent-line:#eab79c;
+    --green:#1f6b4f; --green-soft:#e9f1ec; --green-line:#a7c9b6;
+    --steel:#2f4858; --steel-soft:#e9eef1; --steel-line:#b4c4cd;
+    --radius:14px; --pad:clamp(14px,3.2vw,22px);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"PingFang TC","Noto Sans TC","Hiragino Sans TC","Heiti TC",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+    font-size:16px; line-height:1.65;
+  }
+  html[lang="en"] body,html[lang="id"] body,html[lang="vi"] body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","PingFang TC","Noto Sans TC",sans-serif;
+  }
+  .wrap{max-width:1060px; margin:0 auto; padding:0 var(--pad) 48px}
+  a{color:var(--green)}
+  .skip{position:absolute; left:-9999px; top:0; background:#fff; padding:10px 14px; border-radius:8px; z-index:30}
+  .skip:focus{left:12px; top:12px; outline:3px solid var(--accent)}
+  :focus-visible{outline:3px solid var(--accent); outline-offset:2px; border-radius:6px}
+  @media (prefers-reduced-motion:reduce){ *{animation:none !important; transition:none !important} }
+
+  /* ---------------------------------------------- 控制列 */
+  .bar{position:sticky; top:0; z-index:20; background:rgba(250,247,242,.96);
+    backdrop-filter:saturate(140%) blur(8px); border-bottom:1px solid var(--line); padding:8px var(--pad)}
+  .bar .inner{max-width:1060px; margin:0 auto; display:flex; gap:8px 14px; align-items:center; flex-wrap:wrap}
+  .langs{display:flex; gap:6px; flex-wrap:wrap; align-items:center}
+  .lab{font-size:13px; color:var(--ink-faint); margin-right:2px}
+  button,.act{font:inherit; cursor:pointer}
+  .lang{border:1px solid var(--line); background:#fff; color:var(--ink); border-radius:999px;
+    padding:9px 14px; font-size:15px; font-weight:600; min-height:44px}
+  .lang:hover{background:#f3efe8}
+  .lang[aria-pressed="true"]{background:var(--green); border-color:var(--green); color:#fff}
+  .acts{display:flex; gap:8px; margin-left:auto; flex-wrap:wrap}
+  .act{border:1px solid var(--line); background:#fff; color:var(--ink); border-radius:10px;
+    padding:9px 14px; min-height:44px; font-weight:600; font-size:15px;
+    display:inline-flex; gap:7px; align-items:center; text-decoration:none}
+  .act:hover{background:#f3efe8}
+  .checked{font-size:12.5px; color:var(--ink-faint); width:100%}
+
+  /* ---------------------------------------------- 標頭 */
+  header.head{padding:24px 0 6px}
+  .badge{font-size:12.5px; letter-spacing:.08em; color:var(--ink-faint); font-variant-numeric:tabular-nums}
+  h1{font-size:clamp(25px,4.6vw,38px); line-height:1.22; margin:8px 0 0; font-weight:700}
+  .lede{font-size:clamp(16px,2.8vw,20px); font-weight:650; color:var(--accent); margin:10px 0 0; max-width:48ch}
+  .notrank{display:inline-block; margin:12px 0 0; font-size:14px; font-weight:650; color:var(--steel);
+    background:var(--steel-soft); border:1px solid var(--steel-line); border-radius:999px; padding:5px 14px}
+
+  /* ---------------------------------------------- 區塊共用 */
+  section{margin-top:clamp(30px,5.5vw,46px)}
+  .shead{display:flex; align-items:baseline; gap:12px; margin-bottom:6px; flex-wrap:wrap}
+  .snum{font-size:15px; font-weight:800; color:var(--accent); font-variant-numeric:tabular-nums; letter-spacing:.06em}
+  h2{font-size:clamp(19px,3.3vw,25px); margin:0; font-weight:700}
+  .sintro{color:var(--ink-soft); font-size:15.5px; margin:0 0 16px; max-width:66ch}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:var(--pad)}
+  .note{font-size:14.5px; color:var(--ink-soft); background:var(--card);
+    border:1px dashed var(--line); border-radius:12px; padding:11px 14px; margin:16px 0 0}
+
+  /* 01 三種工作面 */
+  .surfaces{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+  @media (max-width:800px){ .surfaces{grid-template-columns:1fr} }
+  .surf{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:var(--pad)}
+  .surf svg{width:34px; height:34px; display:block; margin-bottom:10px}
+  .surf h3{margin:0 0 4px; font-size:18px; font-weight:700}
+  .surf p{margin:0; font-size:15px; color:var(--ink-soft)}
+  .surf.a{border-color:var(--steel-line); background:var(--steel-soft)}
+  .surf.b{border-color:var(--accent-line); background:var(--accent-soft)}
+  .surf.c{border-color:var(--green-line); background:var(--green-soft)}
+
+  /* 02 我現在要做什麼（純 CSS，不需 JavaScript） */
+  fieldset.chooser{border:0; margin:0; padding:0; min-width:0}
+  fieldset.chooser legend{padding:0; font-size:15.5px; color:var(--ink-soft); margin-bottom:12px; max-width:66ch}
+  .gradio{position:absolute; width:1px; height:1px; opacity:0; margin:0}
+  .gtabs{display:grid; grid-template-columns:repeat(2,1fr); gap:10px}
+  @media (max-width:620px){ .gtabs{grid-template-columns:1fr} }
+  .gtabs label{display:flex; align-items:center; gap:10px; min-height:52px; cursor:pointer;
+    background:var(--card); border:1px solid var(--line); border-radius:12px; padding:10px 14px;
+    font-size:15.5px; font-weight:600; line-height:1.35}
+  .gtabs label:hover{background:#f3efe8}
+  .gtabs label .dot{flex:none; width:16px; height:16px; border-radius:50%; border:2px solid var(--ink-faint)}
+  .gpanels{margin-top:14px}
+  .gp{display:none}
+  .gp .card{border-color:var(--green-line); background:var(--green-soft)}
+  .grow{display:grid; grid-template-columns:minmax(120px,22%) 1fr; gap:6px 16px; padding:9px 0; border-top:1px solid var(--green-line)}
+  .grow:first-child{border-top:0; padding-top:0}
+  @media (max-width:560px){ .grow{grid-template-columns:1fr; gap:2px 0} }
+  .grow dt{font-size:13.5px; font-weight:700; color:var(--green)}
+  .grow dd{margin:0; font-size:15px}
+  #g1:checked ~ .gpanels .gp1,#g2:checked ~ .gpanels .gp2,
+  #g3:checked ~ .gpanels .gp3,#g4:checked ~ .gpanels .gp4{display:block}
+  #g1:checked ~ .gtabs label[for="g1"],#g2:checked ~ .gtabs label[for="g2"],
+  #g3:checked ~ .gtabs label[for="g3"],#g4:checked ~ .gtabs label[for="g4"]{
+    background:var(--green); border-color:var(--green); color:#fff}
+  #g1:checked ~ .gtabs label[for="g1"] .dot,#g2:checked ~ .gtabs label[for="g2"] .dot,
+  #g3:checked ~ .gtabs label[for="g3"] .dot,#g4:checked ~ .gtabs label[for="g4"] .dot{
+    border-color:#fff; background:#fff; box-shadow:inset 0 0 0 3px var(--green)}
+  #g1:focus-visible ~ .gtabs label[for="g1"],#g2:focus-visible ~ .gtabs label[for="g2"],
+  #g3:focus-visible ~ .gtabs label[for="g3"],#g4:focus-visible ~ .gtabs label[for="g4"]{
+    outline:3px solid var(--accent); outline-offset:2px}
+
+  /* 03 平台生態 */
+  .eco{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+  @media (max-width:900px){ .eco{grid-template-columns:1fr} }
+  .plat{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:var(--pad); display:flex; flex-direction:column}
+  .plat h3{margin:0; font-size:18px; font-weight:700; line-height:1.3}
+  .plat dl{margin:12px 0 0; display:grid; gap:0}
+  .plat dt{font-size:12.5px; font-weight:700; letter-spacing:.02em; color:var(--ink-faint);
+    text-transform:none; padding-top:10px; margin-top:10px; border-top:1px solid var(--line)}
+  .plat dl > dt:first-child{border-top:0; margin-top:0; padding-top:0}
+  .plat dd{margin:3px 0 0; font-size:15px; line-height:1.55}
+  .limit{margin:16px 0 0; font-size:14px; font-weight:650; color:var(--steel);
+    background:var(--steel-soft); border:1px solid var(--steel-line); border-radius:10px; padding:9px 12px}
+
+  /* 04 決策路徑 */
+  .tree{display:grid; gap:10px}
+  .branch{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:13px var(--pad);
+    display:grid; grid-template-columns:minmax(160px,30%) 1fr; gap:4px 18px; align-items:start}
+  @media (max-width:700px){ .branch{grid-template-columns:1fr; gap:4px 0} }
+  .branch .q{font-size:15px; font-weight:700}
+  .branch .q::before{content:"▸ "; color:var(--accent)}
+  .branch .a{font-size:15px; color:var(--ink-soft)}
+
+  /* 05 交接閉環 */
+  .loop{display:grid; grid-template-columns:repeat(6,1fr); gap:8px; align-items:stretch}
+  @media (max-width:900px){ .loop{grid-template-columns:1fr} }
+  .node{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 11px; position:relative}
+  .node .n{display:inline-flex; width:24px; height:24px; align-items:center; justify-content:center;
+    border-radius:50%; background:var(--steel-soft); color:var(--steel); font-weight:800; font-size:13px; margin-bottom:6px}
+  .node .t{font-size:14.5px; font-weight:650; line-height:1.35}
+  .node.md{background:var(--accent-soft); border-color:var(--accent-line)}
+  .node.md .n{background:#fff; color:var(--accent)}
+  .node.ver{background:var(--green-soft); border-color:var(--green-line)}
+  .node.ver .n{background:#fff; color:var(--green)}
+  .tpls{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px}
+  @media (max-width:760px){ .tpls{grid-template-columns:1fr} }
+  details{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:0}
+  details > summary{cursor:pointer; list-style:none; padding:13px var(--pad); font-weight:700; font-size:16px;
+    display:flex; align-items:center; gap:9px; min-height:48px}
+  details > summary::-webkit-details-marker{display:none}
+  details > summary::before{content:"+"; flex:none; width:22px; height:22px; border-radius:6px;
+    background:var(--green-soft); color:var(--green); font-weight:800; display:grid; place-items:center; font-size:15px}
+  details[open] > summary::before{content:"\2212"}
+  .dbody{padding:0 var(--pad) var(--pad)}
+  pre{margin:0; background:#f4f1ea; border:1px solid var(--line); border-radius:10px; padding:12px 13px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+    font-size:13.5px; line-height:1.6; overflow-x:auto; white-space:pre-wrap; word-break:break-word;
+    -webkit-user-select:text; user-select:text}
+  .cpbar{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:10px}
+  .cpbtn{border:1px solid var(--line); background:#fff; border-radius:9px; padding:9px 13px; min-height:44px; font-weight:600; font-size:14.5px}
+  .cpbtn:hover{background:#f3efe8}
+  .cpmsg{font-size:13.5px; color:var(--ink-soft)}
+
+  /* 06 驗收門 */
+  .gate{display:grid; grid-template-columns:repeat(5,1fr); gap:10px}
+  @media (max-width:900px){ .gate{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:520px){ .gate{grid-template-columns:1fr} }
+  .ev{background:var(--green-soft); border:1px solid var(--green-line); border-radius:12px; padding:13px 14px}
+  .ev .n{font-size:12.5px; font-weight:800; color:var(--green); letter-spacing:.06em}
+  .ev .t{font-size:15px; font-weight:650; margin-top:3px; line-height:1.4}
+  .tool{margin-top:14px}
+  .toolgrid{display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:start}
+  @media (max-width:760px){ .toolgrid{grid-template-columns:1fr} }
+  .toolgrid svg{width:100%; max-width:380px; height:auto; display:block; margin:0 auto}
+  .toolgrid ul{margin:0; padding-left:1.15em}
+  .toolgrid li{font-size:15px; margin-bottom:6px}
+
+  /* 頁尾 */
+  footer{margin-top:clamp(30px,5vw,46px); border-top:1px solid var(--line); padding-top:18px;
+    font-size:13.5px; color:var(--ink-faint); display:grid; gap:10px}
+  footer h2{font-size:16px; color:var(--ink)}
+  footer ol{margin:6px 0 0; padding-left:1.3em}
+  footer li{margin-bottom:4px}
+  footer a{word-break:break-all; display:inline-block; padding:11px 3px; min-height:44px; line-height:1.45}
+  footer .limits{max-width:80ch}
+  @media print{ footer a{display:inline; padding:0; min-height:0} }
+
+  /* 列印：A4 直式、只印目前語言、不印控制列 */
+  @page{size:A4 portrait; margin:12mm}
+  @media print{
+    body{background:#fff; font-size:10pt; line-height:1.42}
+    .bar,.skip,.cpbar{display:none !important}
+    .wrap{max-width:none; padding:0}
+    header.head{padding:0 0 2px}
+    h1{font-size:19pt} .lede{font-size:11pt} h2{font-size:13pt}
+    section{margin-top:6mm; break-inside:avoid}
+    .card,.surf,.plat,.branch,.node,.ev,details,.gp .card{break-inside:avoid; box-shadow:none}
+    .surfaces{grid-template-columns:repeat(3,1fr)}
+    .eco{grid-template-columns:repeat(3,1fr); gap:3mm}
+    .loop{grid-template-columns:repeat(6,1fr); gap:2mm}
+    .gate{grid-template-columns:repeat(5,1fr); gap:2mm}
+    .tpls{grid-template-columns:1fr 1fr}
+    .gp{display:block !important}            /* 列印時四種情境全部印出 */
+    .gtabs{display:none}
+    details > summary::before{display:none}
+    details{border-color:#ccc}
+    .dbody{display:block !important}
+    footer{break-inside:avoid; font-size:8.4pt}
+    a{color:inherit; text-decoration:none}
+    footer a[href^="http"]::after{content:" (" attr(href) ")"; font-size:7.6pt; color:#777}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main" data-i="ui.skip">跳到主要內容</a>
+
+<div class="bar">
+  <div class="inner">
+    <div class="langs" role="group" aria-labelledby="langLab">
+      <span class="lab" id="langLab" data-i="ui.langLabel">語言</span>
+      <button type="button" class="lang" data-lang="zh-Hant" lang="zh-Hant" aria-pressed="true">繁中</button>
+      <button type="button" class="lang" data-lang="en" lang="en" aria-pressed="false">English</button>
+      <button type="button" class="lang" data-lang="id" lang="id" aria-pressed="false">Bahasa Indonesia</button>
+      <button type="button" class="lang" data-lang="vi" lang="vi" aria-pressed="false">Tiếng Việt</button>
+    </div>
+    <div class="acts">
+      <a class="act" id="openFull" href="./" target="_blank" rel="noopener noreferrer">
+        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3h7v7"/><path d="M21 3l-9 9"/><path d="M19 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg>
+        <span data-i="ui.openFull">另開完整頁面</span></a>
+      <button type="button" class="act" id="btnPrint">
+        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v7H6z"/></svg>
+        <span data-i="ui.print">列印／另存 PDF</span></button>
+    </div>
+    <span class="checked" data-i="ui.checked">平台資料查核日期：2026-10-07</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <header class="head">
+    <div class="badge" data-i="badge">AD290B · W05 · AI 平台比較</div>
+    <h1 data-i="title">AI 平台怎麼選：對話、執行、比較與驗證</h1>
+    <p class="lede" data-i="lede">同一題、同一輸入、同一驗收。工具不同，判準不變。</p>
+    <p class="notrank" data-i="notrank">本課任務定位，不是能力排名。</p>
+  </header>
+
+  <main id="main">
+
+    <!-- 01 三種工作面 -->
+    <section aria-labelledby="h-s1">
+      <div class="shead"><span class="snum">01</span><h2 id="h-s1" data-i="s1.title">先分清三種工作面</h2></div>
+      <p class="sintro" data-i="s1.intro">同一個生態通常同時有「談」的介面和「做」的介面；第三面是人。分清楚這三面，才知道一句「AI 做好了」實際代表什麼。</p>
+      <div class="surfaces">
+        <div class="surf a">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="#2f4858" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H8l-5 3 1.5-4.5A8 8 0 1 1 21 12z"/><path d="M8 11h8M8 15h5"/></svg>
+          <h3 data-i="s1.chat.name">對話面</h3>
+          <p data-i="s1.chat.desc">理解問題、討論、形成規格。</p>
+        </div>
+        <div class="surf b">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="#d8572a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="16" rx="2.5"/><path d="M6.5 9.5l3 2.5-3 2.5M12.5 15h5"/></svg>
+          <h3 data-i="s1.exec.name">執行面</h3>
+          <p data-i="s1.exec.desc">在明確授權的環境中讀寫檔案、執行與測試。</p>
+        </div>
+        <div class="surf c">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="#1f6b4f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3.5h10l4 4V20a1.5 1.5 0 0 1-1.5 1.5h-12A1.5 1.5 0 0 1 4 20V5a1.5 1.5 0 0 1 1-1.5z"/><path d="M14 3.5V8h4.5"/><path d="M8 14l2.5 2.5L16 11"/></svg>
+          <h3 data-i="s1.check.name">驗收面</h3>
+          <p data-i="s1.check.desc">人開啟真實成果、重跑同一組檢查，並決定是否採用。</p>
+        </div>
+      </div>
+      <p class="note" data-i="s1.note">「平台回報完成」不等於「成果正確」。只有驗收面通過，這件事才算完成。</p>
+    </section>
+
+    <!-- 02 我現在要做什麼 -->
+    <section aria-labelledby="h-s2">
+      <div class="shead"><span class="snum">02</span><h2 id="h-s2" data-i="s2.title">我現在要做什麼？</h2></div>
+      <fieldset class="chooser">
+        <legend data-i="s2.intro">選一個目前的情境。結果只會告訴你該用哪一個工作面、要留下什麼證據、以及行不通時怎麼辦；不會告訴你哪個平台比較好。</legend>
+        <input type="radio" name="goal" id="g1" class="gradio" checked>
+        <input type="radio" name="goal" id="g2" class="gradio">
+        <input type="radio" name="goal" id="g3" class="gradio">
+        <input type="radio" name="goal" id="g4" class="gradio">
+        <div class="gtabs">
+          <label for="g1"><span class="dot" aria-hidden="true"></span><span data-i="g1.name">討論需求與寫任務書</span></label>
+          <label for="g2"><span class="dot" aria-hidden="true"></span><span data-i="g2.name">修改實際檔案並跑測試</span></label>
+          <label for="g3"><span class="dot" aria-hidden="true"></span><span data-i="g3.name">用第二個平台交叉比較</span></label>
+          <label for="g4"><span class="dot" aria-hidden="true"></span><span data-i="g4.name">額度已滿、不能上傳或沒有執行權限</span></label>
+        </div>
+        <div class="gpanels">
+          <div class="gp gp1"><div class="card"><dl>
+            <div class="grow"><dt data-i="s2.lbl.surface">適合的工作面</dt><dd data-i="g1.surface">對話面。重點是把需求談清楚，寫成 brief.md。</dd></div>
+            <div class="grow"><dt data-i="s2.lbl.evidence">必須保存的證據</dt><dd data-i="g1.evidence">brief.md 本身：目標、輸入與來源、必要輸出與正式位置、限制、驗收條件、回報位置。</dd></div>
+            <div class="grow"><dt data-i="s2.lbl.fallback">行不通時</dt><dd data-i="g1.fallback">寫不出驗收條件，就表示需求還沒想清楚。先補驗收條件，不要先叫平台開工。</dd></div>
+          </dl></div></div>
+          <div class="gp gp2"><div class="card"><dl>
+            <div class="grow"><dt data-i="s2.lbl.surface">適合的工作面</dt><dd data-i="g2.surface">執行面，而且要先確認你真的有一個被授權的執行環境。</dd></div>
+            <div class="grow"><dt data-i="s2.lbl.evidence">必須保存的證據</dt><dd data-i="g2.evidence">實際產物的完整路徑、實際跑過的檢查與輸出、未完成與限制。</dd></div>
+            <div class="grow"><dt data-i="s2.lbl.fallback">行不通時</dt><dd data-i="g2.fallback">沒有執行環境就只能標記為「草稿／未實測」，不可寫成已完成。</dd></div>
+          </dl></div></div>
+          <div class="gp gp3"><div class="card"><dl>
+            <div class="grow"><dt data-i="s2.lbl.surface">適合的工作面</dt><dd data-i="g3.surface">另一個平台的對話面或執行面，用同一份輸入包重做一次。</dd></div>
+            <div class="grow"><dt data-i="s2.lbl.evidence">必須保存的證據</dt><dd data-i="g3.evidence">兩邊各自的 report.md 與產物，以及同一組驗收案例的結果。</dd></div>
+            <div class="grow"><dt data-i="s2.lbl.fallback">行不通時</dt><dd data-i="g3.fallback">不要為了遷就第二個平台而重寫題目。題目一改，比較就失效。</dd></div>
+          </dl></div></div>
+          <div class="gp gp4"><div class="card"><dl>
+            <div class="grow"><dt data-i="s2.lbl.surface">適合的工作面</dt><dd data-i="g4.surface">先退回對話面，把已經做到的部分固定下來。</dd></div>
+            <div class="grow"><dt data-i="s2.lbl.evidence">必須保存的證據</dt><dd data-i="g4.evidence">brief.md、最小範例、錯誤案例與驗收條件；不要只複製整段聊天紀錄。</dd></div>
+            <div class="grow"><dt data-i="s2.lbl.fallback">行不通時</dt><dd data-i="g4.fallback">不能上傳檔案時，可以討論文字規格，但不得宣稱已讀檔或已驗證實際成果。</dd></div>
+          </dl></div></div>
+        </div>
+      </fieldset>
+    </section>
+
+    <!-- 03 三個平台生態 -->
+    <section aria-labelledby="h-s3">
+      <div class="shead"><span class="snum">03</span><h2 id="h-s3" data-i="s3.title">三個平台生態</h2></div>
+      <p class="sintro" data-i="s3.intro">三欄等寬、同一組欄位，順序不代表名次。每一欄描述的是本課任務中的用法，不是產品總評。</p>
+      <div class="eco">
+        <div class="plat">
+          <h3 data-i="p1.name">ChatGPT／Codex</h3>
+          <dl>
+            <dt data-i="s3.lbl.chat">對話面</dt><dd data-i="p1.chat">在 ChatGPT 對話中整理需求、討論規格，並閱讀你實際上傳的檔案。</dd>
+            <dt data-i="s3.lbl.exec">執行面與授權邊界</dt><dd data-i="p1.exec">Codex 是執行面，只在你明確授權的工作區或環境中讀寫檔案、執行與測試。官方說明 Codex 包含在各個 ChatGPT 方案（含 Free 與 Go），但可用額度依方案而異；在雲端執行任務的 Codex Cloud 則「不包含 Free 與 Go」，且仍受推出進度與工作區設定影響。</dd>
+            <dt data-i="s3.lbl.role">本課定位</dt><dd data-i="p1.role">討論、整理需求、寫任務書與驗收。</dd>
+            <dt data-i="s3.lbl.files">檔案能見範圍</dt><dd data-i="p1.files">對話面看得到你實際上傳的檔案；執行面只看得到被授權的那一個工作區。</dd>
+            <dt data-i="s3.lbl.evidence">應保留的證據</dt><dd data-i="p1.evidence">對話紀錄、brief.md、執行與變更紀錄。</dd>
+            <dt data-i="s3.lbl.fallback">免費帳號／教室現場備援</dt><dd data-i="p1.fallback">學校或公司帳號可能由管理者決定能否使用雲端任務，部分席次類型無法建立雲端環境。先用自己的帳號登入，確認畫面上實際有什麼。</dd>
+          </dl>
+          <p class="limit" data-i="s3.limit">實際可用功能 ＝ 介面 × 帳號方案 × 權限 × 當下環境。</p>
+        </div>
+        <div class="plat">
+          <h3 data-i="p2.name">Claude／Claude Code</h3>
+          <dl>
+            <dt data-i="s3.lbl.chat">對話面</dt><dd data-i="p2.chat">在 Claude 對話中理解與改寫文件，也可閱讀你上傳的檔案。</dd>
+            <dt data-i="s3.lbl.exec">執行面與授權邊界</dt><dd data-i="p2.exec">Claude Code 是終端機或 IDE 的執行面。官方說明列出的取得方式是付費個人方案、組織席次（能否使用由席次類型與管理者設定決定），或以開發者主控台／API 授權登入；官方頁面沒有列出免費帳號的路徑。</dd>
+            <dt data-i="s3.lbl.role">本課定位</dt><dd data-i="p2.role">讀檔、實作與測試。</dd>
+            <dt data-i="s3.lbl.files">檔案能見範圍</dt><dd data-i="p2.files">對話面只看得到你上傳的檔案。對話中產生的檔案放在 claude.ai 的沙盒環境，與你的系統分開，要下載或存到雲端硬碟才會到你手上——這不等於已經改到你電腦裡的專案。</dd>
+            <dt data-i="s3.lbl.evidence">應保留的證據</dt><dd data-i="p2.evidence">對話紀錄、任務書、實際檔案與測試輸出。</dd>
+            <dt data-i="s3.lbl.fallback">免費帳號／教室現場備援</dt><dd data-i="p2.fallback">官方把對話中的程式執行與檔案建立列為各方案皆可用（含免費），但它由設定中的開關控制，受管理的團隊帳號可由擁有者關閉，而且會消耗你自己方案的額度。</dd>
+          </dl>
+          <p class="limit" data-i="s3.limit">實際可用功能 ＝ 介面 × 帳號方案 × 權限 × 當下環境。</p>
+        </div>
+        <div class="plat">
+          <h3 data-i="p3.name">Gemini Apps／執行環境</h3>
+          <dl>
+            <dt data-i="s3.lbl.chat">對話面</dt><dd data-i="p3.chat">Gemini Apps 可以附加檔案；電腦版網頁另可匯入一個程式碼資料夾或一個 GitHub 儲存庫讓它分析。</dd>
+            <dt data-i="s3.lbl.exec">執行面與授權邊界</dt><dd data-i="p3.exec">本課不預設你有可用的 Gemini 執行面。Google 官方文件說明：自 2026-06-18 起，Gemini Code Assist 的 IDE 擴充功能與 Gemini CLI 已停止服務個人版與一般消費者訂閱層級；Standard 與 Enterprise 訂閱不受影響。</dd>
+            <dt data-i="s3.lbl.role">本課定位</dt><dd data-i="p3.role">用同一份輸入做獨立嘗試與比較。</dd>
+            <dt data-i="s3.lbl.files">檔案能見範圍</dt><dd data-i="p3.files">看得到你上傳或匯入的那一份。使用學校或公司的 Google 帳號時，從雲端硬碟上傳需要機構管理者先開啟權限。</dd>
+            <dt data-i="s3.lbl.evidence">應保留的證據</dt><dd data-i="p3.evidence">對話紀錄、任務書、你自己存下來的檔案。</dd>
+            <dt data-i="s3.lbl.fallback">免費帳號／教室現場備援</dt><dd data-i="p3.fallback">需要修改實際專案並重跑測試時，由人把同一份輸入包交給確實可用的執行環境，不要假設 IDE 擴充功能或命令列可用。</dd>
+          </dl>
+          <p class="limit" data-i="s3.limit">實際可用功能 ＝ 介面 × 帳號方案 × 權限 × 當下環境。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 免費帳號決策路徑 -->
+    <section aria-labelledby="h-s4">
+      <div class="shead"><span class="snum">04</span><h2 id="h-s4" data-i="s4.title">免費帳號決策路徑</h2></div>
+      <p class="sintro" data-i="s4.intro">先以自己的帳號確認功能、額度與權限，再決定這一步要在哪裡做。</p>
+      <div class="tree">
+        <div class="branch"><p class="q" data-i="s4.q1">只需要討論或整理規格</p><p class="a" data-i="s4.a1">用目前能接收必要資料的對話面就夠了。先把 brief.md 寫完整，再談要不要動手。</p></div>
+        <div class="branch"><p class="q" data-i="s4.q2">必須修改實際檔案並跑測試</p><p class="a" data-i="s4.a2">先確認你真的有一個被授權的執行環境。沒有的話，只可以標記為「草稿／未實測」，不得寫成已完成。</p></div>
+        <div class="branch"><p class="q" data-i="s4.q3">需要第二意見</p><p class="a" data-i="s4.a3">把同一份輸入包交給另一個平台，不重新改寫題目。題目一改，兩邊就不能比較。</p></div>
+        <div class="branch"><p class="q" data-i="s4.q4">額度已滿</p><p class="a" data-i="s4.a4">保存 brief.md、最小範例、錯誤案例與驗收條件，交接到另一個可用平台；不要只複製整段聊天紀錄。</p></div>
+        <div class="branch"><p class="q" data-i="s4.q5">無法上傳檔案</p><p class="a" data-i="s4.a5">可以討論文字規格，但不得宣稱已讀檔或已驗證實際成果。把尚未驗證的部分明寫出來。</p></div>
+      </div>
+    </section>
+
+    <!-- 05 Markdown 交接閉環 -->
+    <section aria-labelledby="h-s5">
+      <div class="shead"><span class="snum">05</span><h2 id="h-s5" data-i="s5.title">Markdown 跨平台交接閉環</h2></div>
+      <p class="sintro" data-i="s5.intro">Markdown 是可攜式純文字，任何平台都打得開，可以保存標題、清單、完整路徑與驗收條件。</p>
+      <ol class="loop" style="list-style:none;margin:0;padding:0">
+        <li class="node"><span class="n">1</span><div class="t" data-i="s5.n1">討論</div></li>
+        <li class="node md"><span class="n">2</span><div class="t" data-i="s5.n2">brief.md</div></li>
+        <li class="node"><span class="n">3</span><div class="t" data-i="s5.n3">人工啟動另一平台執行</div></li>
+        <li class="node md"><span class="n">4</span><div class="t" data-i="s5.n4">report.md＋產物＋證據</div></li>
+        <li class="node ver"><span class="n">5</span><div class="t" data-i="s5.n5">人開啟成果並驗證</div></li>
+        <li class="node"><span class="n">6</span><div class="t" data-i="s5.n6">修正再執行</div></li>
+      </ol>
+      <p class="note" data-i="s5.note">儲存 Markdown 不會通知另一個 AI；下一次交接仍由人啟動。</p>
+      <div class="tpls">
+        <details>
+          <summary data-i="s5.brief.title">brief.md 模板</summary>
+          <div class="dbody">
+            <pre id="tplBrief"># brief.md
+
+- 任務編號：T0xx / R01
+- 目標：
+- 輸入與來源：
+- 必要輸出與正式位置：
+- 限制／禁止改動：
+- 驗收條件：
+- 回報位置：
+</pre>
+            <div class="cpbar">
+              <button type="button" class="cpbtn" data-copy="tplBrief" data-i="ui.copy">複製</button>
+              <span class="cpmsg" data-msg="tplBrief" role="status" aria-live="polite"></span>
+            </div>
+          </div>
+        </details>
+        <details>
+          <summary data-i="s5.report.title">report.md 模板</summary>
+          <div class="dbody">
+            <pre id="tplReport"># report.md
+
+- 實際產物與完整路徑／連結：
+- 實際執行的檢查與結果：
+- 已知缺口與未完成：
+- 未改動項目：
+- 仍需人工驗證事項：
+</pre>
+            <div class="cpbar">
+              <button type="button" class="cpbtn" data-copy="tplReport" data-i="ui.copy">複製</button>
+              <span class="cpmsg" data-msg="tplReport" role="status" aria-live="polite"></span>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- 06 同一驗收門 -->
+    <section aria-labelledby="h-s6">
+      <div class="shead"><span class="snum">06</span><h2 id="h-s6" data-i="s6.title">同一驗收門</h2></div>
+      <p class="sintro" data-i="s6.intro">三個平台交回來的東西，只比較這五類證據，不看誰講得比較有自信。</p>
+      <div class="gate">
+        <div class="ev"><div class="n">01</div><div class="t" data-i="s6.e1">是否正確重述規格</div></div>
+        <div class="ev"><div class="n">02</div><div class="t" data-i="s6.e2">是否使用指定輸入</div></div>
+        <div class="ev"><div class="n">03</div><div class="t" data-i="s6.e3">是否有可開啟的實際產物</div></div>
+        <div class="ev"><div class="n">04</div><div class="t" data-i="s6.e4">是否列出未完成與限制</div></div>
+        <div class="ev"><div class="n">05</div><div class="t" data-i="s6.e5">是否通過同一組驗收案例</div></div>
+      </div>
+      <details class="tool">
+        <summary data-i="s6.tool.title">把原則變具體：W05 小型投影工具的驗收案例</summary>
+        <div class="dbody">
+          <div class="toolgrid">
+            <figure style="margin:0">
+              <svg viewBox="0 0 320 236" role="img" aria-labelledby="toolAlt" focusable="false">
+                <title id="toolAlt" data-i="s6.tool.alt">第一角法與第三角法的視圖配置對照：同一個不對稱的 L 形物件，正視圖不變；側視圖在第一角法放在正視圖的相反側，在第三角法放在同一側，兩者都以淡投影線與正視圖對齊。</title>
+                <g fill="none" stroke="#b4c4cd" stroke-width="1.4" stroke-dasharray="5 5">
+                  <line x1="18" y1="112" x2="300" y2="112"/>
+                </g>
+                <!-- 第一角法：側視圖在正視圖相反側 -->
+                <g fill="none" stroke="#d8572a" stroke-width="2.4" stroke-linejoin="round">
+                  <path d="M126 36h58v22h-28v38h-30z"/>
+                  <path d="M206 36h42v60h-42z"/>
+                  <line x1="206" y1="58" x2="248" y2="58"/>
+                </g>
+                <g fill="none" stroke="#eab79c" stroke-width="1.3" stroke-dasharray="4 4">
+                  <line x1="184" y1="36" x2="206" y2="36"/><line x1="184" y1="96" x2="206" y2="96"/>
+                </g>
+                <!-- 第三角法：側視圖在正視圖同一側 -->
+                <g fill="none" stroke="#1f6b4f" stroke-width="2.4" stroke-linejoin="round">
+                  <path d="M126 142h58v22h-28v38h-30z"/>
+                  <path d="M62 142h42v60H62z"/>
+                  <line x1="62" y1="164" x2="104" y2="164"/>
+                </g>
+                <g fill="none" stroke="#a7c9b6" stroke-width="1.3" stroke-dasharray="4 4">
+                  <line x1="104" y1="142" x2="126" y2="142"/><line x1="104" y1="202" x2="126" y2="202"/>
+                </g>
+                <g font-size="13" font-family="inherit" fill="#1f2421">
+                  <text x="18" y="30" data-i="s6.tool.first" fill="#d8572a" font-weight="700">第一角法</text>
+                  <text x="18" y="136" data-i="s6.tool.third" fill="#1f6b4f" font-weight="700">第三角法</text>
+                </g>
+              </svg>
+            </figure>
+            <ul>
+              <li data-i="s6.tool.d1">用同一個不對稱物件驗收。對稱物件換角法看不出差別，等於沒測。</li>
+              <li data-i="s6.tool.d2">切換第一角法與第三角法時，側視圖必須換到正視圖的另一側。</li>
+              <li data-i="s6.tool.d3">視圖要對齊，不是擺在旁邊就算。</li>
+              <li data-i="s6.tool.d4">不得鏡像。換角法改變的是視圖位置，不是把圖翻面。</li>
+              <li data-i="s6.tool.d5">資訊不足時不得猜唯一解；結果可能是無解、唯一解或多解。</li>
+            </ul>
+          </div>
+          <p class="note" data-i="s6.tool.note">通過列出的測試，未測範圍仍然未知。通過部分測試不等於整張圖面正確。</p>
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    <h2 data-i="footer.sources">官方來源與查核日期</h2>
+    <p data-i="footer.checked">平台資料查核日期：2026-10-07。</p>
+    <ol>
+      <li><span data-i="src1.label">OpenAI 說明中心：搭配 ChatGPT 方案使用 Codex</span><br><a href="https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan" rel="noreferrer">https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan</a></li>
+      <li><span data-i="src2.label">Anthropic 支援中心：用 Claude 建立與編輯檔案</span><br><a href="https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude" rel="noreferrer">https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude</a></li>
+      <li><span data-i="src3.label">Anthropic 支援中心：以 Pro 或 Max 方案使用 Claude Code</span><br><a href="https://support.claude.com/en/articles/11145838-use-claude-code-with-your-pro-or-max-plan" rel="noreferrer">https://support.claude.com/en/articles/11145838-use-claude-code-with-your-pro-or-max-plan</a></li>
+      <li><span data-i="src4.label">Google 說明：在 Gemini 應用程式上傳與分析檔案</span><br><a href="https://support.google.com/gemini/answer/14903178?hl=en-GB" rel="noreferrer">https://support.google.com/gemini/answer/14903178?hl=en-GB</a></li>
+      <li><span data-i="src5.label">Google 開發者文件：Gemini Code Assist 個人版停止服務說明</span><br><a href="https://developers.google.com/gemini-code-assist/docs/deprecations/code-assist-individuals" rel="noreferrer">https://developers.google.com/gemini-code-assist/docs/deprecations/code-assist-individuals</a></li>
+    </ol>
+    <p class="limits" data-i="footer.limits">功能會受方案、帳號、地區、額度、學校管理設定與執行環境影響，請以你自己帳號當下看到的畫面為準。本頁不蒐集登入資訊、姓名、學號或操作紀錄。印尼文與越南文是課堂翻譯稿，專業術語仍以教師指定為準。</p>
+    <p class="limits" id="draftNote" data-i="footer.draft" hidden></p>
+  </footer>
+</div>
+
+<script>
+"use strict";
+/* 四語字典。zh-Hant 與 en 由教師定稿內容與官方來源整理；id、vi 為課堂翻譯稿。 */
+var I18N = {"zh-Hant":{"ui.skip":"跳到主要內容","ui.langLabel":"語言","ui.openFull":"另開完整頁面","ui.openFull.aria":"在新分頁開啟完整頁面","ui.print":"列印／另存 PDF","ui.checked":"平台資料查核日期：2026-10-07","ui.copy":"複製","ui.copied":"已複製到剪貼簿。","ui.copyFail":"這個環境不允許自動複製。文字已為你選取，請用鍵盤複製，或長按選取後複製。","metaDesc":"AD290B W05：分辨 AI 的對話面、執行面與驗收面，用同一題、同一輸入、同一驗收比較三個平台，並以 brief.md 與 report.md 完成跨平台交接。繁中／English／Bahasa Indonesia／Tiếng Việt。","badge":"AD290B · W05 · AI 平台比較","title":"AI 平台怎麼選：對話、執行、比較與驗證","lede":"同一題、同一輸入、同一驗收。工具不同，判準不變。","notrank":"本課任務定位，不是能力排名。","s1.title":"先分清三種工作面","s1.intro":"同一個生態通常同時有「談」的介面和「做」的介面；第三面是人。分清楚這三面，才知道一句「AI 做好了」實際代表什麼。","s1.chat.name":"對話面","s1.chat.desc":"理解問題、討論、形成規格。","s1.exec.name":"執行面","s1.exec.desc":"在明確授權的環境中讀寫檔案、執行與測試。","s1.check.name":"驗收面","s1.check.desc":"人開啟真實成果、重跑同一組檢查，並決定是否採用。","s1.note":"「平台回報完成」不等於「成果正確」。只有驗收面通過，這件事才算完成。","s2.title":"我現在要做什麼？","s2.intro":"選一個目前的情境。結果只會告訴你該用哪一個工作面、要留下什麼證據、以及行不通時怎麼辦；不會告訴你哪個平台比較好。","s2.lbl.surface":"適合的工作面","s2.lbl.evidence":"必須保存的證據","s2.lbl.fallback":"行不通時","g1.name":"討論需求與寫任務書","g1.surface":"對話面。重點是把需求談清楚，寫成 brief.md。","g1.evidence":"brief.md 本身：目標、輸入與來源、必要輸出與正式位置、限制、驗收條件、回報位置。","g1.fallback":"寫不出驗收條件，就表示需求還沒想清楚。先補驗收條件，不要先叫平台開工。","g2.name":"修改實際檔案並跑測試","g2.surface":"執行面，而且要先確認你真的有一個被授權的執行環境。","g2.evidence":"實際產物的完整路徑、實際跑過的檢查與輸出、未完成與限制。","g2.fallback":"沒有執行環境就只能標記為「草稿／未實測」，不可寫成已完成。","g3.name":"用第二個平台交叉比較","g3.surface":"另一個平台的對話面或執行面，用同一份輸入包重做一次。","g3.evidence":"兩邊各自的 report.md 與產物，以及同一組驗收案例的結果。","g3.fallback":"不要為了遷就第二個平台而重寫題目。題目一改，比較就失效。","g4.name":"額度已滿、不能上傳或沒有執行權限","g4.surface":"先退回對話面，把已經做到的部分固定下來。","g4.evidence":"brief.md、最小範例、錯誤案例與驗收條件；不要只複製整段聊天紀錄。","g4.fallback":"不能上傳檔案時，可以討論文字規格，但不得宣稱已讀檔或已驗證實際成果。","s3.title":"三個平台生態","s3.intro":"三欄等寬、同一組欄位，順序不代表名次。每一欄描述的是本課任務中的用法，不是產品總評。","s3.lbl.chat":"對話面","s3.lbl.exec":"執行面與授權邊界","s3.lbl.role":"本課定位","s3.lbl.files":"檔案能見範圍","s3.lbl.evidence":"應保留的證據","s3.lbl.fallback":"免費帳號／教室現場備援","s3.limit":"實際可用功能 ＝ 介面 × 帳號方案 × 權限 × 當下環境。","p1.name":"ChatGPT／Codex","p1.chat":"在 ChatGPT 對話中整理需求、討論規格，並閱讀你實際上傳的檔案。","p1.exec":"Codex 是執行面，只在你明確授權的工作區或環境中讀寫檔案、執行與測試。官方說明 Codex 包含在各個 ChatGPT 方案（含 Free 與 Go），但可用額度依方案而異；在雲端執行任務的 Codex Cloud 則「不包含 Free 與 Go」，且仍受推出進度與工作區設定影響。","p1.role":"討論、整理需求、寫任務書與驗收。","p1.files":"對話面看得到你實際上傳的檔案；執行面只看得到被授權的那一個工作區。","p1.evidence":"對話紀錄、brief.md、執行與變更紀錄。","p1.fallback":"學校或公司帳號可能由管理者決定能否使用雲端任務，部分席次類型無法建立雲端環境。先用自己的帳號登入，確認畫面上實際有什麼。","p2.name":"Claude／Claude Code","p2.chat":"在 Claude 對話中理解與改寫文件，也可閱讀你上傳的檔案。","p2.exec":"Claude Code 是終端機或 IDE 的執行面。官方說明列出的取得方式是付費個人方案、組織席次（能否使用由席次類型與管理者設定決定），或以開發者主控台／API 授權登入；官方頁面沒有列出免費帳號的路徑。","p2.role":"讀檔、實作與測試。","p2.files":"對話面只看得到你上傳的檔案。對話中產生的檔案放在 claude.ai 的沙盒環境，與你的系統分開，要下載或存到雲端硬碟才會到你手上——這不等於已經改到你電腦裡的專案。","p2.evidence":"對話紀錄、任務書、實際檔案與測試輸出。","p2.fallback":"官方把對話中的程式執行與檔案建立列為各方案皆可用（含免費），但它由設定中的開關控制，受管理的團隊帳號可由擁有者關閉，而且會消耗你自己方案的額度。","p3.name":"Gemini Apps／執行環境","p3.chat":"Gemini Apps 可以附加檔案；電腦版網頁另可匯入一個程式碼資料夾或一個 GitHub 儲存庫讓它分析。","p3.exec":"本課不預設你有可用的 Gemini 執行面。Google 官方文件說明：自 2026-06-18 起，Gemini Code Assist 的 IDE 擴充功能與 Gemini CLI 已停止服務個人版與一般消費者訂閱層級；Standard 與 Enterprise 訂閱不受影響。","p3.role":"用同一份輸入做獨立嘗試與比較。","p3.files":"看得到你上傳或匯入的那一份。使用學校或公司的 Google 帳號時，從雲端硬碟上傳需要機構管理者先開啟權限。","p3.evidence":"對話紀錄、任務書、你自己存下來的檔案。","p3.fallback":"需要修改實際專案並重跑測試時，由人把同一份輸入包交給確實可用的執行環境，不要假設 IDE 擴充功能或命令列可用。","s4.title":"免費帳號決策路徑","s4.intro":"先以自己的帳號確認功能、額度與權限，再決定這一步要在哪裡做。","s4.q1":"只需要討論或整理規格","s4.a1":"用目前能接收必要資料的對話面就夠了。先把 brief.md 寫完整，再談要不要動手。","s4.q2":"必須修改實際檔案並跑測試","s4.a2":"先確認你真的有一個被授權的執行環境。沒有的話，只可以標記為「草稿／未實測」，不得寫成已完成。","s4.q3":"需要第二意見","s4.a3":"把同一份輸入包交給另一個平台，不重新改寫題目。題目一改，兩邊就不能比較。","s4.q4":"額度已滿","s4.a4":"保存 brief.md、最小範例、錯誤案例與驗收條件，交接到另一個可用平台；不要只複製整段聊天紀錄。","s4.q5":"無法上傳檔案","s4.a5":"可以討論文字規格，但不得宣稱已讀檔或已驗證實際成果。把尚未驗證的部分明寫出來。","s5.title":"Markdown 跨平台交接閉環","s5.intro":"Markdown 是可攜式純文字，任何平台都打得開，可以保存標題、清單、完整路徑與驗收條件。","s5.n1":"討論","s5.n2":"brief.md","s5.n3":"人工啟動另一平台執行","s5.n4":"report.md＋產物＋證據","s5.n5":"人開啟成果並驗證","s5.n6":"修正再執行","s5.note":"儲存 Markdown 不會通知另一個 AI；下一次交接仍由人啟動。","s5.brief.title":"brief.md 模板","s5.report.title":"report.md 模板","s6.title":"同一驗收門","s6.intro":"三個平台交回來的東西，只比較這五類證據，不看誰講得比較有自信。","s6.e1":"是否正確重述規格","s6.e2":"是否使用指定輸入","s6.e3":"是否有可開啟的實際產物","s6.e4":"是否列出未完成與限制","s6.e5":"是否通過同一組驗收案例","s6.tool.title":"把原則變具體：W05 小型投影工具的驗收案例","s6.tool.first":"第一角法","s6.tool.third":"第三角法","s6.tool.alt":"第一角法與第三角法的視圖配置對照：同一個不對稱的 L 形物件，正視圖不變；側視圖在第一角法放在正視圖的相反側，在第三角法放在同一側，兩者都以淡投影線與正視圖對齊。","s6.tool.d1":"用同一個不對稱物件驗收。對稱物件換角法看不出差別，等於沒測。","s6.tool.d2":"切換第一角法與第三角法時，側視圖必須換到正視圖的另一側。","s6.tool.d3":"視圖要對齊，不是擺在旁邊就算。","s6.tool.d4":"不得鏡像。換角法改變的是視圖位置，不是把圖翻面。","s6.tool.d5":"資訊不足時不得猜唯一解；結果可能是無解、唯一解或多解。","s6.tool.note":"通過列出的測試，未測範圍仍然未知。通過部分測試不等於整張圖面正確。","footer.sources":"官方來源與查核日期","footer.checked":"平台資料查核日期：2026-10-07。以下為官方頁面連結；本頁載入時不會自動向外部網站發出請求。","src1.label":"OpenAI 說明中心：搭配 ChatGPT 方案使用 Codex","src2.label":"Anthropic 支援中心：用 Claude 建立與編輯檔案","src3.label":"Anthropic 支援中心：以 Pro 或 Max 方案使用 Claude Code","src4.label":"Google 說明：在 Gemini 應用程式上傳與分析檔案","src5.label":"Google 開發者文件：Gemini Code Assist 個人版停止服務說明","footer.limits":"功能會受方案、帳號、地區、額度、學校管理設定與執行環境影響，請以你自己帳號當下看到的畫面為準。本頁不蒐集登入資訊、姓名、學號或操作紀錄。印尼文與越南文是課堂翻譯稿，專業術語仍以教師指定為準。","footer.draft":"","tpl":{"brief":"# brief.md\n\n- 任務編號：T0xx / R01\n- 目標：\n- 輸入與來源：\n- 必要輸出與正式位置：\n- 限制／禁止改動：\n- 驗收條件：\n- 回報位置：\n","report":"# report.md\n\n- 實際產物與完整路徑／連結：\n- 實際執行的檢查與結果：\n- 已知缺口與未完成：\n- 未改動項目：\n- 仍需人工驗證事項：\n"}},"en":{"ui.skip":"Skip to main content","ui.langLabel":"Language","ui.openFull":"Open full page","ui.openFull.aria":"Open the full page in a new tab","ui.print":"Print / Save as PDF","ui.checked":"Platform facts checked on 2026-10-07","ui.copy":"Copy","ui.copied":"Copied to the clipboard.","ui.copyFail":"This environment blocks automatic copying. The text is now selected for you — copy it with the keyboard, or press and hold to select and copy.","metaDesc":"AD290B W05: tell the chat, execution and acceptance surfaces of AI tools apart, compare three platforms with the same task, inputs and checks, and hand work over with brief.md and report.md. Traditional Chinese / English / Bahasa Indonesia / Tiếng Việt.","badge":"AD290B · W05 · AI platform comparison","title":"Choosing an AI platform: chat, execution, comparison, verification","lede":"Same task, same inputs, same checks. The tool changes; the criteria do not.","notrank":"Roles for this course — not a capability ranking.","s1.title":"First, tell the three surfaces apart","s1.intro":"One ecosystem usually offers a surface for talking and a surface for doing; the third surface is you. Separating the three is what makes “the AI finished it” mean something concrete.","s1.chat.name":"Chat surface","s1.chat.desc":"Understand the problem, discuss it, and turn it into a spec.","s1.exec.name":"Execution surface","s1.exec.desc":"Read and write files, run and test — inside an explicitly authorised environment.","s1.check.name":"Acceptance surface","s1.check.desc":"A person opens the real output, reruns the same checks, and decides whether to accept it.","s1.note":"“The platform reported it is done” is not the same as “the output is correct.” It is only finished once it passes the acceptance surface.","s2.title":"What am I doing right now?","s2.intro":"Pick your current situation. The answer tells you which surface to use, what evidence to keep, and what to do when it will not work — not which platform is better.","s2.lbl.surface":"Surface to use","s2.lbl.evidence":"Evidence to keep","s2.lbl.fallback":"When it will not work","g1.name":"Discuss the requirement and write the brief","g1.surface":"Chat surface. The job is to get the requirement clear and write it down as brief.md.","g1.evidence":"brief.md itself: goal, inputs and their sources, required outputs and where they belong, limits, acceptance criteria, and where to report.","g1.fallback":"If you cannot write the acceptance criteria, the requirement is not clear yet. Fix that before asking any platform to start.","g2.name":"Change real files and run tests","g2.surface":"Execution surface — and first confirm you really have an authorised environment.","g2.evidence":"Full paths to the actual outputs, the checks you actually ran and their output, and what is unfinished.","g2.fallback":"With no execution environment you may only mark the work “draft / not tested”. Do not write it up as finished.","g3.name":"Cross-check on a second platform","g3.surface":"The chat or execution surface of another platform, redoing the work from the same input pack.","g3.evidence":"A report.md and the outputs from each side, plus the result of the same acceptance cases.","g3.fallback":"Do not rewrite the task to suit the second platform. Change the task and the comparison is void.","g4.name":"Out of quota, cannot upload, or no execution rights","g4.surface":"Step back to the chat surface and lock down what you already have.","g4.evidence":"brief.md, a minimal example, the failing cases, and the acceptance criteria — not a copy of the whole chat.","g4.fallback":"If you cannot upload files you may still discuss a written spec, but you may not claim to have read the files or verified the real output.","s3.title":"Three platform ecosystems","s3.intro":"Three equal columns with the same fields; the order is not a ranking. Each column describes how the tool is used in this course, not an overall product verdict.","s3.lbl.chat":"Chat surface","s3.lbl.exec":"Execution surface and its authorisation boundary","s3.lbl.role":"Role in this course","s3.lbl.files":"What it can see","s3.lbl.evidence":"Evidence to keep","s3.lbl.fallback":"Free account / in-class fallback","s3.limit":"What you can actually do = surface × plan × permissions × current environment.","p1.name":"ChatGPT / Codex","p1.chat":"Work out the requirement in a ChatGPT conversation, discuss the spec, and read the files you actually upload.","p1.exec":"Codex is the execution surface: it reads and writes files, runs and tests only inside a workspace or environment you have explicitly authorised. The official page says Codex is included across ChatGPT plans, Free and Go included, but the usable allowance varies by plan; Codex Cloud, which runs tasks on managed machines, is stated to be “not included with Free or Go” and still depends on rollout and workspace settings.","p1.role":"Discuss, work out requirements, write the brief, and verify.","p1.files":"The chat surface sees the files you upload; the execution surface sees only the one workspace it was given.","p1.evidence":"The conversation, brief.md, and the run and change logs.","p1.fallback":"On a school or company account an administrator may decide whether cloud tasks work at all, and some seat types cannot create cloud environments. Sign in with your own account and check what is actually there.","p2.name":"Claude / Claude Code","p2.chat":"Read and rewrite documents in a Claude conversation, including files you upload.","p2.exec":"Claude Code is the terminal or IDE execution surface. The routes the official pages describe are a paid individual plan, a seat on an organisation plan (where the seat type and the administrator's settings decide access), or signing in with developer-console / API authorisation; no official page lists a free-account route.","p2.role":"Read files, build, and test.","p2.files":"The chat surface sees only what you upload. Files it creates live in a sandboxed environment inside claude.ai, separate from your systems, and reach you only when you download them or save them to cloud storage — that is not the same as changing a project on your own computer.","p2.evidence":"The conversation, the brief, the actual files, and the test output.","p2.fallback":"Code execution and file creation in the conversation are listed as available on all plans including the free one, but a setting controls them, an owner can switch them off on a managed team account, and they draw on your own plan's allowance.","p3.name":"Gemini Apps / execution environment","p3.chat":"Gemini Apps can take attached files; on a computer the web app can also import one code folder or one GitHub repository for analysis.","p3.exec":"This course does not assume you have a working Gemini execution surface. Google's documentation states that as of 2026-06-18 the Gemini Code Assist IDE extensions and the Gemini CLI stopped serving the individual tier and consumer subscription tiers; Standard and Enterprise subscriptions are unaffected.","p3.role":"Attempt the same task independently and compare.","p3.files":"Only the files you upload or import. On a school or work Google Account, uploading from cloud storage needs an administrator to enable it first.","p3.evidence":"The conversation, the brief, and whatever files you saved yourself.","p3.fallback":"When real project files have to change and tests have to be rerun, a person hands the same input pack to an execution environment that actually works — do not assume the IDE extension or the command line is available.","s4.title":"Free-account decision path","s4.intro":"Check what your own account can actually do, how much quota it has and what you are permitted to do, then decide where this step happens.","s4.q1":"You only need to discuss or tidy up a spec","s4.a1":"Any chat surface that can receive the necessary material is enough. Finish brief.md before arguing about who should build it.","s4.q2":"You must change real files and run tests","s4.a2":"Confirm first that you really have an authorised execution environment. Without one you may only mark the work “draft / not tested”, never as finished.","s4.q3":"You want a second opinion","s4.a3":"Hand the same input pack to another platform without rewriting the task. Change the task and the two results are no longer comparable.","s4.q4":"You are out of quota","s4.a4":"Save brief.md, a minimal example, the failing cases and the acceptance criteria, and hand those to a platform that still works — not a copy of the whole chat.","s4.q5":"You cannot upload files","s4.a5":"You may still discuss a written spec, but you may not claim to have read the files or verified the real output. Write down plainly what is still unverified.","s5.title":"The Markdown handoff loop","s5.intro":"Markdown is portable plain text that opens anywhere and keeps headings, lists, full paths and acceptance criteria intact.","s5.n1":"Discuss","s5.n2":"brief.md","s5.n3":"A person starts the run on another platform","s5.n4":"report.md + outputs + evidence","s5.n5":"A person opens the result and verifies it","s5.n6":"Revise and rerun","s5.note":"Saving a Markdown file does not notify another AI. A person still starts the next handoff.","s5.brief.title":"brief.md template","s5.report.title":"report.md template","s6.title":"One acceptance gate","s6.intro":"Whatever the three platforms hand back, compare only these five kinds of evidence — not who sounded most confident.","s6.e1":"Does it restate the spec correctly","s6.e2":"Does it use the specified inputs","s6.e3":"Is there a real output you can open","s6.e4":"Does it list what is unfinished and limited","s6.e5":"Does it pass the same acceptance cases","s6.tool.title":"Making it concrete: acceptance cases for the small W05 projection tool","s6.tool.first":"First angle","s6.tool.third":"Third angle","s6.tool.alt":"First-angle and third-angle layouts side by side: the same asymmetric L-shaped part, the front view unchanged; the side view sits on the opposite side of the front view in first angle and on the same side in third angle, aligned to the front view by faint projection lines in both.","s6.tool.d1":"Accept with an asymmetric part. A symmetric part hides the difference, so testing it proves nothing.","s6.tool.d2":"Switching between first and third angle must move the side view to the other side of the front view.","s6.tool.d3":"Views must be aligned, not merely placed next to each other.","s6.tool.d4":"No mirroring. Switching the method changes where a view sits, not which way it faces.","s6.tool.d5":"Where the information is insufficient, do not guess a single answer: there may be none, exactly one, or many.","s6.tool.note":"Passing the listed tests leaves everything untested still unknown. Passing some tests is not the same as a correct drawing.","footer.sources":"Official sources and date checked","footer.checked":"Platform facts checked on 2026-10-07. The links below are official pages; this page makes no request to them when it loads.","src1.label":"OpenAI Help Center: using Codex with your ChatGPT plan","src2.label":"Anthropic Support: create and edit files with Claude","src3.label":"Anthropic Support: use Claude Code with your Pro or Max plan","src4.label":"Google Help: upload and analyse files in the Gemini app","src5.label":"Google for Developers: deprecation of Gemini Code Assist for individuals","footer.limits":"What is available depends on the plan, the account, the region, the quota, your school's administration settings and the execution environment — trust what your own signed-in account shows you. This page collects no sign-in details, names, student numbers or activity logs. The Indonesian and Vietnamese texts are classroom working translations; for technical terms, follow the standard your teacher specifies.","footer.draft":"","tpl":{"brief":"# brief.md\n\n- Task number: T0xx / R01\n- Goal:\n- Inputs and their sources:\n- Required outputs and where they belong:\n- Limits / do not change:\n- Acceptance criteria:\n- Where to report:\n","report":"# report.md\n\n- Actual outputs, full paths or links:\n- Checks actually run and their results:\n- Known gaps and unfinished work:\n- What was left untouched:\n- Still needs human verification:\n"}},"id":{"ui.skip":"Lewati ke konten utama","ui.langLabel":"Bahasa","ui.openFull":"Buka halaman lengkap","ui.openFull.aria":"Buka halaman lengkap di tab baru","ui.print":"Cetak / Simpan sebagai PDF","ui.checked":"Tanggal pemeriksaan data platform: 2026-10-07","ui.copy":"Salin","ui.copied":"Sudah disalin ke papan klip.","ui.copyFail":"Lingkungan ini memblokir penyalinan otomatis. Teksnya sudah dipilih untukmu — salin dengan keyboard, atau tekan dan tahan untuk memilih teks lalu menyalinnya.","metaDesc":"AD290B W05: membedakan sisi percakapan, sisi eksekusi, dan sisi penerimaan pada alat AI, membandingkan tiga platform dengan tugas, input, dan pemeriksaan yang sama, lalu melakukan serah terima antarplatform lewat brief.md dan report.md. Mandarin Tradisional / English / Bahasa Indonesia / Tiếng Việt.","badge":"AD290B · W05 · Perbandingan platform AI","title":"Cara memilih platform AI: percakapan, eksekusi, perbandingan, verifikasi","lede":"Tugas yang sama, input yang sama, penerimaan yang sama. Alatnya berganti, kriterianya tidak.","notrank":"Ini pembagian peran untuk mata kuliah ini, bukan peringkat kemampuan.","s1.title":"Pertama, bedakan tiga sisi kerja ini","s1.intro":"Satu ekosistem biasanya punya satu sisi untuk “berbicara” dan satu sisi untuk “mengerjakan”; sisi ketiga adalah manusia. Dengan memisahkan ketiganya, kalimat “AI sudah mengerjakannya” baru punya arti yang konkret.","s1.chat.name":"Sisi percakapan","s1.chat.desc":"Memahami masalahnya, membahasnya, lalu mengubahnya menjadi spesifikasi.","s1.exec.name":"Sisi eksekusi","s1.exec.desc":"Membaca dan menulis berkas, menjalankan, dan menguji — di dalam lingkungan yang izinnya diberikan secara eksplisit.","s1.check.name":"Sisi penerimaan","s1.check.desc":"Manusia membuka hasil yang nyata, menjalankan ulang rangkaian pemeriksaan yang sama, lalu memutuskan apakah hasil itu diterima.","s1.note":"“Platform melaporkan sudah selesai” tidak sama dengan “hasilnya benar”. Pekerjaan baru selesai setelah lulus sisi penerimaan.","s2.title":"Apa yang sedang saya kerjakan sekarang?","s2.intro":"Pilih situasimu saat ini. Jawabannya hanya memberi tahu sisi kerja mana yang harus dipakai, bukti apa yang harus disimpan, dan apa yang harus dilakukan kalau cara itu tidak berhasil; bukan platform mana yang lebih baik.","s2.lbl.surface":"Sisi kerja yang dipakai","s2.lbl.evidence":"Bukti yang harus disimpan","s2.lbl.fallback":"Kalau tidak berhasil","g1.name":"Membahas kebutuhan dan menulis brief","g1.surface":"Sisi percakapan. Tugasnya adalah membuat kebutuhannya jelas dan menuliskannya sebagai brief.md.","g1.evidence":"brief.md itu sendiri: tujuan, input dan sumbernya, keluaran wajib dan lokasi resminya, batasan, kriteria penerimaan, dan lokasi pelaporan.","g1.fallback":"Kalau kriteria penerimaan belum bisa kamu tulis, berarti kebutuhannya belum jelas. Lengkapi dulu kriteria penerimaannya, jangan menyuruh platform mulai bekerja.","g2.name":"Mengubah berkas yang nyata dan menjalankan pengujian","g2.surface":"Sisi eksekusi — dan pastikan dulu kamu benar-benar punya lingkungan eksekusi yang sudah diberi izin.","g2.evidence":"Jalur lengkap ke hasil yang nyata, pemeriksaan yang benar-benar dijalankan beserta keluarannya, serta bagian yang belum selesai dan batasannya.","g2.fallback":"Tanpa lingkungan eksekusi, pekerjaan hanya boleh ditandai “draf / belum diuji”. Jangan dituliskan sebagai sudah selesai.","g3.name":"Membandingkan silang dengan platform kedua","g3.surface":"Sisi percakapan atau sisi eksekusi platform lain, mengerjakan ulang tugas yang sama dari paket input yang sama.","g3.evidence":"report.md dan hasil kerja dari masing-masing pihak, ditambah hasil kumpulan kasus uji penerimaan yang sama.","g3.fallback":"Jangan menulis ulang soalnya supaya cocok dengan platform kedua. Begitu soalnya diubah, perbandingannya batal.","g4.name":"Kuota habis, tidak bisa mengunggah, atau tidak punya izin eksekusi","g4.surface":"Kembali dulu ke sisi percakapan dan kunci bagian yang sudah kamu dapat.","g4.evidence":"brief.md, satu contoh paling kecil, kasus yang gagal, dan kriteria penerimaan — bukan salinan seluruh percakapan.","g4.fallback":"Kalau berkas tidak bisa diunggah, kamu masih boleh membahas spesifikasi dalam bentuk teks, tetapi tidak boleh mengaku sudah membaca berkasnya atau sudah memverifikasi hasil yang nyata.","s3.title":"Tiga ekosistem platform","s3.intro":"Tiga kolom dengan lebar sama dan butir isi yang sama; urutannya bukan peringkat. Tiap kolom menjelaskan cara pemakaiannya di mata kuliah ini, bukan penilaian produk secara menyeluruh.","s3.lbl.chat":"Sisi percakapan","s3.lbl.exec":"Sisi eksekusi dan batas izinnya","s3.lbl.role":"Peran di mata kuliah ini","s3.lbl.files":"Berkas yang bisa dilihat","s3.lbl.evidence":"Bukti yang harus disimpan","s3.lbl.fallback":"Akun gratis / cadangan di kelas","s3.limit":"Yang benar-benar bisa kamu lakukan = sisi kerja × paket langganan × izin × lingkungan saat itu.","p1.name":"ChatGPT / Codex","p1.chat":"Merumuskan kebutuhan di percakapan ChatGPT, membahas spesifikasinya, dan membaca berkas yang benar-benar kamu unggah.","p1.exec":"Codex adalah sisi eksekusi: ia membaca dan menulis berkas, menjalankan, dan menguji hanya di dalam ruang kerja atau lingkungan yang izinnya kamu berikan secara eksplisit. Halaman resminya menyatakan Codex tersedia di semua paket ChatGPT, termasuk Free dan Go, tetapi kuota pemakaiannya berbeda menurut paket; Codex Cloud, yang menjalankan tugas di mesin terkelola, dinyatakan “tidak termasuk dalam Free atau Go” dan tetap bergantung pada tahap peluncuran serta pengaturan ruang kerja.","p1.role":"Membahas, merumuskan kebutuhan, menulis brief, dan melakukan verifikasi.","p1.files":"Sisi percakapan melihat berkas yang kamu unggah; sisi eksekusi hanya melihat satu ruang kerja yang diberikan kepadanya.","p1.evidence":"Catatan percakapan, brief.md, serta catatan eksekusi dan perubahan.","p1.fallback":"Pada akun sekolah atau perusahaan, administrator bisa menentukan apakah tugas cloud bisa dipakai, dan sebagian jenis lisensi tidak bisa membuat lingkungan cloud. Masuk dengan akunmu sendiri dan periksa apa yang benar-benar ada di layar.","p2.name":"Claude / Claude Code","p2.chat":"Memahami dan menulis ulang dokumen di percakapan Claude, termasuk berkas yang kamu unggah.","p2.exec":"Claude Code adalah sisi eksekusi di terminal atau IDE. Jalur yang disebutkan halaman resminya adalah paket perorangan berbayar, lisensi pengguna pada paket organisasi (aksesnya ditentukan oleh jenis lisensi dan pengaturan administrator), atau masuk dengan otorisasi konsol pengembang / API; tidak ada halaman resmi yang mencantumkan jalur untuk akun gratis.","p2.role":"Membaca berkas, membangun, dan menguji.","p2.files":"Sisi percakapan hanya melihat berkas yang kamu unggah. Berkas yang dibuatnya di dalam percakapan berada di lingkungan sandbox di claude.ai, terpisah dari sistemmu, dan baru sampai ke tanganmu kalau kamu mengunduhnya atau menyimpannya ke penyimpanan cloud — itu tidak sama dengan mengubah proyek di komputermu sendiri.","p2.evidence":"Catatan percakapan, brief, berkas yang nyata, dan keluaran pengujian.","p2.fallback":"Menjalankan kode dan membuat berkas di dalam percakapan dicantumkan sebagai tersedia di semua paket, termasuk paket gratis, tetapi fiturnya dikendalikan lewat sebuah pengaturan, pemilik akun tim terkelola bisa mematikannya, dan pemakaiannya memotong kuota paketmu sendiri.","p3.name":"Gemini Apps / lingkungan eksekusi","p3.chat":"Gemini Apps bisa menerima berkas lampiran; di komputer, versi webnya juga bisa mengimpor satu folder kode atau satu repositori GitHub untuk dianalisis.","p3.exec":"Mata kuliah ini tidak menganggap kamu punya sisi eksekusi Gemini yang bisa dipakai. Dokumentasi resmi Google menyatakan bahwa sejak 2026-06-18 ekstensi IDE Gemini Code Assist dan Gemini CLI berhenti melayani tingkat perorangan dan tingkat langganan konsumen; langganan Standard dan Enterprise tidak terpengaruh.","p3.role":"Mencoba secara mandiri dengan input yang sama, lalu membandingkan.","p3.files":"Hanya berkas yang kamu unggah atau impor. Dengan Akun Google sekolah atau tempat kerja, pengunggahan dari penyimpanan cloud baru bisa dipakai setelah administrator lembaga mengizinkannya.","p3.evidence":"Catatan percakapan, brief, dan berkas yang kamu simpan sendiri.","p3.fallback":"Kalau berkas proyek yang nyata harus diubah dan pengujian harus dijalankan ulang, manusialah yang menyerahkan paket input yang sama kepada lingkungan eksekusi yang benar-benar bisa dipakai — jangan menganggap ekstensi IDE atau baris perintahnya tersedia.","s4.title":"Jalur keputusan untuk akun gratis","s4.intro":"Pastikan dulu lewat akunmu sendiri: fungsinya, kuotanya, dan izinnya; baru putuskan langkah ini dikerjakan di mana.","s4.q1":"Hanya perlu membahas atau merapikan spesifikasi","s4.a1":"Sisi percakapan apa pun yang bisa menerima bahan yang diperlukan sudah cukup. Selesaikan brief.md dulu, baru bicarakan perlu tidaknya mulai mengerjakan.","s4.q2":"Harus mengubah berkas yang nyata dan menjalankan pengujian","s4.a2":"Pastikan dulu kamu benar-benar punya lingkungan eksekusi yang sudah diberi izin. Kalau tidak ada, pekerjaan hanya boleh ditandai “draf / belum diuji”, tidak boleh dituliskan sebagai sudah selesai.","s4.q3":"Perlu pendapat kedua","s4.a3":"Serahkan paket input yang sama kepada platform lain tanpa menulis ulang soalnya. Begitu soalnya diubah, kedua hasilnya tidak bisa dibandingkan lagi.","s4.q4":"Kuota sudah habis","s4.a4":"Simpan brief.md, satu contoh paling kecil, kasus yang gagal, dan kriteria penerimaan, lalu serahkan semuanya ke platform lain yang masih bisa dipakai; bukan salinan seluruh percakapan.","s4.q5":"Berkas tidak bisa diunggah","s4.a5":"Kamu masih boleh membahas spesifikasi dalam bentuk teks, tetapi tidak boleh mengaku sudah membaca berkasnya atau sudah memverifikasi hasil yang nyata. Tuliskan terang-terangan bagian mana yang belum diverifikasi.","s5.title":"Siklus serah terima lintas platform dengan Markdown","s5.intro":"Markdown adalah teks biasa yang portabel: bisa dibuka di platform mana pun dan tetap menyimpan judul, daftar, jalur lengkap, serta kriteria penerimaan.","s5.n1":"Membahas","s5.n2":"brief.md","s5.n3":"Manusia memulai eksekusi di platform lain","s5.n4":"report.md + hasil kerja + bukti","s5.n5":"Manusia membuka dan memverifikasi hasilnya","s5.n6":"Memperbaiki, lalu menjalankan lagi","s5.note":"Menyimpan berkas Markdown tidak memberi tahu AI yang lain; serah terima berikutnya tetap dimulai oleh manusia.","s5.brief.title":"Templat brief.md","s5.report.title":"Templat report.md","s6.title":"Gerbang penerimaan yang sama","s6.intro":"Apa pun yang dikembalikan ketiga platform itu, bandingkan hanya lima jenis bukti ini — bukan siapa yang terdengar paling yakin.","s6.e1":"Apakah spesifikasinya dinyatakan ulang dengan benar","s6.e2":"Apakah input yang ditentukan benar-benar dipakai","s6.e3":"Apakah ada hasil nyata yang bisa dibuka","s6.e4":"Apakah bagian yang belum selesai dan batasannya dicantumkan","s6.e5":"Apakah lulus kumpulan kasus uji penerimaan yang sama","s6.tool.title":"Membuat prinsipnya konkret: kasus uji penerimaan untuk alat bantu proyeksi kecil W05","s6.tool.first":"Sudut pertama","s6.tool.third":"Sudut ketiga","s6.tool.alt":"Tata letak proyeksi sudut pertama dan sudut ketiga berdampingan: benda kerja asimetris berbentuk huruf L yang sama pada kedua tata letak, pandangan depannya tidak berubah; pandangan sampingnya berada di seberang pandangan depan pada sudut pertama dan di sisi yang sama pada sudut ketiga, keduanya disejajarkan dengan pandangan depan oleh garis proyeksi tipis.","s6.tool.d1":"Lakukan pemeriksaan penerimaan dengan benda kerja asimetris. Benda simetris menyembunyikan perbedaannya, jadi mengujinya tidak membuktikan apa pun.","s6.tool.d2":"Saat berpindah antara proyeksi sudut pertama (proyeksi Eropa) dan sudut ketiga (proyeksi Amerika), pandangan samping harus pindah ke sisi lain dari pandangan depan.","s6.tool.d3":"Pandangan harus disejajarkan, bukan sekadar diletakkan bersebelahan.","s6.tool.d4":"Jangan membalik gambarnya seperti bayangan cermin. Mengganti metode hanya mengubah posisi pandangan, bukan arah hadapnya.","s6.tool.d5":"Kalau informasinya tidak cukup, jangan menebak satu jawaban tunggal: jawabannya mungkin tidak ada, tepat satu, atau banyak.","s6.tool.note":"Lulus pengujian yang tercantum tidak mengubah apa pun di luar cakupannya: bagian yang belum diuji tetap tidak diketahui. Lulus sebagian pengujian tidak sama dengan gambar yang benar.","footer.sources":"Sumber resmi dan tanggal pemeriksaan","footer.checked":"Data platform diperiksa pada 2026-10-07. Tautan di bawah adalah halaman resmi; halaman ini tidak mengirim permintaan ke sana saat dimuat.","src1.label":"Pusat Bantuan OpenAI: memakai Codex dengan paket ChatGPT-mu","src2.label":"Dukungan Anthropic: membuat dan menyunting berkas dengan Claude","src3.label":"Dukungan Anthropic: memakai Claude Code dengan paket Pro atau Max","src4.label":"Bantuan Google: mengunggah dan menganalisis berkas di aplikasi Gemini","src5.label":"Google for Developers: penghentian Gemini Code Assist untuk perorangan","footer.limits":"Ketersediaan fitur bergantung pada paket langganan, akun, wilayah, kuota, pengaturan administrasi sekolah, dan lingkungan eksekusi — percayai apa yang ditampilkan akunmu sendiri saat ini. Halaman ini tidak mengumpulkan informasi login, nama, nomor mahasiswa, atau catatan aktivitas. Teks Bahasa Indonesia dan Tiếng Việt adalah terjemahan kerja untuk keperluan kelas; istilah teknis tetap mengikuti standar yang ditetapkan dosen.","footer.draft":"Teks Bahasa Indonesia ini adalah terjemahan kerja untuk keperluan kelas; versi Mandarin Tradisional adalah acuan utamanya.","tpl":{"brief":"# brief.md\n\n- Nomor tugas: T0xx / R01\n- Tujuan:\n- Input dan sumbernya:\n- Keluaran wajib dan lokasi resminya:\n- Batasan / jangan diubah:\n- Kriteria penerimaan:\n- Lokasi pelaporan:\n","report":"# report.md\n\n- Hasil nyata beserta jalur lengkap atau tautannya:\n- Pemeriksaan yang benar-benar dijalankan dan hasilnya:\n- Kekurangan yang diketahui dan bagian yang belum selesai:\n- Hal yang tidak diubah:\n- Hal yang masih perlu diverifikasi oleh manusia:\n"}},"vi":{"ui.skip":"Chuyển đến nội dung chính","ui.langLabel":"Ngôn ngữ","ui.openFull":"Mở trang đầy đủ","ui.openFull.aria":"Mở trang đầy đủ trong tab mới","ui.print":"In / Lưu thành PDF","ui.checked":"Ngày kiểm tra thông tin các nền tảng: 2026-10-07","ui.copy":"Sao chép","ui.copied":"Đã sao chép vào bảng nhớ tạm.","ui.copyFail":"Môi trường này không cho phép tự động sao chép. Văn bản đã được chọn sẵn cho bạn — hãy sao chép bằng bàn phím, hoặc nhấn giữ để chọn rồi sao chép.","metaDesc":"AD290B W05: phân biệt mặt đối thoại, mặt thực thi và mặt nghiệm thu của công cụ AI, so sánh ba nền tảng bằng cùng một đề bài, cùng dữ liệu đầu vào và cùng bộ kiểm tra, rồi chuyển giao công việc giữa các nền tảng bằng brief.md và report.md. Tiếng Trung phồn thể / English / Bahasa Indonesia / Tiếng Việt.","badge":"AD290B · W05 · So sánh nền tảng AI","title":"Chọn nền tảng AI thế nào: đối thoại, thực thi, so sánh và kiểm chứng","lede":"Cùng một đề bài, cùng một dữ liệu đầu vào, cùng một cách nghiệm thu. Công cụ thay đổi, tiêu chí không đổi.","notrank":"Đây là vai trò trong nhiệm vụ của môn học, không phải bảng xếp hạng năng lực.","s1.title":"Trước hết, hãy phân biệt ba mặt làm việc","s1.intro":"Một hệ sinh thái thường có đồng thời một mặt để “nói” và một mặt để “làm”; mặt thứ ba là con người. Phân biệt rõ ba mặt này thì câu “AI đã làm xong” mới có nội dung cụ thể.","s1.chat.name":"Mặt đối thoại","s1.chat.desc":"Hiểu vấn đề, thảo luận và biến nó thành bản đặc tả.","s1.exec.name":"Mặt thực thi","s1.exec.desc":"Đọc và ghi tệp, chạy và kiểm thử trong một môi trường đã được cấp quyền rõ ràng.","s1.check.name":"Mặt nghiệm thu","s1.check.desc":"Con người mở sản phẩm đầu ra thật, chạy lại cùng bộ kiểm tra và quyết định có chấp nhận hay không.","s1.note":"“Nền tảng báo là đã hoàn thành” không đồng nghĩa với “kết quả đúng”. Chỉ khi qua được mặt nghiệm thu thì việc này mới coi là xong.","s2.title":"Bây giờ tôi cần làm gì?","s2.intro":"Hãy chọn tình huống hiện tại của bạn. Kết quả chỉ cho biết nên dùng mặt làm việc nào, phải lưu lại bằng chứng gì và làm gì khi cách đó không khả thi; nó không cho biết nền tảng nào tốt hơn.","s2.lbl.surface":"Mặt làm việc phù hợp","s2.lbl.evidence":"Bằng chứng phải lưu lại","s2.lbl.fallback":"Khi không khả thi","g1.name":"Thảo luận yêu cầu và viết bản mô tả nhiệm vụ","g1.surface":"Mặt đối thoại. Việc chính là làm rõ yêu cầu và viết nó thành brief.md.","g1.evidence":"Chính tệp brief.md: mục tiêu, dữ liệu đầu vào và nguồn, sản phẩm đầu ra bắt buộc và vị trí chính thức, giới hạn, tiêu chí nghiệm thu, nơi báo cáo.","g1.fallback":"Nếu bạn chưa viết được tiêu chí nghiệm thu thì yêu cầu vẫn chưa rõ. Hãy bổ sung tiêu chí nghiệm thu trước, đừng bảo nền tảng bắt tay vào làm.","g2.name":"Sửa tệp thật và chạy kiểm thử","g2.surface":"Mặt thực thi — và trước đó phải xác nhận bạn thật sự có một môi trường thực thi đã được cấp quyền.","g2.evidence":"Đường dẫn đầy đủ tới sản phẩm đầu ra thật, các bước kiểm tra đã thực sự chạy và kết quả của chúng, phần chưa hoàn thành và các giới hạn.","g2.fallback":"Không có môi trường thực thi thì chỉ được ghi là “bản nháp / chưa kiểm thử”, không được viết là đã hoàn thành.","g3.name":"So sánh chéo bằng nền tảng thứ hai","g3.surface":"Mặt đối thoại hoặc mặt thực thi của một nền tảng khác, làm lại một lần nữa bằng cùng một gói dữ liệu đầu vào.","g3.evidence":"report.md và sản phẩm đầu ra của từng bên, cùng kết quả của cùng một bộ trường hợp nghiệm thu.","g3.fallback":"Đừng viết lại đề bài để chiều theo nền tảng thứ hai. Đổi đề bài thì việc so sánh mất giá trị.","g4.name":"Hết hạn mức, không tải tệp lên được hoặc không có quyền thực thi","g4.surface":"Lùi về mặt đối thoại trước và chốt lại phần bạn đã làm được.","g4.evidence":"brief.md, một ví dụ tối giản, các trường hợp lỗi và tiêu chí nghiệm thu; đừng chỉ sao chép toàn bộ đoạn trò chuyện.","g4.fallback":"Khi không tải tệp lên được, bạn vẫn có thể thảo luận bản đặc tả bằng văn bản, nhưng không được tuyên bố là đã đọc tệp hay đã kiểm chứng sản phẩm đầu ra thật.","s3.title":"Ba hệ sinh thái nền tảng","s3.intro":"Ba cột rộng bằng nhau, cùng một bộ trường thông tin; thứ tự không phải là xếp hạng. Mỗi cột mô tả cách dùng trong nhiệm vụ của môn học này, không phải nhận xét chung về sản phẩm.","s3.lbl.chat":"Mặt đối thoại","s3.lbl.exec":"Mặt thực thi và ranh giới cấp quyền","s3.lbl.role":"Vai trò trong môn học này","s3.lbl.files":"Phạm vi tệp nó thấy được","s3.lbl.evidence":"Bằng chứng nên lưu lại","s3.lbl.fallback":"Tài khoản miễn phí / dự phòng tại lớp","s3.limit":"Việc bạn thực sự làm được = mặt làm việc × gói thuê bao × quyền hạn × môi trường hiện tại.","p1.name":"ChatGPT / Codex","p1.chat":"Trong cuộc trò chuyện ChatGPT, bạn sắp xếp yêu cầu và thảo luận bản đặc tả; nó đọc được những tệp bạn thực sự tải lên.","p1.exec":"Codex là mặt thực thi: nó đọc và ghi tệp, chạy và kiểm thử, nhưng chỉ trong không gian làm việc hoặc môi trường mà bạn đã cấp quyền rõ ràng. Trang chính thức cho biết Codex có trong các gói ChatGPT, kể cả Free và Go, nhưng hạn mức dùng được khác nhau theo từng gói; còn Codex Cloud — phần chạy nhiệm vụ trên đám mây — được ghi là “không có trong Free và Go”, và vẫn phụ thuộc vào tiến độ triển khai cùng thiết lập của không gian làm việc.","p1.role":"Thảo luận, sắp xếp yêu cầu, viết bản mô tả nhiệm vụ và nghiệm thu.","p1.files":"Mặt đối thoại nhìn thấy những tệp bạn thực sự tải lên; mặt thực thi chỉ nhìn thấy đúng một không gian làm việc đã được cấp quyền.","p1.evidence":"Lịch sử trò chuyện, brief.md, bản ghi quá trình chạy và các thay đổi.","p1.fallback":"Với tài khoản của trường hay của công ty, quản trị viên có thể quyết định nhiệm vụ trên đám mây có dùng được hay không, và một số loại giấy phép người dùng không tạo được môi trường trên đám mây. Hãy đăng nhập bằng tài khoản của chính bạn và xem thực tế trên màn hình có những gì.","p2.name":"Claude / Claude Code","p2.chat":"Trong cuộc trò chuyện Claude, bạn đọc hiểu và viết lại tài liệu, và có thể đọc cả những tệp bạn tải lên.","p2.exec":"Claude Code là mặt thực thi trong cửa sổ dòng lệnh hoặc trong IDE. Trang chính thức liệt kê các cách để có quyền dùng: gói cá nhân có trả phí, giấy phép người dùng trong gói của tổ chức (dùng được hay không do loại giấy phép và thiết lập của quản trị viên quyết định), hoặc đăng nhập bằng quyền từ bảng điều khiển dành cho nhà phát triển / API; trang chính thức không liệt kê cách dùng bằng tài khoản miễn phí.","p2.role":"Đọc tệp, triển khai và kiểm thử.","p2.files":"Mặt đối thoại chỉ nhìn thấy những tệp bạn tải lên. Tệp sinh ra trong cuộc trò chuyện nằm trong môi trường cách ly (sandbox) của claude.ai, tách khỏi hệ thống của bạn; phải tải xuống hoặc lưu vào bộ nhớ đám mây thì nó mới đến tay bạn — điều đó không có nghĩa là dự án trên máy tính của bạn đã được sửa.","p2.evidence":"Lịch sử trò chuyện, bản mô tả nhiệm vụ, tệp thật và kết quả kiểm thử.","p2.fallback":"Trang chính thức ghi rằng việc chạy mã và tạo tệp trong cuộc trò chuyện có ở mọi gói (kể cả gói miễn phí), nhưng nó được bật/tắt bằng một tùy chọn trong phần thiết lập, chủ sở hữu có thể tắt nó trên tài khoản nhóm được quản lý, và nó tiêu hao hạn mức của chính gói bạn đang dùng.","p3.name":"Gemini Apps / môi trường thực thi","p3.chat":"Gemini Apps có thể nhận tệp đính kèm; bản web trên máy tính còn có thể nhập một thư mục mã nguồn hoặc một kho lưu trữ GitHub để phân tích.","p3.exec":"Môn học này không giả định bạn có một mặt thực thi Gemini dùng được. Tài liệu chính thức của Google cho biết: từ 2026-06-18, tiện ích mở rộng IDE của Gemini Code Assist và Gemini CLI đã ngừng phục vụ bản cá nhân và các hạng thuê bao dành cho người dùng phổ thông; thuê bao Standard và Enterprise không bị ảnh hưởng.","p3.role":"Dùng cùng một bộ dữ liệu đầu vào để thử và so sánh một cách độc lập.","p3.files":"Chỉ thấy đúng những gì bạn tải lên hoặc nhập vào. Khi dùng tài khoản Google của trường hay của công ty, việc tải lên từ bộ nhớ đám mây cần quản trị viên của tổ chức mở quyền trước.","p3.evidence":"Lịch sử trò chuyện, bản mô tả nhiệm vụ, những tệp bạn tự lưu lại.","p3.fallback":"Khi cần sửa dự án thật và chạy lại kiểm thử, con người sẽ giao cùng một gói dữ liệu đầu vào cho một môi trường thực thi chắc chắn dùng được; đừng giả định là tiện ích mở rộng IDE hay dòng lệnh đang có sẵn.","s4.title":"Lộ trình quyết định cho tài khoản miễn phí","s4.intro":"Hãy dùng tài khoản của chính bạn để xác nhận tính năng, hạn mức và quyền hạn trước, rồi mới quyết định bước này làm ở đâu.","s4.q1":"Chỉ cần thảo luận hoặc sắp xếp bản đặc tả","s4.a1":"Bất kỳ mặt đối thoại nào nhận được dữ liệu cần thiết đều đủ dùng. Hãy viết xong brief.md trước, rồi mới bàn tới việc có bắt tay vào làm hay không.","s4.q2":"Buộc phải sửa tệp thật và chạy kiểm thử","s4.a2":"Trước tiên hãy xác nhận bạn thật sự có một môi trường thực thi đã được cấp quyền. Nếu không có, chỉ được ghi là “bản nháp / chưa kiểm thử”, không được viết là đã hoàn thành.","s4.q3":"Cần ý kiến thứ hai","s4.a3":"Giao cùng một gói dữ liệu đầu vào cho một nền tảng khác, không viết lại đề bài. Đổi đề bài thì hai bên không còn so sánh được với nhau.","s4.q4":"Đã hết hạn mức","s4.a4":"Hãy lưu brief.md, ví dụ tối giản, các trường hợp lỗi và tiêu chí nghiệm thu, rồi chuyển giao cho một nền tảng khác còn dùng được; đừng chỉ sao chép toàn bộ đoạn trò chuyện.","s4.q5":"Không tải tệp lên được","s4.a5":"Bạn vẫn có thể thảo luận bản đặc tả bằng văn bản, nhưng không được tuyên bố là đã đọc tệp hay đã kiểm chứng sản phẩm đầu ra thật. Hãy ghi rõ phần nào còn chưa được kiểm chứng.","s5.title":"Vòng chuyển giao khép kín giữa các nền tảng bằng Markdown","s5.intro":"Markdown là văn bản thuần dễ mang đi, nền tảng nào cũng mở được, và giữ nguyên tiêu đề, danh sách, đường dẫn đầy đủ và tiêu chí nghiệm thu.","s5.n1":"Thảo luận","s5.n2":"brief.md","s5.n3":"Con người khởi động nền tảng khác để thực thi","s5.n4":"report.md + sản phẩm đầu ra + bằng chứng","s5.n5":"Con người mở kết quả và kiểm chứng","s5.n6":"Sửa rồi chạy lại","s5.note":"Việc lưu tệp Markdown không tự thông báo cho AI khác; lần chuyển giao tiếp theo vẫn do con người khởi động.","s5.brief.title":"Mẫu brief.md","s5.report.title":"Mẫu report.md","s6.title":"Cùng một cổng nghiệm thu","s6.intro":"Dù ba nền tảng trả về thứ gì đi nữa, chỉ so sánh năm loại bằng chứng này, không xét xem ai nghe có vẻ tự tin hơn.","s6.e1":"Có nêu lại đúng bản đặc tả hay không","s6.e2":"Có dùng dữ liệu đầu vào đã chỉ định hay không","s6.e3":"Có sản phẩm đầu ra thật và mở được hay không","s6.e4":"Có nêu phần chưa hoàn thành và các giới hạn hay không","s6.e5":"Có qua được cùng một bộ trường hợp nghiệm thu hay không","s6.tool.title":"Cụ thể hóa nguyên tắc: các trường hợp nghiệm thu cho công cụ nhỏ về hình chiếu của W05","s6.tool.first":"Góc chiếu thứ nhất","s6.tool.third":"Góc chiếu thứ ba","s6.tool.alt":"So sánh cách bố trí hình chiếu giữa góc chiếu thứ nhất và góc chiếu thứ ba: cùng một vật thể hình chữ L không đối xứng, hình chiếu đứng giữ nguyên; hình chiếu cạnh đặt ở phía đối diện của hình chiếu đứng trong góc chiếu thứ nhất và đặt ở cùng phía trong góc chiếu thứ ba, ở cả hai cách nó đều được gióng thẳng với hình chiếu đứng bằng các đường gióng mảnh.","s6.tool.d1":"Hãy nghiệm thu bằng một vật thể không đối xứng. Vật thể đối xứng thì đổi phương pháp chiếu cũng không thấy khác biệt, coi như chưa kiểm tra gì.","s6.tool.d2":"Khi chuyển giữa góc chiếu thứ nhất và góc chiếu thứ ba, hình chiếu cạnh phải đổi sang phía bên kia của hình chiếu đứng.","s6.tool.d3":"Các hình chiếu phải được gióng thẳng với nhau, không phải chỉ đặt cạnh nhau là xong.","s6.tool.d4":"Không được lấy đối xứng gương. Đổi phương pháp chiếu là đổi vị trí của hình chiếu, chứ không phải lật mặt hình vẽ.","s6.tool.d5":"Khi thông tin không đủ thì không được đoán ra một đáp án duy nhất; kết quả có thể là không có đáp án nào, có đúng một đáp án, hoặc có nhiều đáp án.","s6.tool.note":"Qua được các bước kiểm tra đã liệt kê thì phần chưa kiểm tra vẫn là điều chưa biết. Qua được một phần các bước kiểm tra không có nghĩa là toàn bộ bản vẽ đã đúng.","footer.sources":"Nguồn chính thức và ngày kiểm tra","footer.checked":"Ngày kiểm tra dữ liệu nền tảng: 2026-10-07. Dưới đây là liên kết tới các trang chính thức; khi trang này tải, nó không tự động gửi yêu cầu nào ra các trang bên ngoài.","src1.label":"Trung tâm trợ giúp OpenAI: dùng Codex với gói ChatGPT của bạn","src2.label":"Trung tâm hỗ trợ Anthropic: tạo và sửa tệp với Claude","src3.label":"Trung tâm hỗ trợ Anthropic: dùng Claude Code với gói Pro hoặc Max","src4.label":"Trợ giúp của Google: tải lên và phân tích tệp trong ứng dụng Gemini","src5.label":"Tài liệu cho nhà phát triển của Google: thông báo ngừng Gemini Code Assist bản cá nhân","footer.limits":"Tính năng chịu ảnh hưởng của gói thuê bao, tài khoản, khu vực, hạn mức, thiết lập quản trị của trường và môi trường thực thi; hãy lấy đúng những gì tài khoản của chính bạn đang hiển thị làm chuẩn. Trang này không thu thập thông tin đăng nhập, tên, mã số sinh viên hay lịch sử thao tác. Phần tiếng Indonesia và tiếng Việt là bản dịch dùng trong lớp học; thuật ngữ chuyên môn vẫn theo tiêu chuẩn do giảng viên chỉ định.","footer.draft":"Phần tiếng Indonesia và tiếng Việt của trang này là bản dịch dùng trong lớp học; thuật ngữ chuyên môn vẫn theo tiêu chuẩn do giảng viên chỉ định.","tpl":{"brief":"# brief.md\n\n- Mã nhiệm vụ: T0xx / R01\n- Mục tiêu:\n- Dữ liệu đầu vào và nguồn:\n- Sản phẩm đầu ra bắt buộc và vị trí chính thức:\n- Giới hạn / không được thay đổi:\n- Tiêu chí nghiệm thu:\n- Nơi báo cáo:\n","report":"# report.md\n\n- Sản phẩm đầu ra thật, đường dẫn đầy đủ hoặc liên kết:\n- Các bước kiểm tra đã thực sự chạy và kết quả:\n- Các thiếu sót đã biết và phần chưa hoàn thành:\n- Những phần không thay đổi:\n- Việc vẫn cần con người kiểm chứng:\n"}}};
+
+var LANGS = ["zh-Hant", "en", "id", "vi"];
+var KEY = "ad290b.w05.ai.lang";
+
+function dict(code) { return I18N[code] || I18N["zh-Hant"]; }
+
+function apply(code) {
+  var d = dict(code), base = I18N["zh-Hant"];
+  var nodes = document.querySelectorAll("[data-i]");
+  for (var i = 0; i < nodes.length; i++) {
+    var k = nodes[i].getAttribute("data-i");
+    var v = (d && d[k]) || base[k];              // 缺鍵安全回退繁中
+    if (typeof v === "string") nodes[i].textContent = v;
+  }
+  document.documentElement.lang = code;
+  document.title = ((d && d.title) || base.title) + "｜AD290B W05";
+  var md = document.getElementById("metaDesc");
+  if (md) md.setAttribute("content", (d && d.metaDesc) || base.metaDesc);
+  document.getElementById("tplBrief").textContent = (d && d.tpl && d.tpl.brief) || base.tpl.brief;
+  document.getElementById("tplReport").textContent = (d && d.tpl && d.tpl.report) || base.tpl.report;
+  var of = document.getElementById("openFull");
+  of.setAttribute("aria-label", (d && d["ui.openFull.aria"]) || base["ui.openFull.aria"]);
+  var btns = document.querySelectorAll(".lang");
+  for (var j = 0; j < btns.length; j++) {
+    btns[j].setAttribute("aria-pressed", String(btns[j].getAttribute("data-lang") === code));
+  }
+  var msgs = document.querySelectorAll(".cpmsg");
+  for (var m = 0; m < msgs.length; m++) msgs[m].textContent = "";
+  document.getElementById("draftNote").hidden = (code === "zh-Hant" || code === "en");
+  try { localStorage.setItem(KEY, code); } catch (e) { /* 私密模式：當頁仍可切換 */ }
+  try {
+    var u = new URL(window.location.href);
+    u.searchParams.set("lang", code);
+    window.history.replaceState(null, "", u.toString());
+    document.getElementById("openFull").setAttribute("href", u.toString());
+  } catch (e) {}
+}
+
+function initial() {
+  var q = null, hasParam = false;
+  try {
+    var sp = new URL(window.location.href).searchParams;
+    hasParam = sp.has("lang"); q = sp.get("lang");
+  } catch (e) {}
+  if (hasParam) return LANGS.indexOf(q) >= 0 ? q : "zh-Hant";   // 網址指定優先；未知值安全回繁中
+  var saved = null;
+  try { saved = localStorage.getItem(KEY); } catch (e) {}
+  return LANGS.indexOf(saved) >= 0 ? saved : "zh-Hant";
+}
+
+var buttons = document.querySelectorAll(".lang");
+for (var b = 0; b < buttons.length; b++) {
+  buttons[b].addEventListener("click", function (ev) { apply(ev.currentTarget.getAttribute("data-lang")); });
+}
+
+/* 複製：Clipboard API 在 iframe 常被擋，失敗時改為自動選取文字並說明手動複製方式 */
+var cps = document.querySelectorAll(".cpbtn");
+for (var c = 0; c < cps.length; c++) {
+  cps[c].addEventListener("click", function (ev) {
+    var id = ev.currentTarget.getAttribute("data-copy");
+    var pre = document.getElementById(id);
+    var msg = document.querySelector('.cpmsg[data-msg="' + id + '"]');
+    var d = dict(document.documentElement.lang), base = I18N["zh-Hant"];
+    function fail() {
+      try {
+        var r = document.createRange(); r.selectNodeContents(pre);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      } catch (e) {}
+      msg.textContent = (d && d["ui.copyFail"]) || base["ui.copyFail"];
+    }
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(pre.textContent).then(function () {
+          msg.textContent = (d && d["ui.copied"]) || base["ui.copied"];
+        })["catch"](fail);
+      } else { fail(); }
+    } catch (e) { fail(); }
+  });
+}
+
+document.getElementById("btnPrint").addEventListener("click", function () {
+  var embedded = false;
+  try { embedded = (window.top !== window.self); } catch (e) { embedded = true; }
+  if (embedded) {                                   // Sites 的 sandbox 沒有 allow-modals，print() 會被忽略
+    var href = window.location.href.split("#")[0];
+    var w = window.open(href, "_blank");            // 不可加 noopener：依規範一律回傳 null，就無法判斷是否被擋
+    if (w) { try { w.opener = null; } catch (e) {} return; }
+    window.print();
+    return;
+  }
+  window.print();
+});
+
+apply(initial());
+</script>
+</body>
+</html>
