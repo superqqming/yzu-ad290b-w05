@@ -1,0 +1,247 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>燈座作業參考圖｜AD290B 設計製圖與 AI 表現法</title>
+<meta name="robots" content="index,follow">
+</head><body>
+
+<meta name="claude:viewport-fit-sides" content="cover">
+
+<style>
+/* layout: the reference sheet first, then the eight requirements mapped onto it */
+:root{
+  --desk:#edebe3; --desk2:#e3e0d6; --rule:#c8c3b4; --ink:#23221f; --ink-soft:#5e5a52;
+  --flag:#9a5a28; --good:#3f6b4a;
+  --f-text:"Noto Sans TC","Hiragino Sans","Microsoft JhengHei",system-ui,sans-serif;
+  --f-data:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --shadow:0 1px 2px rgba(35,34,31,.10), 0 10px 34px rgba(35,34,31,.16);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --desk:#1a1917; --desk2:#22211d; --rule:#3f3c35; --ink:#eae7de; --ink-soft:#a39d90;
+  --flag:#d9975c; --good:#86b394; --shadow:0 2px 4px rgba(0,0,0,.5), 0 18px 50px rgba(0,0,0,.6);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --desk:#1a1917; --desk2:#22211d; --rule:#3f3c35; --ink:#eae7de; --ink-soft:#a39d90;
+  --flag:#d9975c; --good:#86b394; --shadow:0 2px 4px rgba(0,0,0,.5), 0 18px 50px rgba(0,0,0,.6);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--desk);color:var(--ink);font-family:var(--f-text);line-height:1.68;margin:0}
+.wrap{max-width:1120px;margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:30px 60px}
+header{border-bottom:1.5px solid var(--ink);padding-bottom:14px}
+.stamp{font-family:var(--f-data);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--flag);margin:0 0 8px}
+h1{font-size:clamp(1.4rem,1.05rem + 1.5vw,2rem);font-weight:700;margin:0;text-wrap:balance}
+header p{margin:12px 0 0;color:var(--ink-soft);font-size:.92rem;max-width:62ch}
+header p b{color:var(--ink);font-weight:500}
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:16px 0 12px;
+  font-family:var(--f-data);font-size:.7rem;color:var(--ink-soft)}
+.zoom{display:flex;margin-left:auto;border:1px solid var(--rule);border-radius:2px;overflow:hidden}
+.zoom button{appearance:none;border:0;background:transparent;color:var(--ink-soft);font:inherit;
+  font-size:.7rem;letter-spacing:.08em;padding:6px 12px;cursor:pointer;border-left:1px solid var(--rule)}
+.zoom button:first-child{border-left:0}
+.zoom button[aria-pressed="true"]{background:var(--ink);color:var(--desk)}
+.zoom button:focus-visible{outline:2px solid var(--flag);outline-offset:-2px}
+.scroller{overflow-x:auto;overflow-y:hidden;background:var(--desk2);border:1px solid var(--rule);
+  padding:14px;scrollbar-width:thin}
+.sheet{width:100%;min-width:var(--zoom,620px);margin:0 auto;box-shadow:var(--shadow)}
+.sheet-svg{display:block;width:100%;height:auto}
+section{margin-top:44px}
+h2{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--flag);
+   font-family:var(--f-data);font-weight:600;margin:0 0 4px}
+h2 + .sub{margin:0 0 20px;font-size:1.06rem;font-weight:700}
+ol.chk{margin:0;padding:0;list-style:none;counter-reset:c;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(430px,1fr));gap:1px;
+  background:var(--rule);border:1px solid var(--rule)}
+ol.chk li{counter-increment:c;background:var(--desk);padding:15px 18px 15px 46px;position:relative;min-width:0}
+ol.chk li::before{content:counter(c,decimal-leading-zero);position:absolute;left:18px;top:16px;
+  font-family:var(--f-data);font-size:.72rem;color:var(--good);font-weight:600}
+ol.chk b{display:block;font-size:.9rem;font-weight:700}
+ol.chk span{display:block;font-size:.82rem;color:var(--ink-soft);margin-top:3px}
+.warn{margin-top:26px;border-left:3px solid var(--flag);padding:4px 0 4px 16px;
+  font-size:.86rem;color:var(--ink-soft);max-width:70ch}
+.warn b{color:var(--ink);font-weight:500}
+footer{margin-top:46px;padding-top:16px;border-top:1px solid var(--rule);
+  font-size:.76rem;color:var(--ink-soft);max-width:72ch}
+a{color:var(--flag);text-underline-offset:3px}
+@media print{@page{size:A3 portrait;margin:0}body{background:#fff}
+  .wrap{max-width:none;padding:0}header,.bar,section,.warn,footer{display:none}
+  .scroller{overflow:visible;border:0;padding:0;background:none}
+  .sheet{min-width:0;box-shadow:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<div class="wrap">
+<header>
+  <p class="stamp">設計圖學與表現法 · 作業參考</p>
+  <h1>作業參考圖面</h1>
+  <p>這張圖剛好做到作業規範要求的八項，<b>沒有多做</b>。它是「達到要求」的樣子，不是「做到最好」的樣子 —— 加分項刻意留白，免得看起來像非做不可。</p>
+</header>
+<div class="bar">
+  <span>A3 直式 297 × 420 mm　·　1:2　·　第三角法　·　單位 mm</span>
+  <div class="zoom" role="group" aria-label="圖面縮放">
+    <button type="button" data-z="620" aria-pressed="true">符合寬度</button>
+    <button type="button" data-z="1100" aria-pressed="false">放大</button>
+    <button type="button" data-z="1900" aria-pressed="false">細部</button>
+  </div>
+</div>
+<div class="scroller"><div class="sheet"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 297 420" preserveAspectRatio="xMidYMid meet" class="sheet-svg" role="img" aria-label="作業參考圖面：A3 1:2，俯視圖、正視圖與剖視圖 A–A，含折斷畫法與標題欄"><defs>
+  <pattern id="hw" width="1.6" height="1.6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <rect width="1.6" height="1.6" fill="#f3f1eb"/>
+    <line x1="0.8" y1="0" x2="0.8" y2="1.6" stroke="#45423c" stroke-width="0.18"/>
+  </pattern>
+  <pattern id="paper" width="46" height="46" patternUnits="userSpaceOnUse">
+    <rect width="46" height="46" fill="#dcd8ce"/>
+  </pattern>
+</defs><rect width="297" height="420" fill="url(#paper)"/>
+<rect x="0" y="0" width="297" height="420" rx="0" fill="none" stroke="#b9b3a5" stroke-width="0.6"/>
+<rect x="12" y="12" width="273" height="396" rx="0" fill="none" stroke="#1b1a17" stroke-width="0.7"/>
+<line x1="59" y1="103" x2="131" y2="103" stroke="#45423c" stroke-width="0.12" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4" opacity="0.9"/>
+<line x1="95" y1="67" x2="95" y2="139" stroke="#45423c" stroke-width="0.12" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4" opacity="0.9"/>
+<circle cx="95" cy="103" r="30" fill="#f3f1eb" stroke="#1b1a17" stroke-width="0.5"/>
+<circle cx="95" cy="103" r="27" fill="none" stroke="#1b1a17" stroke-width="0.18"/>
+<circle cx="95" cy="103" r="9" fill="#f3f1eb" stroke="#1b1a17" stroke-width="0.5"/>
+<circle cx="95" cy="103" r="5.5" fill="#fbfaf7" stroke="#1b1a17" stroke-width="0.18"/>
+<circle cx="95" cy="103" r="2.5" fill="none" stroke="#45423c" stroke-width="0.18" stroke-dasharray="2.4 1.4"/>
+<line x1="95" y1="67" x2="95" y2="61" stroke="#1b1a17" stroke-width="0.7" stroke-linecap="round"/>
+<polygon points="93.8,61.6 96,62.22 96,60.98" fill="#1b1a17" stroke="#1b1a17" stroke-width="0.05" stroke-linejoin="round"/>
+<line x1="93.8" y1="61.6" x2="86" y2="61.6" stroke="#1b1a17" stroke-width="0.5" stroke-linecap="round"/>
+<text x="84" y="62.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="4" fill="#1b1a17" text-anchor="end" font-weight="700">A</text>
+<line x1="95" y1="139" x2="95" y2="145" stroke="#1b1a17" stroke-width="0.7" stroke-linecap="round"/>
+<polygon points="93.8,144.4 96,145.02 96,143.78" fill="#1b1a17" stroke="#1b1a17" stroke-width="0.05" stroke-linejoin="round"/>
+<line x1="93.8" y1="144.4" x2="86" y2="144.4" stroke="#1b1a17" stroke-width="0.5" stroke-linecap="round"/>
+<text x="84" y="145.5" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="4" fill="#1b1a17" text-anchor="end" font-weight="700">A</text>
+<line x1="65" y1="133.6" x2="65" y2="157" stroke="#2f2d29" stroke-width="0.12" stroke-linecap="round" opacity="0.85"/>
+<line x1="125" y1="133.6" x2="125" y2="157" stroke="#2f2d29" stroke-width="0.12" stroke-linecap="round" opacity="0.85"/>
+<line x1="65" y1="158" x2="125" y2="158" stroke="#2f2d29" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="65,158 67.2,158.62 67.2,157.38" fill="#2f2d29" stroke="#2f2d29" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="125,158 122.8,157.38 122.8,158.62" fill="#2f2d29" stroke="#2f2d29" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="95" y="156.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.3" fill="#2f2d29" text-anchor="middle" font-weight="400">◆ Ø120</text>
+<g><polyline points="104,94 115,83 125,83" fill="none" stroke="#2f2d29" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/><polygon points="104,94 102.006,95.117 102.883,95.994" fill="#2f2d29" stroke="#2f2d29" stroke-width="0.05" stroke-linejoin="round"/><text x="126" y="82" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.6" fill="#2f2d29" text-anchor="start" font-weight="400">Ø36</text></g>
+<text x="60" y="166" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="4" fill="#1b1a17" text-anchor="start" font-weight="700" letter-spacing="0.3">俯視圖</text>
+<text x="60" y="170.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#45423c" text-anchor="start" font-weight="400" letter-spacing="0.9">Top view</text>
+<text x="60" y="175" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#6b4a2f" text-anchor="start" font-weight="600" letter-spacing="0.3">S 1:2</text>
+<line x1="95" y1="178" x2="95" y2="310" stroke="#45423c" stroke-width="0.12" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4" opacity="0.9"/>
+<rect x="67.5" y="301.25" width="55" height="0.75" rx="0" fill="#ddd8ca" stroke="#1b1a17" stroke-width="0.18"/>
+<polygon points="123.75,301.25 123.994,301.226 124.228,301.155 124.444,301.039 124.634,300.884 124.789,300.694 124.905,300.478 124.976,300.244 125,300 125,290 124.981,289.664 124.925,289.332 124.832,289.009 124.703,288.698 124.54,288.404 124.345,288.13 124.121,287.879 123.87,287.655 123.596,287.46 123.302,287.297 122.991,287.168 122.668,287.075 122.336,287.019 122,287 97.5,287 92.5,287 68,287 67.664,287.019 67.332,287.075 67.009,287.168 66.698,287.297 66.404,287.46 66.13,287.655 65.879,287.879 65.655,288.13 65.46,288.404 65.297,288.698 65.168,289.009 65.075,289.332 65.019,289.664 65,290 65,300 65.024,300.244 65.095,300.478 65.211,300.694 65.366,300.884 65.556,301.039 65.772,301.155 66.006,301.226 66.25,301.25" fill="#f3f1eb" stroke="#1b1a17" stroke-width="0.5" stroke-linejoin="round"/>
+<line x1="92.5" y1="287" x2="92.5" y2="299" stroke="#45423c" stroke-width="0.25" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="97.5" y1="287" x2="97.5" y2="299" stroke="#45423c" stroke-width="0.25" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<rect x="92.5" y="257" width="5" height="30" rx="0" fill="#f3f1eb" stroke="none" stroke-width="0.18"/>
+<line x1="92.5" y1="257" x2="92.5" y2="287" stroke="#1b1a17" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="97.5" y1="257" x2="97.5" y2="287" stroke="#1b1a17" stroke-width="0.5" stroke-linecap="round"/>
+<rect x="92.5" y="221" width="5" height="30" rx="0" fill="#f3f1eb" stroke="none" stroke-width="0.18"/>
+<line x1="92.5" y1="221" x2="92.5" y2="251" stroke="#1b1a17" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="97.5" y1="221" x2="97.5" y2="251" stroke="#1b1a17" stroke-width="0.5" stroke-linecap="round"/>
+<path d="M 90.5 257 C 92.3 255, 93.65 255, 95 257 C 96.35 259, 97.7 259, 99.5 257" fill="none" stroke="#1b1a17" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 90.5 251 C 92.3 249, 93.65 249, 95 251 C 96.35 253, 97.7 253, 99.5 251" fill="none" stroke="#1b1a17" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="98.2,221 98.8,220 101.8,209.5 102,209 102,200 104,200 104,197 100.5,197 100.5,186 100.2,185.5 100.2,185 98.8,185 91.2,185 89.8,185 89.8,185.5 89.5,186 89.5,197 86,197 86,200 88,200 88,209 88.2,209.5 91.2,220 91.8,221" fill="#f3f1eb" stroke="#1b1a17" stroke-width="0.5" stroke-linejoin="round"/>
+<polyline points="114,295 119,297 123,299.5" fill="none" stroke="#1b1a17" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="121.4,297.8 124.4,300.2" fill="none" stroke="#1b1a17" stroke-width="0.18" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="125" y1="302" x2="137.8" y2="302" stroke="#2f2d29" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="121.2" y1="287" x2="137.8" y2="287" stroke="#2f2d29" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="136" y1="302" x2="136" y2="287" stroke="#2f2d29" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="136,287 135.38,289.2 136.62,289.2" fill="#2f2d29" stroke="#2f2d29" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="136,302 136.62,299.8 135.38,299.8" fill="#2f2d29" stroke="#2f2d29" stroke-width="0.05" stroke-linejoin="round"/>
+<g transform="translate(134.7,294.5) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.8" fill="#2f2d29" text-anchor="middle" font-weight="400">30</text></g>
+<line x1="121.2" y1="287" x2="137.8" y2="287" stroke="#2f2d29" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="99.4" y1="221" x2="137.8" y2="221" stroke="#2f2d29" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="136" y1="287" x2="136" y2="221" stroke="#2f2d29" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="136,221 135.38,223.2 136.62,223.2" fill="#2f2d29" stroke="#2f2d29" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="136,287 136.62,284.8 135.38,284.8" fill="#2f2d29" stroke="#2f2d29" stroke-width="0.05" stroke-linejoin="round"/>
+<g transform="translate(134.7,254) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.8" fill="#2f2d29" text-anchor="middle" font-weight="400">378</text></g>
+<line x1="99.4" y1="221" x2="137.8" y2="221" stroke="#2f2d29" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="100" y1="185" x2="137.8" y2="185" stroke="#2f2d29" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="136" y1="221" x2="136" y2="185" stroke="#2f2d29" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="136,185 135.38,187.2 136.62,187.2" fill="#2f2d29" stroke="#2f2d29" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="136,221 136.62,218.8 135.38,218.8" fill="#2f2d29" stroke="#2f2d29" stroke-width="0.05" stroke-linejoin="round"/>
+<g transform="translate(134.7,203) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.8" fill="#2f2d29" text-anchor="middle" font-weight="400">72</text></g>
+<line x1="65" y1="302" x2="50.2" y2="302" stroke="#2f2d29" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="90" y1="185" x2="50.2" y2="185" stroke="#2f2d29" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="52" y1="302" x2="52" y2="185" stroke="#2f2d29" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="52,185 51.38,187.2 52.62,187.2" fill="#2f2d29" stroke="#2f2d29" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="52,302 52.62,299.8 51.38,299.8" fill="#2f2d29" stroke="#2f2d29" stroke-width="0.05" stroke-linejoin="round"/>
+<g transform="translate(50.7,243.5) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.8" fill="#2f2d29" text-anchor="middle" font-weight="400">◆ (480)</text></g>
+<line x1="85.5" y1="271" x2="104.5" y2="271" stroke="#2f2d29" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="92.5,271 90.3,270.38 90.3,271.62" fill="#2f2d29" stroke="#2f2d29" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="97.5,271 99.7,271.62 99.7,270.38" fill="#2f2d29" stroke="#2f2d29" stroke-width="0.05" stroke-linejoin="round"/>
+<rect x="92.39" y="269.2" width="5.22" height="2.65" rx="0" fill="#e0ddd3" stroke="none" stroke-width="0.18" opacity="0.94"/>
+<text x="95" y="271.825" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#2f2d29" text-anchor="middle" font-weight="400">Ø10</text>
+<text x="60" y="320" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="4" fill="#1b1a17" text-anchor="start" font-weight="700" letter-spacing="0.3">正視圖</text>
+<text x="60" y="324.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#45423c" text-anchor="start" font-weight="400" letter-spacing="0.9">Front view</text>
+<text x="60" y="329" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#6b4a2f" text-anchor="start" font-weight="600" letter-spacing="0.3">S 1:2</text>
+<line x1="215" y1="178" x2="215" y2="310" stroke="#45423c" stroke-width="0.12" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4" opacity="0.9"/>
+<rect x="187.5" y="301.25" width="55" height="0.75" rx="0" fill="#ddd8ca" stroke="#1b1a17" stroke-width="0.18"/>
+<polygon points="243.75,301.25 243.994,301.226 244.228,301.155 244.444,301.039 244.634,300.884 244.789,300.694 244.905,300.478 244.976,300.244 245,300 245,290 244.981,289.664 244.925,289.332 244.832,289.009 244.703,288.698 244.54,288.404 244.345,288.13 244.121,287.879 243.87,287.655 243.596,287.46 243.302,287.297 242.991,287.168 242.668,287.075 242.336,287.019 242,287 217.5,287 217.5,301.25 219.5,301.25 219.5,288.3 240.7,288.3 242.45,290.5 242.45,301.25" fill="url(#hw)" stroke="#1b1a17" stroke-width="0.5" stroke-linejoin="round"/>
+<polygon points="218.2,221 218.8,220 221.8,209.5 222,209 222,200 224,200 224,197 220.5,197 220.5,186 220.2,185.5 220.2,185 218.8,185 218.8,197 220.2,198 220.2,208 217.5,210 217.5,221" fill="url(#hw)" stroke="#1b1a17" stroke-width="0.5" stroke-linejoin="round"/>
+<polygon points="217.5,257 217.1,257 217.1,299 217.5,299" fill="#1b1a17" stroke="#1b1a17" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="217.5,221 217.1,221 217.1,251 217.5,251" fill="#1b1a17" stroke="#1b1a17" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="186.25,301.25 186.006,301.226 185.772,301.155 185.556,301.039 185.366,300.884 185.211,300.694 185.095,300.478 185.024,300.244 185,300 185,290 185.019,289.664 185.075,289.332 185.168,289.009 185.297,288.698 185.46,288.404 185.655,288.13 185.879,287.879 186.13,287.655 186.404,287.46 186.698,287.297 187.009,287.168 187.332,287.075 187.664,287.019 188,287 212.5,287 212.5,301.25 210.5,301.25 210.5,288.3 189.3,288.3 187.55,290.5 187.55,301.25" fill="url(#hw)" stroke="#1b1a17" stroke-width="0.5" stroke-linejoin="round"/>
+<polygon points="211.8,221 211.2,220 208.2,209.5 208,209 208,200 206,200 206,197 209.5,197 209.5,186 209.8,185.5 209.8,185 211.2,185 211.2,197 209.8,198 209.8,208 212.5,210 212.5,221" fill="url(#hw)" stroke="#1b1a17" stroke-width="0.5" stroke-linejoin="round"/>
+<polygon points="212.5,257 212.9,257 212.9,299 212.5,299" fill="#1b1a17" stroke="#1b1a17" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="212.5,221 212.9,221 212.9,251 212.5,251" fill="#1b1a17" stroke="#1b1a17" stroke-width="0.05" stroke-linejoin="round"/>
+<path d="M 210.5 257 C 212.3 255, 213.65 255, 215 257 C 216.35 259, 217.7 259, 219.5 257" fill="none" stroke="#1b1a17" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 210.5 251 C 212.3 249, 213.65 249, 215 251 C 216.35 253, 217.7 253, 219.5 251" fill="none" stroke="#1b1a17" stroke-width="0.18" stroke-linecap="round"/>
+<polyline points="236,294 240,296.5 243,299.5" fill="none" stroke="#1b1a17" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="222,276 233,270 241,270" fill="none" stroke="#2f2d29" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="222,276 220.883,274.006 220.006,274.883" fill="#2f2d29" stroke="#2f2d29" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="242" y="269.1" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#2f2d29" text-anchor="start" font-weight="400">鋼管 t0.8（推定）</text>
+<polyline points="203,293 193,287 185,287" fill="none" stroke="#2f2d29" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="203" cy="293" r="0.5" fill="#2f2d29" stroke="none" stroke-width="0.18"/>
+<text x="184" y="286.1" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#2f2d29" text-anchor="end" font-weight="400">內部未繪</text>
+<text x="184" y="289.8" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="1.9" fill="#45423c" text-anchor="end" font-weight="400">無法由外觀觀察</text>
+<text x="182" y="320" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="4" fill="#1b1a17" text-anchor="start" font-weight="700" letter-spacing="0.3">剖視圖 A–A</text>
+<text x="182" y="324.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#45423c" text-anchor="start" font-weight="400" letter-spacing="0.9">Section A–A</text>
+<text x="182" y="329" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#6b4a2f" text-anchor="start" font-weight="600" letter-spacing="0.3">S 1:2</text>
+<text x="15" y="352" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.6" fill="#1b1a17" text-anchor="start" font-weight="600" letter-spacing="0.3">附註　NOTES</text>
+<text x="15" y="358.6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.3" fill="#45423c" text-anchor="start" font-weight="400">1.  標示 ◆ 之尺寸為 IKEA 公告值；其餘為依產品照片比例推算之參考值。</text>
+<text x="15" y="363.8" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.3" fill="#45423c" text-anchor="start" font-weight="400">2.  括號內 (480) 為參考尺寸，由 30 + 378 + 72 相加而得，不重複標註。</text>
+<text x="15" y="369" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.3" fill="#45423c" text-anchor="start" font-weight="400">3.  燈管以折斷畫法縮短，尺寸仍標實際全長 378。</text>
+<text x="15" y="374.2" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.3" fill="#45423c" text-anchor="start" font-weight="400">4.  底座內部構造未繪 —— 無法由外觀觀察，不臆測。</text>
+<text x="15" y="379.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.3" fill="#45423c" text-anchor="start" font-weight="400">5.  未註公差依 CNS 4018 中級；單位 mm。燈泡與燈罩另購。</text>
+<rect x="185" y="348" width="100" height="54" rx="0" fill="#ffffff" stroke="none" stroke-width="0.18" opacity="0.18"/>
+<rect x="185" y="348" width="100" height="54" rx="0" fill="none" stroke="#1b1a17" stroke-width="0.55"/>
+<line x1="185" y1="365" x2="285" y2="365" stroke="#1b1a17" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="185" y1="378" x2="285" y2="378" stroke="#1b1a17" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="185" y1="390" x2="285" y2="390" stroke="#1b1a17" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="237" y1="365" x2="237" y2="402" stroke="#1b1a17" stroke-width="0.18" stroke-linecap="round"/>
+<text x="188" y="355.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="3.6" fill="#1b1a17" text-anchor="start" font-weight="700">IKEA STRÅLA 桌燈底座</text>
+<text x="188" y="361.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2" fill="#45423c" text-anchor="start" font-weight="400" letter-spacing="0.3">TABLE LAMP BASE　204.279.78</text>
+<text x="188" y="370" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="1.7" fill="#45423c" text-anchor="start" font-weight="400" letter-spacing="0.4">比例  SCALE</text>
+<text x="188" y="374.6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#1b1a17" text-anchor="start" font-weight="600">1:2  @ A3</text>
+<text x="240" y="370" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="1.7" fill="#45423c" text-anchor="start" font-weight="400" letter-spacing="0.4">單位  UNIT</text>
+<text x="240" y="374.6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#1b1a17" text-anchor="start" font-weight="600">mm</text>
+<text x="188" y="383" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="1.7" fill="#45423c" text-anchor="start" font-weight="400" letter-spacing="0.4">投影法  PROJECTION</text>
+<text x="188" y="387.6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#1b1a17" text-anchor="start" font-weight="600">第三角法</text>
+<circle cx="220" cy="384.2" r="2.8" fill="none" stroke="#1b1a17" stroke-width="0.18"/>
+<circle cx="220" cy="384.2" r="1.5" fill="none" stroke="#1b1a17" stroke-width="0.18"/>
+<polygon points="226.6,382.7 232.4,381.4 232.4,387 226.6,385.7" fill="none" stroke="#1b1a17" stroke-width="0.18" stroke-linejoin="round"/>
+<line x1="215.6" y1="384.2" x2="235.4" y2="384.2" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<text x="240" y="383" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="1.7" fill="#45423c" text-anchor="start" font-weight="400" letter-spacing="0.4">日期  DATE</text>
+<line x1="251" y1="387.4" x2="282" y2="387.4" stroke="#45423c" stroke-width="0.18" stroke-linecap="round"/>
+<text x="188" y="394" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="1.7" fill="#45423c" text-anchor="start" font-weight="400" letter-spacing="0.4">姓名  NAME</text>
+<line x1="203" y1="397.6" x2="234" y2="397.6" stroke="#45423c" stroke-width="0.18" stroke-linecap="round"/>
+<text x="240" y="394" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="1.7" fill="#45423c" text-anchor="start" font-weight="400" letter-spacing="0.4">學號  ID</text>
+<line x1="251" y1="397.6" x2="282" y2="397.6" stroke="#45423c" stroke-width="0.18" stroke-linecap="round"/></svg></div></div>
+
+<section>
+  <h2>對照</h2>
+  <p class="sub">八項要求各自落在圖上的哪裡</p>
+  <ol class="chk"><li><b>圖框與標題欄</b><span>標題欄在右下角：圖名、比例、單位、第三角法符號、姓名學號與日期欄。</span></li><li><b>俯視圖與正視圖</b><span>俯視圖畫在正視圖正上方（第三角法），兩圖共用同一條鉛直中心線，左右位置完全對齊。</span></li><li><b>一個全剖視圖</b><span>剖切位置線畫在俯視圖上 —— 剖切面通過軸線，在俯視圖裡看起來才是一條線。箭頭朝左，所以剖視圖放在正視圖右邊。</span></li><li><b>中心線</b><span>三個視圖的迴轉軸都畫了鏈線；俯視圖另有水平中心線。</span></li><li><b>三種線型</b><span>粗實線＝可見輪廓，細實線＝尺寸線與引線，鏈線＝中心線與剖切線。另外用了虛線：燈管插進底座那一段看不見。</span></li><li><b>尺寸標註</b><span>總高 (480)、底座外徑 Ø120、底座高 30、燈管外徑 Ø10、燈頭組 72。每個尺寸只出現一次 —— Ø120 只標在俯視圖，正視圖不再重複。</span></li><li><b>尺寸鏈閉合</b><span>30 + 378 + 72 = 480。四個數字只有三個是獨立的，所以總高用括號寫成參考尺寸 (480)。</span></li><li><b>比例與圖幅</b><span>A3 直式、1:2，填在標題欄。燈管以折斷畫法縮短，但尺寸仍標實長 378。</span></li></ol>
+  <p class="warn"><b>這張圖沒有畫的東西：</b>細部大樣、等角圖、爆炸圖、材質剖面線區分、公差、彩現。那些是加分項，不做不扣分。另外底座內部構造也沒有畫 —— 不是忘了，是從外觀無法觀察，圖上用引線註明了。</p>
+</section>
+
+<footer>
+  本圖為教學用重繪圖面，非 IKEA 原廠工程圖；產品名稱與商標屬 Inter IKEA Systems B.V. 所有。標 ◆ 之尺寸出自 IKEA 產品頁，其餘為依產品照片比例推算之參考值。
+</footer>
+</div>
+<script>
+(function(){
+  var sheet=document.querySelector('.sheet');
+  var btns=[].slice.call(document.querySelectorAll('.zoom button'));
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    btns.forEach(function(o){o.setAttribute('aria-pressed',String(o===b));});
+    sheet.style.setProperty('--zoom',b.dataset.z+'px');});});
+})();
+</script>
+
+</body></html>

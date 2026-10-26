@@ -1,0 +1,377 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>STRÅLA 圖面推導紀錄｜AD290B 設計製圖與 AI 表現法</title>
+<meta name="robots" content="index,follow">
+</head><body>
+
+<meta name="claude:viewport-fit-sides" content="cover">
+
+<style>
+/* layout: a drafting-sheet reading order — premise, inputs, the derivation ladder, the layout swap, the calls */
+:root{
+  --paper:#edebe3; --panel:#e4e1d7; --rule:#c5c0b1; --rule-soft:#d5d1c4;
+  --ink:#23221f; --ink-soft:#5e5a52; --flag:#9a5a28; --chip:#dcd8cb;
+  --f-text:"Noto Sans TC","Hiragino Sans","Microsoft JhengHei",system-ui,sans-serif;
+  --f-data:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#191815; --panel:#211f1b; --rule:#403d36; --rule-soft:#302d28;
+  --ink:#ebe8df; --ink-soft:#a39d90; --flag:#d9975c; --chip:#2b2823; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#191815; --panel:#211f1b; --rule:#403d36; --rule-soft:#302d28;
+  --ink:#ebe8df; --ink-soft:#a39d90; --flag:#d9975c; --chip:#2b2823; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-text);line-height:1.68;margin:0}
+.wrap{max-width:1000px;margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:30px 60px}
+
+header{border-bottom:1.5px solid var(--ink);padding-bottom:14px}
+h1{font-size:clamp(1.4rem,1.05rem + 1.5vw,2rem);font-weight:700;margin:0;text-wrap:balance}
+header p{margin:10px 0 0;color:var(--ink-soft);font-size:.92rem;max-width:62ch}
+.stamp{font-family:var(--f-data);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--flag);margin:0 0 8px}
+
+h2{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--flag);
+   font-family:var(--f-data);font-weight:600;margin:0 0 4px}
+h2 + .sub{margin:0 0 18px;font-size:1.06rem;font-weight:700;color:var(--ink)}
+section{margin-top:44px}
+
+/* inputs */
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.in{border:1px solid var(--rule);background:var(--panel);padding:14px 16px;min-width:0}
+.in .n{font-family:var(--f-data);font-size:.62rem;letter-spacing:.14em;color:var(--flag)}
+.in b{display:block;margin:4px 0 6px;font-size:.96rem;font-weight:700}
+.in p{margin:0;font-size:.8rem;color:var(--ink-soft)}
+.in code{font-family:var(--f-data);font-size:.74rem;color:var(--ink);word-break:break-all}
+
+/* figures */
+figure{margin:0}
+.fig-scroll{overflow-x:auto;overflow-y:hidden;border:1px solid var(--rule);
+  background:var(--panel);padding:16px}
+.fig-scroll svg{display:block;width:100%;height:auto;min-width:720px;color:var(--ink)}
+figcaption{margin-top:12px;font-size:.8rem;color:var(--ink-soft);max-width:70ch}
+figcaption b{color:var(--ink);font-weight:500}
+
+/* worked examples */
+.calc{display:grid;gap:0;border:1px solid var(--rule)}
+.calc > div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:0;
+  border-top:1px solid var(--rule-soft)}
+.calc > div:first-child{border-top:0}
+.calc .q{padding:14px 16px;background:var(--panel);min-width:0}
+.calc .a{padding:14px 16px;min-width:0}
+.calc .q b{display:block;font-size:.92rem}
+.calc .q span{font-size:.76rem;color:var(--ink-soft)}
+.calc .a p{margin:0 0 7px;font-size:.84rem}
+.calc .a p:last-child{margin-bottom:0}
+.calc .a .math{font-family:var(--f-data);font-size:.8rem;background:var(--chip);
+  display:inline-block;padding:3px 8px;font-variant-numeric:tabular-nums}
+.tier{font-family:var(--f-data);font-size:.66rem;letter-spacing:.1em;color:var(--flag)}
+@media (max-width:620px){.calc > div{grid-template-columns:1fr}
+  .calc .a{border-top:1px solid var(--rule-soft)}}
+
+/* decisions */
+.calls{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:1px;
+  background:var(--rule);border:1px solid var(--rule)}
+.calls article{background:var(--paper);padding:16px 18px;min-width:0}
+.calls h3{margin:0 0 6px;font-size:.92rem;font-weight:700}
+.calls p{margin:0;font-size:.81rem;color:var(--ink-soft)}
+.calls .why{font-family:var(--f-data);font-size:.62rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--flag);display:block;margin-bottom:7px}
+
+footer{margin-top:50px;padding-top:16px;border-top:1px solid var(--rule);
+  font-size:.76rem;color:var(--ink-soft);max-width:72ch}
+a{color:var(--flag);text-underline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <p class="stamp">AD290B · 設計製圖與 AI 表現法</p>
+  <h1>一張 IKEA 燈座圖面是怎麼推出來的</h1>
+  <p>IKEA 只公告四個關鍵尺寸，圖面上卻標了四十幾個。這份紀錄說明中間那段推導怎麼走，以及推不出來的部分我是怎麼處理的。</p>
+</header>
+
+<section>
+  <h2>01　輸入</h2>
+  <p class="sub">你給了我三樣東西</p>
+  <div class="inputs">
+    <div class="in"><span class="n">A</span><b>IKEA 產品連結</b>
+      <p>STRÅLA 桌燈底座，<code>204.279.78</code>。唯一的客觀數據來源。</p></div>
+    <div class="in"><span class="n">B</span><b>一張椅子設計圖</b>
+      <p>MOMUU HOME OMNI CHAIR。含三視圖、爆炸圖、兩處細部大樣、材質引線與標題欄 —— 這是「格式規格書」，不是數據來源。</p></div>
+    <div class="in"><span class="n">C</span><b>一句指令</b>
+      <p>「參考這張圖，將內容換成 IKEA 這組燈座。」沒有指定比例、圖幅、語言或投影法。</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>02　資料分級</h2>
+  <p class="sub">每一個尺寸都要說得出它是哪裡來的</p>
+  <figure>
+    <div class="fig-scroll">
+      <svg viewBox="0 0 1120 598" role="img" aria-label="資料推導鏈：IKEA 產品頁提供 A 級公告值，乘以產品照像素比例得到 B 級反推值並以尺寸鏈閉合驗證，再由淨重與底座內部空間推定 C 級推定值；組裝說明 PDF 被網路白名單擋下，形成 D 級不可得資料，圖面上不繪不臆測。">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+          </marker>
+          <marker id="ahf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--flag)"/>
+          </marker>
+        </defs>
+
+        <g font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1.6" fill="currentColor" opacity=".55">
+          <text x="14" y="22">來源</text><text x="230" y="22">資料分級</text><text x="760" y="22">圖面上的處理</text>
+        </g>
+
+        <!-- sources -->
+        <g fill="none" stroke="currentColor">
+          <rect x="14" y="62" width="156" height="52" stroke-width="1.4"/>
+          <rect x="14" y="196" width="156" height="52" stroke-width="1.4"/>
+          <rect x="14" y="470" width="156" height="52" stroke-width="1.2" stroke-dasharray="5 3" stroke-opacity=".9"/>
+        </g>
+        <g font-size="13" fill="currentColor">
+          <text x="26" y="84">IKEA 產品頁</text>
+          <text x="26" y="218">產品照 ×2</text>
+          <text x="26" y="492">組裝說明 PDF</text>
+        </g>
+        <g font-size="10.5" fill="currentColor" opacity=".62">
+          <text x="26" y="101">網頁擷取　✓</text>
+          <text x="26" y="235">截圖＋放大　✓</text>
+        </g>
+        <text x="26" y="509" font-size="10.5" fill="var(--flag)">白名單擋下　403　✕</text>
+
+        <!-- tier boxes -->
+        <g fill="none" stroke="currentColor">
+          <rect x="230" y="50" width="470" height="76" stroke-width="2.2"/>
+          <rect x="230" y="186" width="470" height="76" stroke-width="1.1"/>
+          <rect x="230" y="322" width="470" height="76" stroke-width="1.1" stroke-dasharray="5 3"/>
+        </g>
+        <rect x="230" y="458" width="470" height="76" fill="none" stroke="var(--flag)" stroke-width="1.1" stroke-dasharray="5 3"/>
+
+        <g font-size="13.5" font-weight="700" fill="currentColor">
+          <text x="246" y="74">A　公告值</text>
+          <text x="246" y="210">B　反推值</text>
+          <text x="246" y="346">C　推定值</text>
+        </g>
+        <text x="246" y="482" font-size="13.5" font-weight="700" fill="var(--flag)">D　不可得</text>
+        <g font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity=".55">
+          <text x="340" y="74">8 項</text><text x="340" y="210">9 項</text><text x="340" y="346">3 項</text>
+        </g>
+        <text x="340" y="482" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--flag)" opacity=".8">3 項</text>
+
+        <g font-size="11" fill="currentColor" opacity=".78">
+          <text x="246" y="97">總高 480　底座 Ø120　線長 2000　E14 max 7W</text>
+          <text x="246" y="115">ABS ≥50% 再生料　鋼粉體塗裝　EVA　淨重 0.87 kg</text>
+          <text x="246" y="233">底座高 30　燈管外露 378　燈頭組 72　燈管 Ø10×t0.8</text>
+          <text x="246" y="251">燈罩環 Ø36　本體 Ø28　套筒 Ø22　圓角 R6　壁厚 t2.6</text>
+          <text x="246" y="369">鋼質配重片 Ø96×t8　EVA 墊 Ø110/Ø76×t1.5</text>
+          <text x="246" y="387">燈頭內部：E14 螺紋殼、端子室</text>
+          <text x="246" y="505">電壓與頻率　原廠零件分件　製造公差</text>
+        </g>
+
+        <!-- source -> tier -->
+        <g stroke="currentColor" stroke-width="1.3" fill="none" marker-end="url(#ah)">
+          <path d="M170,88 L230,88"/>
+          <path d="M170,222 L230,222"/>
+        </g>
+        <path d="M170,496 L230,496" stroke="var(--flag)" stroke-width="1.3" fill="none" marker-end="url(#ahf)"/>
+
+        <!-- derivation spine -->
+        <g stroke="currentColor" stroke-width="1.6" fill="none" marker-end="url(#ah)">
+          <path d="M300,126 L300,186"/>
+          <path d="M300,262 L300,322"/>
+        </g>
+        <g font-size="11.5" fill="currentColor">
+          <text x="316" y="147">× 產品照像素比例反推</text>
+          <text x="316" y="283">由淨重 0.87 kg 與底座內部空間推定</text>
+        </g>
+        <text x="316" y="165" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--flag)">驗證　30 + 378 + 72 = 480 ✓</text>
+        <text x="316" y="301" font-size="10.5" fill="currentColor" opacity=".55">無法驗證，僅能合理化</text>
+
+        <!-- tier -> treatment -->
+        <g stroke="currentColor" stroke-width="1.3" fill="none" marker-end="url(#ah)">
+          <path d="M700,88 L760,88"/>
+          <path d="M700,224 L760,224"/>
+          <path d="M700,360 L760,360"/>
+        </g>
+        <path d="M700,496 L760,496" stroke="var(--flag)" stroke-width="1.3" fill="none" marker-end="url(#ahf)"/>
+
+        <g fill="none" stroke="currentColor">
+          <rect x="760" y="62" width="346" height="52" stroke-width="1.4"/>
+          <rect x="760" y="198" width="346" height="52" stroke-width="1.1"/>
+          <rect x="760" y="334" width="346" height="52" stroke-width="1.1" stroke-dasharray="5 3"/>
+        </g>
+        <rect x="760" y="470" width="346" height="52" fill="none" stroke="var(--flag)" stroke-width="1.1" stroke-dasharray="5 3"/>
+        <g font-size="12.5" fill="currentColor">
+          <text x="774" y="84">圖上標 ◆，可直接引用</text>
+          <text x="774" y="220">一般標註</text>
+          <text x="774" y="356">圖上標「推定 assumed」</text>
+        </g>
+        <text x="774" y="492" font-size="12.5" fill="var(--flag)">不繪、不臆測</text>
+        <g font-size="10.5" fill="currentColor" opacity=".6">
+          <text x="774" y="101">圖面與附註第 1 條</text>
+          <text x="774" y="237">附註聲明為參考值，非製造公差尺寸</text>
+          <text x="774" y="373">大樣 B 旁加註，讀者可自行判斷</text>
+        </g>
+        <text x="774" y="509" font-size="10.5" fill="var(--flag)" opacity=".75">插頭只畫外形，不標電壓值</text>
+
+        <!-- line-type key -->
+        <g transform="translate(14,570)" font-size="10" fill="currentColor" opacity=".6">
+          <line x1="0" y1="-4" x2="28" y2="-4" stroke="currentColor" stroke-width="2.2"/>
+          <text x="34" y="0">公告</text>
+          <line x1="80" y1="-4" x2="108" y2="-4" stroke="currentColor" stroke-width="1.1"/>
+          <text x="114" y="0">反推</text>
+          <line x1="160" y1="-4" x2="188" y2="-4" stroke="currentColor" stroke-width="1.1" stroke-dasharray="5 3"/>
+          <text x="194" y="0">推定</text>
+          <line x1="240" y1="-4" x2="268" y2="-4" stroke="var(--flag)" stroke-width="1.1" stroke-dasharray="5 3"/>
+          <text x="274" y="0" fill="var(--flag)">不可得</text>
+          <text x="348" y="0">　框線粗細沿用圖面本身的線型規則</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption><b>推導鏈只有一個起點。</b>A 級的八個公告值是全圖唯一的客觀基準；B 級的九個尺寸全部由它乘上產品照的像素比例得出，再用「三段高度相加必須等於 480」反過來檢查；C 級只能合理化、無法驗證，所以在圖上明說是推定；D 級沒有來源，就讓它在圖面上缺席。</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2>03　缺的部分</h2>
+  <p class="sub">四個實際的補法</p>
+  <div class="calc">
+    <div>
+      <div class="q"><span class="tier">B 級</span><b>燈管管徑</b><span>規格頁完全沒提</span></div>
+      <div class="a">
+        <p>在產品照上量：燈管寬約 14 px，底座寬約 185 px。底座實際是 Ø120。</p>
+        <p><span class="math">14 ÷ 185 × 120 ≈ 9.1 mm</span></p>
+        <p>9.1 不是市售規格。鋼管以整數外徑供應，取最接近的 <b>Ø10×t0.8</b>，誤差 0.9mm 在 1:3 的圖面上是 0.3mm，不影響判讀。</p>
+      </div>
+    </div>
+    <div>
+      <div class="q"><span class="tier">B 級</span><b>三段高度的分配</b><span>只知道總高 480</span></div>
+      <div class="a">
+        <p>同樣量照片比例，得到底座約 30、燈頭組約 72，剩下的留給燈管。</p>
+        <p><span class="math">30 + 378 + 72 = 480</span></p>
+        <p>這不是驗算，是<b>約束</b>：先用比例抓出底座與燈頭，燈管長度由總高倒扣決定，尺寸鏈必然閉合。量測誤差被擠進最長、最不敏感的那一段。</p>
+      </div>
+    </div>
+    <div>
+      <div class="q"><span class="tier">C 級</span><b>底座裡面有什麼</b><span>規格頁只寫「底座具有重量」</span></div>
+      <div class="a">
+        <p>淨重 0.87 kg。ABS 外殼加一根 Ø10 鋼管，體積算下來遠不到這個重量，底座內必定另有金屬配重。</p>
+        <p>直徑則由已經推出來的底座內部空間反推：外徑 Ø120、壁厚 t2.6、中央有燈管插座凸緣，剩下的淨空間約 Ø96。</p>
+        <p>推論合理，但無法驗證，所以圖上寫「<b>推定 assumed</b>」，零件表材質欄也寫「鋼（推定）」。</p>
+      </div>
+    </div>
+    <div>
+      <div class="q"><span class="tier">D 級</span><b>電壓與插頭規格</b><span>頁面未載</span></div>
+      <div class="a">
+        <p>台灣市電是 110V／60Hz，推得出來 —— 但那是對「台灣」的知識，不是對「這項產品」的知識。IKEA 同型號在不同市場的電氣規格並不相同。</p>
+        <p>所以插頭只畫外形，不標電壓。<b>能推不等於該推</b>：工程圖面上一個沒有來源的數字，比空白危險。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>04　格位對應</h2>
+  <p class="sub">沿用了什麼，換掉了什麼</p>
+  <figure>
+    <div class="fig-scroll">
+      <svg viewBox="0 0 860 540" role="img" aria-label="參考椅子圖面與新燈座圖面的格位對照：俯視圖、正視圖、爆炸圖、兩處大樣與標題欄沿用；側視圖替換為全剖視圖 A–A；材質引線改制為零件材質表加件號球標；新增線型材質圖例與電源線組視圖。">
+        <defs>
+          <marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+          </marker>
+        </defs>
+        <g font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1.6" fill="currentColor" opacity=".55">
+          <text x="14" y="20">參考圖　椅子</text><text x="516" y="20">新圖　燈座</text>
+        </g>
+
+        <!-- reference sheet -->
+        <rect x="14" y="36" width="316" height="447" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        <g fill="none" stroke="currentColor" stroke-width=".8" stroke-opacity=".42">
+          <rect x="28" y="50" width="92" height="104"/><rect x="126" y="50" width="92" height="104"/>
+          <rect x="224" y="50" width="92" height="104"/>
+          <rect x="28" y="160" width="140" height="140"/><rect x="174" y="160" width="142" height="140"/>
+          <rect x="28" y="306" width="190" height="163"/>
+          <rect x="224" y="306" width="92" height="76"/><rect x="224" y="388" width="92" height="81"/>
+        </g>
+        <g font-size="10.5" fill="currentColor" opacity=".8">
+          <text x="36" y="70">Top View</text><text x="134" y="70">材質引線</text><text x="232" y="70">剖面大樣</text>
+          <text x="36" y="180">Front View</text><text x="182" y="180">Side View</text>
+          <text x="36" y="326">Exploded View</text>
+          <text x="232" y="326">節點大樣</text><text x="232" y="408">標題欄</text>
+        </g>
+
+        <!-- new sheet -->
+        <rect x="516" y="36" width="316" height="447" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        <g fill="none" stroke="currentColor" stroke-width=".8" stroke-opacity=".42">
+          <rect x="530" y="50" width="92" height="60"/><rect x="628" y="50" width="92" height="104"/>
+          <rect x="726" y="50" width="92" height="60"/>
+          <rect x="530" y="160" width="92" height="140"/><rect x="726" y="160" width="92" height="140"/>
+          <rect x="726" y="306" width="92" height="163"/>
+        </g>
+        <g fill="none" stroke="var(--flag)">
+          <rect x="628" y="160" width="92" height="140" stroke-width="1.5"/>
+          <rect x="530" y="306" width="190" height="163" stroke-width="1.5"/>
+          <rect x="530" y="114" width="92" height="40" stroke-width="1.2" stroke-dasharray="5 3"/>
+          <rect x="726" y="114" width="92" height="40" stroke-width="1.2" stroke-dasharray="5 3"/>
+        </g>
+        <g font-size="10.5" fill="currentColor" opacity=".8">
+          <text x="538" y="70">俯視圖</text><text x="636" y="70">大樣 A 燈頭</text><text x="734" y="70">大樣 B 底座</text>
+          <text x="538" y="180">正視圖</text><text x="734" y="180">等角爆炸圖</text><text x="734" y="326">標題欄</text>
+        </g>
+        <g font-size="10.5" fill="var(--flag)">
+          <text x="636" y="180">全剖視圖 A–A</text>
+          <text x="538" y="326">零件材質表</text>
+          <text x="538" y="132">電源線組</text><text x="734" y="132">線型圖例</text>
+        </g>
+        <g font-family="IBM Plex Mono, monospace" font-size="9" fill="currentColor" opacity=".5">
+          <text x="538" y="86">沿用</text><text x="636" y="86">同類</text><text x="734" y="86">同類</text>
+          <text x="538" y="196">沿用</text><text x="734" y="196">沿用</text><text x="734" y="342">沿用</text>
+        </g>
+        <g font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--flag)">
+          <text x="636" y="196">替換</text><text x="538" y="342">改制</text>
+          <text x="538" y="146">新增</text><text x="734" y="146">新增</text>
+        </g>
+
+        <path d="M346,250 L500,250" stroke="currentColor" stroke-width="1.3" fill="none" marker-end="url(#ah2)"/>
+        <text x="423" y="242" font-size="10.5" fill="currentColor" text-anchor="middle" opacity=".7">格位對應</text>
+
+        <g transform="translate(14,512)" font-size="10.5" fill="currentColor">
+          <text x="0" y="0" opacity=".75">參考圖的八個格位：四格沿用、兩格換成同類、一格改制、一格替換，另外新增兩格。</text>
+          <text x="0" y="17" fill="var(--flag)">替換的是側視圖 —— 燈座是迴轉體，側視圖畫出來與正視圖完全相同，那一格等於浪費。</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption><b>參考圖是格式規格書。</b>我把它拆成八個格位，逐格問「這一格對燈座還成立嗎」。大部分成立，一格不成立。</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2>05　繪圖判斷</h2>
+  <p class="sub">指令沒說的，都要自己決定</p>
+  <div class="calls">
+    <article><span class="why">比例</span><h3>主視圖 1:3</h3>
+      <p>480mm 在 1:3 下是 160mm，A3 直式扣掉圖框與標題欄剛好容得下，且 3 是整數比。大樣用 1:1 才看得到 t0.8 的管壁，爆炸圖 1:4，電源線組 1:10。</p></article>
+    <article><span class="why">投影法</span><h3>第三角法</h3>
+      <p>台灣工程製圖通用，CNS 與課程教的都是這套。標題欄裡畫了符號，學生可以直接對照。</p></article>
+    <article><span class="why">線型</span><h3>薄件剖面塗黑</h3>
+      <p>Ø10×t0.8 的鋼管在 1:3 下管壁只剩 0.27mm，畫不下剖面線。ISO 128 對這種情況的規定就是塗黑。</p></article>
+    <article><span class="why">材質區分</span><h3>用剖面線方向，不用顏色</h3>
+      <p>這個產品整支是白的，顏色幫不上忙。ABS 45°、鋼 135°、EVA 交叉、銅合金用暖色，影印成黑白仍然分得出來。</p></article>
+    <article><span class="why">圖幅取捨</span><h3>折斷畫法用兩次</h3>
+      <p>2000mm 的電源線與爆炸圖裡的長燈管都塞不進圖框，用折斷符號縮短並標註實長。</p></article>
+    <article><span class="why">語言</span><h3>中英雙標</h3>
+      <p>你的課程材料是繁體中文，但參考圖與製圖術語慣例是英文。視圖名稱、零件名稱、材質全部雙標，學生兩邊都能對上。</p></article>
+  </div>
+</section>
+
+<footer>
+  這份紀錄描述的是 <a href="../strala-base-drawing/">STRÅLA 桌燈底座圖面</a> 的產出過程。圖面為教學用重繪，非 IKEA 原廠工程圖；產品名稱與商標屬 Inter IKEA Systems B.V. 所有。<br>
+  規格來源：<a href="https://www.ikea.com.tw/zh/products/seasonal-lighting-outdoor-lighting-and-lighting-chains/seasonal-lighting/strala-art-20427978" target="_blank" rel="noopener">IKEA 台灣 — STRÅLA 桌燈底座 204.279.78</a>
+</footer>
+</div>
+
+</body></html>

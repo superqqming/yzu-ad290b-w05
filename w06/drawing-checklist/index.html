@@ -1,0 +1,177 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>製圖準備清單｜AD290B 設計製圖與 AI 表現法</title>
+<meta name="robots" content="index,follow">
+</head><body>
+
+<meta name="claude:viewport-fit-sides" content="cover">
+
+<style>
+/* layout: scope first (how many drawings), then each drawing's spec, then the working rules */
+:root{
+  --desk:#edebe3; --rule:#c8c3b4; --ink:#23221f; --ink-soft:#5e5a52;
+  --flag:#9a5a28; --good:#3f6b4a; --cardbg:#e9e6dc; --head:#23221f;
+  --f-text:"Noto Sans TC","Hiragino Sans","Microsoft JhengHei",system-ui,sans-serif;
+  --f-data:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --desk:#191815; --rule:#3f3c35; --ink:#eae7de; --ink-soft:#a39d90;
+  --flag:#d9975c; --good:#86b394; --cardbg:#e9e6dc; --head:#2b2823; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --desk:#191815; --rule:#3f3c35; --ink:#eae7de; --ink-soft:#a39d90;
+  --flag:#d9975c; --good:#86b394; --cardbg:#e9e6dc; --head:#2b2823; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--desk);color:var(--ink);font-family:var(--f-text);line-height:1.68;margin:0}
+.wrap{max-width:1020px;margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:30px 60px}
+header{border-bottom:1.5px solid var(--ink);padding-bottom:16px}
+.stamp{font-family:var(--f-data);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--flag);margin:0 0 8px}
+h1{font-size:clamp(1.4rem,1.05rem + 1.5vw,2rem);font-weight:700;margin:0;text-wrap:balance}
+header p{margin:12px 0 0;color:var(--ink-soft);font-size:.92rem;max-width:62ch}
+header p b{color:var(--ink);font-weight:500}
+section{margin-top:46px}
+h2{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--flag);
+   font-family:var(--f-data);font-weight:600;margin:0 0 4px}
+h2 + .sub{margin:0 0 20px;font-size:1.06rem;font-weight:700}
+.plate{background:var(--cardbg);border:1px solid var(--rule);padding:14px 16px}
+.plate svg{display:block;width:100%;height:auto;max-width:700px;margin:0 auto}
+figure{margin:0}
+figcaption{margin-top:10px;font-size:.82rem;color:var(--ink-soft);max-width:68ch}
+figcaption b{color:var(--ink);font-weight:500}
+.tw{overflow-x:auto;border:1px solid var(--rule)}
+table{border-collapse:collapse;width:100%;min-width:660px;font-size:.84rem}
+thead th{background:var(--head);color:#f1efe8;font-weight:600;font-size:.75rem;
+  letter-spacing:.06em;text-align:left;padding:9px 12px;white-space:nowrap}
+tbody td{border-top:1px solid var(--rule);padding:9px 12px;vertical-align:top}
+tbody tr td:first-child{color:var(--ink-soft);font-size:.78rem;white-space:nowrap}
+.id{font-family:var(--f-data);font-weight:600;color:var(--flag);white-space:nowrap}
+td.nm{font-weight:600;white-space:nowrap}
+td.sc{font-family:var(--f-data);font-variant-numeric:tabular-nums;white-space:nowrap}
+ol.rules{margin:0;padding:0;list-style:none;counter-reset:r;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(440px,1fr));gap:1px;
+  background:var(--rule);border:1px solid var(--rule)}
+ol.rules li{counter-increment:r;background:var(--desk);padding:15px 18px 15px 46px;
+  position:relative;min-width:0}
+ol.rules li::before{content:counter(r,decimal-leading-zero);position:absolute;left:18px;top:16px;
+  font-family:var(--f-data);font-size:.72rem;color:var(--flag);font-weight:600}
+ol.rules b{display:block;font-size:.9rem;font-weight:700}
+ol.rules span{display:block;font-size:.82rem;color:var(--ink-soft);margin-top:3px}
+ul.todo{margin:0;padding:0;list-style:none;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px 24px}
+ul.todo li{display:flex;align-items:center;gap:10px;font-size:.88rem;
+  font-family:var(--f-data);padding:6px 0;border-bottom:1px dotted var(--rule)}
+ul.todo li::before{content:"";width:14px;height:14px;border:1.4px solid var(--ink-soft);
+  flex:0 0 auto;border-radius:1px}
+.next{margin-top:26px;border-left:3px solid var(--flag);padding:4px 0 4px 16px;
+  font-size:.88rem;color:var(--ink-soft);max-width:70ch}
+.next b{color:var(--ink);font-weight:500}
+footer{margin-top:46px;padding-top:16px;border-top:1px solid var(--rule);
+  font-size:.76rem;color:var(--ink-soft);max-width:72ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<div class="wrap">
+<header>
+  <p class="stamp">設計圖學與表現法 · 準備階段</p>
+  <h1>先把圖畫完，再排版</h1>
+  <p>這個階段的目標是<b>把需要的圖全部畫出來</b>，一張一張獨立畫，先不管它們最後要怎麼擺進圖框。排版是全部畫完之後的事 —— 先排再畫，十次有九次要重畫。</p>
+</header>
+
+<section>
+  <h2>01　範圍</h2>
+  <p class="sub">一個物件要拆成幾張圖</p>
+  <figure><div class="plate"><svg viewBox="0 0 162 136" role="img" aria-label="一個物件拆成三層七張圖：外觀一張整體外觀圖、構造一張組合爆炸圖、細部五張各工件圖" preserveAspectRatio="xMidYMid meet"><text x="4" y="10" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="3.4" fill="#1f1e1b" text-anchor="start" font-weight="400">一個物件，七張圖</text>
+<rect x="6" y="48" width="40" height="20" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<text x="26" y="56" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="3" fill="#1b1a17" text-anchor="middle" font-weight="700">物件</text>
+<text x="26" y="62.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2" fill="#45423c" text-anchor="middle" font-weight="400">STRÅLA 桌燈底座</text>
+<rect x="62" y="14" width="32" height="20" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.18"/>
+<text x="78" y="22.6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#1b1a17" text-anchor="middle" font-weight="700">外觀</text>
+<text x="78" y="27.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="1.6" fill="#45423c" text-anchor="middle" font-weight="400" letter-spacing="0.5">WHAT IT LOOKS LIKE</text>
+<polyline points="46,58 61,24" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="61,24 58.8,23.38 58.8,24.62" fill="#1f1e1b" stroke="#1f1e1b" stroke-width="0.05" stroke-linejoin="round"/>
+<polyline points="94,24 109,24" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="109,24 106.8,23.38 106.8,24.62" fill="#1f1e1b" stroke="#1f1e1b" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="112" y="25" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.3" fill="#1b1a17" text-anchor="start" font-weight="400">A1　整體外觀圖</text>
+<text x="156" y="25" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#9a5a28" text-anchor="end" font-weight="600">1 張</text>
+<rect x="62" y="48" width="32" height="20" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.18"/>
+<text x="78" y="56.6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#1b1a17" text-anchor="middle" font-weight="700">構造</text>
+<text x="78" y="61.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="1.6" fill="#45423c" text-anchor="middle" font-weight="400" letter-spacing="0.5">HOW IT GOES TOGETHER</text>
+<polyline points="46,58 61,58" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="61,58 58.8,57.38 58.8,58.62" fill="#1f1e1b" stroke="#1f1e1b" stroke-width="0.05" stroke-linejoin="round"/>
+<polyline points="94,58 109,58" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="109,58 106.8,57.38 106.8,58.62" fill="#1f1e1b" stroke="#1f1e1b" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="112" y="59" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.3" fill="#1b1a17" text-anchor="start" font-weight="400">B1　組合爆炸圖</text>
+<text x="156" y="59" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#9a5a28" text-anchor="end" font-weight="600">1 張</text>
+<rect x="62" y="82" width="32" height="36" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.18"/>
+<text x="78" y="98.6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#1b1a17" text-anchor="middle" font-weight="700">細部</text>
+<text x="78" y="103.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="1.6" fill="#45423c" text-anchor="middle" font-weight="400" letter-spacing="0.5">EACH PART</text>
+<polyline points="46,58 61,100" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="61,100 58.8,99.38 58.8,100.62" fill="#1f1e1b" stroke="#1f1e1b" stroke-width="0.05" stroke-linejoin="round"/>
+<polyline points="94,100 109,100" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="109,100 106.8,99.38 106.8,100.62" fill="#1f1e1b" stroke="#1f1e1b" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="112" y="87.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.3" fill="#1b1a17" text-anchor="start" font-weight="400">C1　E14 燈頭組</text>
+<text x="112" y="94.2" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.3" fill="#1b1a17" text-anchor="start" font-weight="400">C2　燈管</text>
+<text x="112" y="101" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.3" fill="#1b1a17" text-anchor="start" font-weight="400">C3　底座外殼</text>
+<text x="112" y="107.8" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.3" fill="#1b1a17" text-anchor="start" font-weight="400">C4　EVA 保護墊</text>
+<text x="112" y="114.6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.3" fill="#1b1a17" text-anchor="start" font-weight="400">C5　電源線組</text>
+<text x="156" y="101" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#9a5a28" text-anchor="end" font-weight="600">5 張</text>
+<line x1="109" y1="12" x2="109" y2="120" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.45"/>
+<text x="4" y="130" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3a3833" text-anchor="start" font-weight="400">先把這七張各自畫完，再決定怎麼排進圖框 —— 排版是最後一步，不是第一步。</text></svg></div>
+  <figcaption><b>外觀、構造、細部是三個不同的問題。</b>外觀回答「它長什麼樣、多大」，構造回答「它由幾個零件組成、怎麼接」，細部回答「每一個零件各自是什麼形狀」。三個問題要用三組不同的圖來回答，一張圖講不完。</figcaption></figure>
+</section>
+
+<section>
+  <h2>02　清單</h2>
+  <p class="sub">這盞燈的七張圖，各自要畫什麼</p>
+  <div class="tw"><table>
+    <thead><tr><th>層級</th><th>編號</th><th>圖名</th><th>需要的視圖</th><th>建議比例</th><th>這張圖要標什麼</th></tr></thead>
+    <tbody><tr><td>外觀</td><td class="id">A1</td><td class="nm">整體外觀圖</td><td>俯視＋正視＋剖視 A–A</td><td class="sc">1:2</td><td>整體淨尺寸：總高、底座外徑</td></tr><tr><td>構造</td><td class="id">B1</td><td class="nm">組合爆炸圖</td><td>等角圖，沿軸線展開</td><td class="sc">1:4</td><td>件號球標 ①–⑤，不標尺寸</td></tr><tr><td>細部</td><td class="id">C1</td><td class="nm">E14 燈頭組</td><td>正視＋剖視</td><td class="sc">1:1</td><td>各段高度、外徑、E14 規格</td></tr><tr><td>細部</td><td class="id">C2</td><td class="nm">燈管</td><td>正視＋端視或剖視</td><td class="sc">1:1</td><td>實長、外徑、壁厚（需折斷）</td></tr><tr><td>細部</td><td class="id">C3</td><td class="nm">底座外殼</td><td>俯視＋全剖</td><td class="sc">1:1</td><td>外徑、高、圓角、壁厚</td></tr><tr><td>細部</td><td class="id">C4</td><td class="nm">EVA 保護墊</td><td>俯視＋厚度</td><td class="sc">1:1</td><td>外徑、內徑、厚度 t</td></tr><tr><td>細部</td><td class="id">C5</td><td class="nm">電源線組</td><td>展開示意</td><td class="sc">1:10</td><td>全長、開關位置（需折斷）</td></tr></tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>03　視圖數量</h2>
+  <p class="sub">不是每個零件都要三個視圖</p>
+  <figure><div class="plate"><svg viewBox="0 0 166 98" role="img" aria-label="判斷視圖數量：迴轉體轉九十度後正側視圖相同，側視那一格改畫剖視圖；非迴轉體才需要真正的三視圖" preserveAspectRatio="xMidYMid meet"><text x="4" y="10" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="3.2" fill="#1f1e1b" text-anchor="start" font-weight="400">要畫幾個視圖，先轉九十度看看</text>
+<rect x="14" y="24" width="16" height="34" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<line x1="22" y1="20" x2="22" y2="62" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<text x="22" y="68" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.3" fill="#45423c" text-anchor="middle" font-weight="400">正視</text>
+<text x="38" y="43" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="5" fill="#3f6b4a" text-anchor="middle" font-weight="700">=</text>
+<rect x="46" y="24" width="16" height="34" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<line x1="54" y1="20" x2="54" y2="62" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<text x="54" y="68" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.3" fill="#45423c" text-anchor="middle" font-weight="400">側視</text>
+<text x="4" y="80" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#1b1a17" text-anchor="start" font-weight="600">迴轉體　轉九十度看起來一樣</text>
+<text x="4" y="85.6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#45423c" text-anchor="start" font-weight="400">側視圖沒有新資訊 —— 那一格改畫剖視圖。</text>
+<text x="4" y="91.2" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#9a5a28" text-anchor="start" font-weight="400">這盞燈的五個零件全部是迴轉體。</text>
+<polyline points="84,24 100,24 100,48 112,48 112,58 84,58" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="98" y="68" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.3" fill="#45423c" text-anchor="middle" font-weight="400">正視</text>
+<text x="120" y="43" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="5" fill="#9a3b28" text-anchor="middle" font-weight="700">≠</text>
+<rect x="130" y="24" width="18" height="34" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<line x1="139" y1="48" x2="148" y2="48" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<text x="139" y="68" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.3" fill="#45423c" text-anchor="middle" font-weight="400">側視</text>
+<text x="84" y="80" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#1b1a17" text-anchor="start" font-weight="600">非迴轉體　兩個方向不一樣</text>
+<text x="84" y="85.6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#45423c" text-anchor="start" font-weight="400">這種才真的需要三個視圖。</text></svg></div>
+  <figcaption><b>「三視圖」的意思是「把這個零件講清楚所需要的那幾個視圖」，不是「一定要畫三個」。</b>迴轉體轉九十度之後看起來一樣，側視圖畫出來和正視圖完全相同，那一格等於空白 —— 把它換成剖視圖，才真的多講了一件事。這盞燈的五個零件全部是迴轉體，所以每一張細部圖都是「一個外觀視圖＋一個剖視圖」。</figcaption></figure>
+</section>
+
+<section>
+  <h2>04　規矩</h2>
+  <p class="sub">準備階段的五條</p>
+  <ol class="rules"><li><b>一張圖一張紙</b><span>A4 方格紙，一張只畫一件事。不要一開始就想塞進 A3 —— 塞不下的時候整張要重畫。</span></li><li><b>比例各自決定</b><span>每張圖用最適合它自己的比例，比例註記寫在那張圖旁邊，跟著圖走。統一比例是排版階段才要煩惱的事。</span></li><li><b>尺寸當場標完</b><span>畫完立刻標。等到排版再回頭補，一定會漏，而且那時你已經忘記哪個數字是怎麼來的。</span></li><li><b>先不要畫圖框和標題欄</b><span>那是排版階段的事。現在畫了，等一下還是要重畫。</span></li><li><b>每張圖寫編號</b><span>在角落寫 A1、C3 這種編號。七張圖攤在桌上時，這是唯一分得出誰是誰的方法。</span></li></ol>
+  <p class="next"><b>排版留到最後。</b>七張都畫完之後才開始想：哪幾張放同一張 A3、彼此怎麼對齊、比例要不要統一、圖框與標題欄怎麼配。那時候你手上有全部的材料，排一次就會好。</p>
+</section>
+
+<section>
+  <h2>05　進度</h2>
+  <p class="sub">畫完一張勾一張</p>
+  <ul class="todo"><li>A1　整體外觀圖</li><li>B1　組合爆炸圖</li><li>C1　E14 燈頭組</li><li>C2　燈管</li><li>C3　底座外殼</li><li>C4　EVA 保護墊</li><li>C5　電源線組</li></ul>
+</section>
+
+<footer>
+  零件分項依 IKEA STRÅLA 桌燈底座（204.279.78）的公告材質表。底座內部的配重件無法由外觀觀察，不列入細部圖；若要繪製，須在圖上註明「推定」。
+</footer>
+</div>
+
+</body></html>

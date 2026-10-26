@@ -1,0 +1,493 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>折斷線圖例｜AD290B 設計製圖與 AI 表現法</title>
+<meta name="robots" content="index,follow">
+</head><body>
+
+<meta name="claude:viewport-fit-sides" content="cover">
+
+<style>
+/* layout: a reference sheet — the rule stated once, then shown drawn */
+:root{
+  --desk:#edebe3; --rule:#c8c3b4; --ink:#23221f; --ink-soft:#5e5a52;
+  --flag:#9a5a28; --bad:#9a3b28; --good:#3f6b4a; --cardbg:#e9e6dc;
+  --f-text:"Noto Sans TC","Hiragino Sans","Microsoft JhengHei",system-ui,sans-serif;
+  --f-data:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --desk:#191815; --rule:#3f3c35; --ink:#eae7de; --ink-soft:#a39d90;
+  --flag:#d9975c; --bad:#dd8064; --good:#86b394; --cardbg:#e9e6dc; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --desk:#191815; --rule:#3f3c35; --ink:#eae7de; --ink-soft:#a39d90;
+  --flag:#d9975c; --bad:#dd8064; --good:#86b394; --cardbg:#e9e6dc; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--desk);color:var(--ink);font-family:var(--f-text);line-height:1.68;margin:0}
+.wrap{max-width:1080px;margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:30px 60px}
+header{border-bottom:1.5px solid var(--ink);padding-bottom:16px}
+.stamp{font-family:var(--f-data);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--flag);margin:0 0 8px}
+h1{font-size:clamp(1.4rem,1.05rem + 1.5vw,2rem);font-weight:700;margin:0;text-wrap:balance}
+header p{margin:12px 0 0;color:var(--ink-soft);font-size:.92rem;max-width:62ch}
+header p b{color:var(--ink);font-weight:500}
+section{margin-top:46px}
+h2{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--flag);
+   font-family:var(--f-data);font-weight:600;margin:0 0 4px}
+h2 + .sub{margin:0 0 20px;font-size:1.06rem;font-weight:700}
+.grid{display:grid;gap:20px}
+.g3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(360px,1fr))}
+.card{margin:0;min-width:0}
+.plate{background:var(--cardbg);border:1px solid var(--rule);padding:10px 12px}
+.plate svg{display:block;width:100%;height:auto}
+figcaption{padding-top:9px}
+figcaption b{display:block;font-size:.92rem;font-weight:700}
+figcaption span{display:block;font-size:.8rem;color:var(--ink-soft);margin-top:3px}
+.wide .plate{padding:14px 16px}
+.wide .plate svg{max-width:620px;margin:0 auto}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1px;
+  background:var(--rule);border:1px solid var(--rule)}
+.two > div{background:var(--desk);padding:18px 20px;min-width:0}
+.two h3{margin:0 0 10px;font-size:.92rem;font-weight:700}
+.two h3 em{font-style:normal;font-family:var(--f-data);font-size:.7rem;letter-spacing:.1em;
+  margin-right:8px}
+.two.ok h3 em{color:var(--good)} .two.no h3 em{color:var(--bad)}
+.two ul{margin:0;padding-left:1.1em;font-size:.84rem;color:var(--ink-soft)}
+.two li{margin-bottom:7px}
+footer{margin-top:50px;padding-top:16px;border-top:1px solid var(--rule);
+  font-size:.76rem;color:var(--ink-soft);max-width:72ch}
+a{color:var(--flag);text-underline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><pattern id="tH" width="1.5" height="1.5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="1.5" height="1.5" fill="#f4f2ec"/><line x1="0.75" y1="0" x2="0.75" y2="1.5" stroke="#5a5750" stroke-width="0.18"/></pattern></defs></svg>
+<div class="wrap">
+<header>
+  <p class="stamp">設計圖學與表現法 · 折斷線</p>
+  <h1>折斷線怎麼畫</h1>
+  <p>折斷線不是為了省紙。它的用途是把中間沒有資訊的一段省掉，<b>讓兩端可以用更大的比例畫出來，而兩端的相對位置完全不變</b> —— 讀圖的人仍然知道這是同一個零件、哪一端接哪一端。燈具長寬比大，幾乎每一張都用得到。</p>
+</header>
+
+<section>
+  <h2>01　為什麼</h2>
+  <p class="sub">不是省空間，是換比例</p>
+  <figure class="card wide"><div class="plate"><svg viewBox="0 0 116 104" role="img" aria-label="折斷的理由：同一根 378mm 燈管，不折斷只能用 1:10 畫、管壁消失；折斷後可用 1:3，壁厚與接頭都看得見" preserveAspectRatio="xMidYMid meet"><text x="4" y="11" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="3.2" fill="#1f1e1b" text-anchor="start" font-weight="400">同一根燈管，兩種畫法</text>
+<rect x="16" y="20" width="1.6" height="60" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.35"/>
+<text x="8" y="88" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.6" fill="#1f1e1b" text-anchor="start" font-weight="400">1:10　不折斷</text>
+<text x="4" y="94" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">為了塞進圖幅只好縮小比例，</text>
+<text x="4" y="98.6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">管壁與接頭細節全部消失。</text>
+<line x1="19.5" y1="20" x2="31.8" y2="20" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="19.5" y1="80" x2="31.8" y2="80" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="30" y1="20" x2="30" y2="80" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="30,20 29.38,22.2 30.62,22.2" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="30,80 30.62,77.8 29.38,77.8" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<g transform="translate(28.7,50) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3a3833" text-anchor="middle" font-weight="400">378</text></g>
+<rect x="68.5" y="20" width="7" height="24" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="68.5" y1="20" x2="68.5" y2="44" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="75.5" y1="20" x2="75.5" y2="44" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="68.5" y1="20" x2="75.5" y2="20" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="69.3" y1="20" x2="69.3" y2="44" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="74.7" y1="20" x2="74.7" y2="44" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<rect x="68.5" y="56" width="7" height="24" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="68.5" y1="56" x2="68.5" y2="80" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="75.5" y1="56" x2="75.5" y2="80" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="68.5" y1="80" x2="75.5" y2="80" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="69.3" y1="56" x2="69.3" y2="80" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="74.7" y1="56" x2="74.7" y2="80" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<path d="M 67 44 C 69 41.6, 70.5 41.6, 72 44 C 73.5 46.4, 75 46.4, 77 44" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 67 56 C 69 53.6, 70.5 53.6, 72 56 C 73.5 58.4, 75 58.4, 77 56" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 69.3 44 C 70.38 42.6, 71.19 42.6, 72 44 C 72.81 45.4, 73.62 45.4, 74.7 44" fill="none" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round"/>
+<path d="M 69.3 56 C 70.38 54.6, 71.19 54.6, 72 56 C 72.81 57.4, 73.62 57.4, 74.7 56" fill="none" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round"/>
+<text x="60" y="88" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.6" fill="#1f1e1b" text-anchor="start" font-weight="400">1:3　折斷</text>
+<text x="56" y="94" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">省掉中間沒有資訊的一段，比例</text>
+<text x="56" y="98.6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">放大三倍，兩端相對位置不變。</text>
+<line x1="77" y1="20" x2="89.8" y2="20" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="77" y1="80" x2="89.8" y2="80" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="88" y1="20" x2="88" y2="80" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="88,20 87.38,22.2 88.62,22.2" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="88,80 88.62,77.8 87.38,77.8" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<g transform="translate(86.7,50) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3a3833" text-anchor="middle" font-weight="400">378</text></g>
+<text x="89.6" y="54" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">實長</text></svg></div><figcaption><b>左邊畫不出來的東西，右邊看得見</b><span>同一根 378mm 的燈管。不折斷，只能縮到 1:10，管壁和接頭全部消失；折斷之後可以用 1:3，兩端的相對位置一點都沒變，尺寸照樣標 378。</span></figcaption></figure>
+</section>
+
+<section>
+  <h2>02　符號</h2>
+  <p class="sub">斷面是什麼材料、什麼形狀，符號就不一樣</p>
+  <div class="grid g3"><figure class="card "><div class="plate"><svg viewBox="0 0 58 46" role="img" aria-label="中空圓管的折斷符號：外壁與內壁各一條 S 形曲線" preserveAspectRatio="xMidYMid meet"><rect x="21" y="6" width="16" height="14" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="21" y1="6" x2="21" y2="20" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="37" y1="6" x2="37" y2="20" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="21" y1="6" x2="37" y2="6" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="24.5" y1="6" x2="24.5" y2="20" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="33.5" y1="6" x2="33.5" y2="20" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<rect x="21" y="26" width="16" height="14" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="21" y1="26" x2="21" y2="40" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="37" y1="26" x2="37" y2="40" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="21" y1="40" x2="37" y2="40" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="24.5" y1="26" x2="24.5" y2="40" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="33.5" y1="26" x2="33.5" y2="40" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<path d="M 19.5 20 C 23.3 17.2, 26.15 17.2, 29 20 C 31.85 22.8, 34.7 22.8, 38.5 20" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 19.5 26 C 23.3 23.2, 26.15 23.2, 29 26 C 31.85 28.8, 34.7 28.8, 38.5 26" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 24.5 20 C 26.3 18.4, 27.65 18.4, 29 20 C 30.35 21.6, 31.7 21.6, 33.5 20" fill="none" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round"/>
+<path d="M 24.5 26 C 26.3 24.4, 27.65 24.4, 29 26 C 30.35 27.6, 31.7 27.6, 33.5 26" fill="none" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round"/>
+<text x="2" y="45" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">中空圓管：外壁一條、內壁一條</text></svg></div><figcaption><b>中空圓管</b><span>燈具最常用的一種。外壁一條 S 形、內壁一條 S 形，內壁那條就是在說「它是中空的」。漏畫就變成實心棒。</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 58 46" role="img" aria-label="實心圓桿的折斷符號：S 形曲線" preserveAspectRatio="xMidYMid meet"><rect x="22" y="6" width="14" height="14" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="22" y1="6" x2="22" y2="20" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="36" y1="6" x2="36" y2="20" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="22" y1="6" x2="36" y2="6" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<rect x="22" y="26" width="14" height="14" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="22" y1="26" x2="22" y2="40" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="36" y1="26" x2="36" y2="40" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="22" y1="40" x2="36" y2="40" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<path d="M 20.5 20 C 23.9 17.2, 26.45 17.2, 29 20 C 31.55 22.8, 34.1 22.8, 37.5 20" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 20.5 26 C 23.9 23.2, 26.45 23.2, 29 26 C 31.55 28.8, 34.1 28.8, 37.5 26" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<text x="2" y="45" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">實心圓桿：一條 S 形曲線</text></svg></div><figcaption><b>實心圓桿</b><span>一條 S 形曲線貫穿整個斷面。和中空管的差別只在有沒有內壁那條線。</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 58 46" role="img" aria-label="矩形斷面的折斷符號：徒手畫的波浪線" preserveAspectRatio="xMidYMid meet"><rect x="18" y="6" width="22" height="14" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="18" y1="6" x2="18" y2="20" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="40" y1="6" x2="40" y2="20" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="18" y1="6" x2="40" y2="6" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<rect x="18" y="26" width="22" height="14" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="18" y1="26" x2="18" y2="40" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="40" y1="26" x2="40" y2="40" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="18" y1="40" x2="40" y2="40" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<polyline points="16,20 17.083,20.421 18.167,20.778 19.25,21.016 20.333,21.1 21.417,21.016 22.5,20.778 23.583,20.421 24.667,20 25.75,19.579 26.833,19.222 27.917,18.984 29,18.9 30.083,18.984 31.167,19.222 32.25,19.579 33.333,20 34.417,20.421 35.5,20.778 36.583,21.016 37.667,21.1 38.75,21.016 39.833,20.778 40.917,20.421 42,20" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="16,26 17.083,26.421 18.167,26.778 19.25,27.016 20.333,27.1 21.417,27.016 22.5,26.778 23.583,26.421 24.667,26 25.75,25.579 26.833,25.222 27.917,24.984 29,24.9 30.083,24.984 31.167,25.222 32.25,25.579 33.333,26 34.417,26.421 35.5,26.778 36.583,27.016 37.667,27.1 38.75,27.016 39.833,26.778 40.917,26.421 42,26" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="2" y="45" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">矩形斷面：徒手波浪線</text></svg></div><figcaption><b>矩形斷面</b><span>徒手畫的波浪線，不用尺。板材、方管、型材都用這個。</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 58 46" role="img" aria-label="木材的折斷符號：鋸齒線" preserveAspectRatio="xMidYMid meet"><rect x="18" y="6" width="22" height="14" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="18" y1="6" x2="18" y2="20" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="40" y1="6" x2="40" y2="20" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="18" y1="6" x2="40" y2="6" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<rect x="18" y="26" width="22" height="14" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="18" y1="26" x2="18" y2="40" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="40" y1="26" x2="40" y2="40" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="18" y1="40" x2="40" y2="40" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<polyline points="16,20 19.25,21.6 25.75,18.4 32.25,21.6 38.75,18.4 42,20" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round" stroke-linejoin="miter"/>
+<polyline points="16,26 19.25,27.6 25.75,24.4 32.25,27.6 38.75,24.4 42,26" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round" stroke-linejoin="miter"/>
+<text x="2" y="45" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">木材：鋸齒線</text></svg></div><figcaption><b>木材</b><span>鋸齒線。這是材料的慣例符號，看到鋸齒就知道是木頭。</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 58 46" role="img" aria-label="超長等斷面件的折斷符號：直線加 Z 字彎折" preserveAspectRatio="xMidYMid meet"><rect x="19" y="6" width="20" height="14" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="19" y1="6" x2="19" y2="20" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="39" y1="6" x2="39" y2="20" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="19" y1="6" x2="39" y2="6" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<rect x="19" y="26" width="20" height="14" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="19" y1="26" x2="19" y2="40" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="39" y1="26" x2="39" y2="40" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="19" y1="40" x2="39" y2="40" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<polyline points="17,20 26,20 28,17.6 30,22.4 32,20 41,20" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="17,26 26,26 28,23.6 30,28.4 32,26 41,26" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="2" y="45" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">超長等斷面件：Z 字折斷線（可用尺）</text></svg></div><figcaption><b>超長等斷面件</b><span>Z 字折斷線，可以用尺畫。很長的桿件、型鋼、導軌用這個，比波浪線乾淨。</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 64 46" role="img" aria-label="錐形件的折斷：折斷處兩端的直徑都必須標註" preserveAspectRatio="xMidYMid meet"><polyline points="20,6 38,6 35,20 23,20" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="24.6,26 33.4,26 31,40 27,40" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 23 20 C 25.4 18, 27.2 18, 29 20 C 30.8 22, 32.6 22, 35 20" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 24.6 26 C 26.36 24.4, 27.68 24.4, 29 26 C 30.32 27.6, 31.64 27.6, 33.4 26" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<polyline points="35.6,13 44,10 46,10" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="35.6,13 37.88,12.844 37.463,11.676" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="46.9" y="10.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.1" fill="#3a3833" text-anchor="start" font-weight="400">Ø18</text>
+<polyline points="32.2,33 42,36 44,36" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="32.2,33 34.122,34.237 34.485,33.051" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="44.9" y="36.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.1" fill="#3a3833" text-anchor="start" font-weight="400">Ø9</text>
+<text x="2" y="45" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">錐形件：折斷處兩端直徑都要標</text></svg></div><figcaption><b>錐形件</b><span>錐度件折斷後看不出變化，所以折斷處的兩端直徑都必須標出來，否則資訊就掉了。</span></figcaption></figure></div>
+</section>
+
+<section>
+  <h2>03　畫法</h2>
+  <p class="sub">四個要點</p>
+  <figure class="card wide"><div class="plate"><svg viewBox="0 0 116 98" role="img" aria-label="折斷線的四個畫法要點：線粗、超出輪廓、省略段短、兩端對稱" preserveAspectRatio="xMidYMid meet"><text x="4" y="11" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="3.2" fill="#1f1e1b" text-anchor="start" font-weight="400">四個要點</text>
+<rect x="32" y="20" width="16" height="22" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="32" y1="20" x2="32" y2="42" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="48" y1="20" x2="48" y2="42" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="32" y1="20" x2="48" y2="20" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="35.5" y1="20" x2="35.5" y2="42" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="44.5" y1="20" x2="44.5" y2="42" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<rect x="32" y="52" width="16" height="26" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="32" y1="52" x2="32" y2="78" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="48" y1="52" x2="48" y2="78" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="32" y1="78" x2="48" y2="78" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="35.5" y1="52" x2="35.5" y2="78" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="44.5" y1="52" x2="44.5" y2="78" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<path d="M 30.5 42 C 34.3 39.1, 37.15 39.1, 40 42 C 42.85 44.9, 45.7 44.9, 49.5 42" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 30.5 52 C 34.3 49.1, 37.15 49.1, 40 52 C 42.85 54.9, 45.7 54.9, 49.5 52" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 35.5 42 C 37.3 40.3, 38.65 40.3, 40 42 C 41.35 43.7, 42.7 43.7, 44.5 42" fill="none" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round"/>
+<path d="M 35.5 52 C 37.3 50.3, 38.65 50.3, 40 52 C 41.35 53.7, 42.7 53.7, 44.5 52" fill="none" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round"/>
+<polyline points="30.4,42.8 28,34 26,34" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="30.4,42.8 30.419,40.514 29.223,40.841" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="25.1" y="34.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="end" font-weight="400">① 細實線</text>
+<text x="26" y="38.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="1.95" fill="#3a3833" text-anchor="end" font-weight="400">0.18–0.25，和尺寸線同粗</text>
+<polyline points="49.6,51.4 60,44 62,44" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="49.6,51.4 51.752,50.63 51.033,49.619" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="62.9" y="44.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.3" fill="#3a3833" text-anchor="start" font-weight="400">② 兩端略為超出輪廓</text>
+<text x="62" y="48" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="1.9" fill="#3a3833" text-anchor="start" font-weight="400">各約 1–2mm，看得出是斷面</text>
+<line x1="30" y1="42" x2="24.2" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="30" y1="52" x2="24.2" y2="52" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="26" y1="42" x2="26" y2="52" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="26,42 25.38,44.2 26.62,44.2" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="26,52 26.62,49.8 25.38,49.8" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<g transform="translate(24.7,47) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.6" fill="#3a3833" text-anchor="middle" font-weight="400">③</text></g>
+<text x="4" y="62" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.3" fill="#3a3833" text-anchor="start" font-weight="400">③ 省略段只留小縫，</text>
+<text x="4" y="66.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.3" fill="#3a3833" text-anchor="start" font-weight="400">　 兩端要靠近。</text>
+<polyline points="40,65 58,70 60,70" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="40,65 41.954,66.186 42.286,64.991" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="60.9" y="70.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.3" fill="#3a3833" text-anchor="start" font-weight="400">④ 兩端符號方向對稱</text>
+<text x="60" y="74" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="1.9" fill="#3a3833" text-anchor="start" font-weight="400">像同一刀切出來的</text>
+<text x="4" y="92" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.3" fill="#3a3833" text-anchor="start" font-weight="400">折斷面本身不畫剖面線 —— 除非這個視圖本來就是剖視圖。</text></svg></div><figcaption><b>線粗、超出、省略段、對稱</b><span>折斷面本身不畫剖面線 —— 除非這個視圖本來就是剖視圖。折斷線也不是剖切線，兩者不要混用。</span></figcaption></figure>
+</section>
+
+<section>
+  <h2>04　常見錯誤</h2>
+  <p class="sub">由嚴重到輕微</p>
+  <div class="grid g2"><figure class="card "><div class="plate"><svg viewBox="0 0 112 72" role="img" aria-label="錯誤對照：折斷後兩段必須保持對正，中心線貫通" preserveAspectRatio="xMidYMid meet"><line x1="56" y1="5" x2="56" y2="69" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.35"/>
+<g stroke="#9a3b28" stroke-width="0.8" stroke-linecap="round"><line x1="5.1" y1="7.1" x2="8.9" y2="10.9"/><line x1="8.9" y1="7.1" x2="5.1" y2="10.9"/></g>
+<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">折斷後兩段沒對正</text>
+<polyline points="61,9 62.4,10.6 65.2,7" fill="none" stroke="#3f6b4a" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="68" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3f6b4a" text-anchor="start" font-weight="400">中心線貫穿省略段</text>
+<g transform="translate(2,0)"><rect x="19.5" y="16" width="13" height="16" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="19.5" y1="16" x2="19.5" y2="32" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="32.5" y1="16" x2="32.5" y2="32" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="19.5" y1="16" x2="32.5" y2="16" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="22.5" y1="16" x2="22.5" y2="32" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="29.5" y1="16" x2="29.5" y2="32" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<rect x="25.5" y="38" width="13" height="18" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="25.5" y1="38" x2="25.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="38.5" y1="38" x2="38.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="25.5" y1="56" x2="38.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="28.5" y1="38" x2="28.5" y2="56" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="35.5" y1="38" x2="35.5" y2="56" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<path d="M 18 32 C 21.2 29.4, 23.6 29.4, 26 32 C 28.4 34.6, 30.8 34.6, 34 32" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 24 38 C 27.2 35.4, 29.6 35.4, 32 38 C 34.4 40.6, 36.8 40.6, 40 38" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="26" y1="12" x2="26" y2="33" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<line x1="32" y1="37" x2="32" y2="60" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<text x="0" y="66" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">兩段錯開，投影關係就斷了。</text></g>
+<g transform="translate(58,0)"><rect x="19.5" y="16" width="13" height="16" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="19.5" y1="16" x2="19.5" y2="32" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="32.5" y1="16" x2="32.5" y2="32" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="19.5" y1="16" x2="32.5" y2="16" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="22.5" y1="16" x2="22.5" y2="32" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="29.5" y1="16" x2="29.5" y2="32" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<rect x="19.5" y="38" width="13" height="18" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="19.5" y1="38" x2="19.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="32.5" y1="38" x2="32.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="19.5" y1="56" x2="32.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="22.5" y1="38" x2="22.5" y2="56" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="29.5" y1="38" x2="29.5" y2="56" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<path d="M 17.75 32 C 21.05 29.8, 23.525 29.8, 26 32 C 28.475 34.2, 30.95 34.2, 34.25 32" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 17.75 38 C 21.05 35.8, 23.525 35.8, 26 38 C 28.475 40.2, 30.95 40.2, 34.25 38" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 22.5 32 C 23.9 30.24, 24.95 30.24, 26 32 C 27.05 33.76, 28.1 33.76, 29.5 32" fill="none" stroke="#1f1e1b" stroke-width="0.16" stroke-linecap="round"/>
+<path d="M 22.5 38 C 23.9 36.24, 24.95 36.24, 26 38 C 27.05 39.76, 28.1 39.76, 29.5 38" fill="none" stroke="#1f1e1b" stroke-width="0.16" stroke-linecap="round"/>
+<line x1="26" y1="12" x2="26" y2="60" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<text x="0" y="66" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">中心線貫通，兩端相對位置不變。</text></g></svg></div><figcaption><b>折斷後兩段沒對正</b><span>折斷線最重要的一條規則。兩段必須在同一條中心線上，中心線還要貫穿省略段 —— 這樣讀圖的人才知道那是同一個零件。</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 112 72" role="img" aria-label="錯誤對照：折斷後的尺寸應標實際全長" preserveAspectRatio="xMidYMid meet"><line x1="56" y1="5" x2="56" y2="69" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.35"/>
+<g stroke="#9a3b28" stroke-width="0.8" stroke-linecap="round"><line x1="5.1" y1="7.1" x2="8.9" y2="10.9"/><line x1="8.9" y1="7.1" x2="5.1" y2="10.9"/></g>
+<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">標圖上量到的長度</text>
+<polyline points="61,9 62.4,10.6 65.2,7" fill="none" stroke="#3f6b4a" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="68" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3f6b4a" text-anchor="start" font-weight="400">標零件的實際全長</text>
+<g transform="translate(2,0)"><rect x="19.5" y="16" width="13" height="16" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="19.5" y1="16" x2="19.5" y2="32" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="32.5" y1="16" x2="32.5" y2="32" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="19.5" y1="16" x2="32.5" y2="16" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="22.5" y1="16" x2="22.5" y2="32" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="29.5" y1="16" x2="29.5" y2="32" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<rect x="19.5" y="38" width="13" height="18" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="19.5" y1="38" x2="19.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="32.5" y1="38" x2="32.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="19.5" y1="56" x2="32.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="22.5" y1="38" x2="22.5" y2="56" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="29.5" y1="38" x2="29.5" y2="56" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<path d="M 17.75 32 C 21.05 29.8, 23.525 29.8, 26 32 C 28.475 34.2, 30.95 34.2, 34.25 32" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 17.75 38 C 21.05 35.8, 23.525 35.8, 26 38 C 28.475 40.2, 30.95 40.2, 34.25 38" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 22.5 32 C 23.9 30.24, 24.95 30.24, 26 32 C 27.05 33.76, 28.1 33.76, 29.5 32" fill="none" stroke="#1f1e1b" stroke-width="0.16" stroke-linecap="round"/>
+<path d="M 22.5 38 C 23.9 36.24, 24.95 36.24, 26 38 C 27.05 39.76, 28.1 39.76, 29.5 38" fill="none" stroke="#1f1e1b" stroke-width="0.16" stroke-linecap="round"/>
+<line x1="34" y1="16" x2="43.8" y2="16" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="34" y1="56" x2="43.8" y2="56" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="42" y1="16" x2="42" y2="56" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="42,16 41.38,18.2 42.62,18.2" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="42,56 42.62,53.8 41.38,53.8" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<g transform="translate(40.7,36) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.6" fill="#3a3833" text-anchor="middle" font-weight="400">96</text></g>
+<text x="0" y="66" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">圖上量到的長度，不是零件的長度。</text></g>
+<g transform="translate(58,0)"><rect x="19.5" y="16" width="13" height="16" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="19.5" y1="16" x2="19.5" y2="32" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="32.5" y1="16" x2="32.5" y2="32" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="19.5" y1="16" x2="32.5" y2="16" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="22.5" y1="16" x2="22.5" y2="32" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="29.5" y1="16" x2="29.5" y2="32" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<rect x="19.5" y="38" width="13" height="18" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="19.5" y1="38" x2="19.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="32.5" y1="38" x2="32.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="19.5" y1="56" x2="32.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="22.5" y1="38" x2="22.5" y2="56" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="29.5" y1="38" x2="29.5" y2="56" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<path d="M 17.75 32 C 21.05 29.8, 23.525 29.8, 26 32 C 28.475 34.2, 30.95 34.2, 34.25 32" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 17.75 38 C 21.05 35.8, 23.525 35.8, 26 38 C 28.475 40.2, 30.95 40.2, 34.25 38" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 22.5 32 C 23.9 30.24, 24.95 30.24, 26 32 C 27.05 33.76, 28.1 33.76, 29.5 32" fill="none" stroke="#1f1e1b" stroke-width="0.16" stroke-linecap="round"/>
+<path d="M 22.5 38 C 23.9 36.24, 24.95 36.24, 26 38 C 27.05 39.76, 28.1 39.76, 29.5 38" fill="none" stroke="#1f1e1b" stroke-width="0.16" stroke-linecap="round"/>
+<line x1="34" y1="16" x2="43.8" y2="16" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="34" y1="56" x2="43.8" y2="56" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="42" y1="16" x2="42" y2="56" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="42,16 41.38,18.2 42.62,18.2" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="42,56 42.62,53.8 41.38,53.8" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<g transform="translate(40.7,36) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.6" fill="#3a3833" text-anchor="middle" font-weight="400">378</text></g>
+<text x="0" y="66" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">折斷只省畫，不省長度。</text></g></svg></div><figcaption><b>標圖上量到的長度</b><span>折斷省的是畫的工，不是零件的長度。尺寸一律標實際全長，這是最嚴重也最常見的錯誤。</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 112 72" role="img" aria-label="錯誤對照：中空圓管的折斷斷面畫法" preserveAspectRatio="xMidYMid meet"><line x1="56" y1="5" x2="56" y2="69" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.35"/>
+<g stroke="#9a3b28" stroke-width="0.8" stroke-linecap="round"><line x1="5.1" y1="7.1" x2="8.9" y2="10.9"/><line x1="8.9" y1="7.1" x2="5.1" y2="10.9"/></g>
+<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">中空管畫成實心斷面</text>
+<polyline points="61,9 62.4,10.6 65.2,7" fill="none" stroke="#3f6b4a" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="68" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3f6b4a" text-anchor="start" font-weight="400">外壁內壁各畫一條</text>
+<g transform="translate(2,0)"><rect x="19.5" y="16" width="13" height="16" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="19.5" y1="16" x2="19.5" y2="32" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="32.5" y1="16" x2="32.5" y2="32" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="19.5" y1="16" x2="32.5" y2="16" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="22.5" y1="16" x2="22.5" y2="32" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="29.5" y1="16" x2="29.5" y2="32" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<rect x="19.5" y="38" width="13" height="18" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="19.5" y1="38" x2="19.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="32.5" y1="38" x2="32.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="19.5" y1="56" x2="32.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="22.5" y1="38" x2="22.5" y2="56" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="29.5" y1="38" x2="29.5" y2="56" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<path d="M 18 32 C 21.2 29.4, 23.6 29.4, 26 32 C 28.4 34.6, 30.8 34.6, 34 32" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 18 38 C 21.2 35.4, 23.6 35.4, 26 38 C 28.4 40.6, 30.8 40.6, 34 38" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/></g>
+<g transform="translate(58,0)"><rect x="19.5" y="16" width="13" height="16" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="19.5" y1="16" x2="19.5" y2="32" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="32.5" y1="16" x2="32.5" y2="32" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="19.5" y1="16" x2="32.5" y2="16" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="22.5" y1="16" x2="22.5" y2="32" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="29.5" y1="16" x2="29.5" y2="32" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<rect x="19.5" y="38" width="13" height="18" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="19.5" y1="38" x2="19.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="32.5" y1="38" x2="32.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="19.5" y1="56" x2="32.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="22.5" y1="38" x2="22.5" y2="56" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="29.5" y1="38" x2="29.5" y2="56" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<path d="M 17.75 32 C 21.05 29.8, 23.525 29.8, 26 32 C 28.475 34.2, 30.95 34.2, 34.25 32" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 17.75 38 C 21.05 35.8, 23.525 35.8, 26 38 C 28.475 40.2, 30.95 40.2, 34.25 38" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 22.5 32 C 23.9 30.24, 24.95 30.24, 26 32 C 27.05 33.76, 28.1 33.76, 29.5 32" fill="none" stroke="#1f1e1b" stroke-width="0.16" stroke-linecap="round"/>
+<path d="M 22.5 38 C 23.9 36.24, 24.95 36.24, 26 38 C 27.05 39.76, 28.1 39.76, 29.5 38" fill="none" stroke="#1f1e1b" stroke-width="0.16" stroke-linecap="round"/>
+<text x="0" y="66" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">內壁那條線就是在說「它是中空的」。</text></g></svg></div><figcaption><b>中空管畫成實心</b><span>內壁那條 S 形不能省。省掉之後，圖面在說這是一根實心棒。</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 112 72" role="img" aria-label="錯誤對照：折斷省略段的長度" preserveAspectRatio="xMidYMid meet"><line x1="56" y1="5" x2="56" y2="69" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.35"/>
+<g stroke="#9a3b28" stroke-width="0.8" stroke-linecap="round"><line x1="5.1" y1="7.1" x2="8.9" y2="10.9"/><line x1="8.9" y1="7.1" x2="5.1" y2="10.9"/></g>
+<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">省略段留得太長</text>
+<polyline points="61,9 62.4,10.6 65.2,7" fill="none" stroke="#3f6b4a" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="68" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3f6b4a" text-anchor="start" font-weight="400">只留一道小縫</text>
+<g transform="translate(2,0)"><rect x="19.5" y="16" width="13" height="10" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="19.5" y1="16" x2="19.5" y2="26" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="32.5" y1="16" x2="32.5" y2="26" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="19.5" y1="16" x2="32.5" y2="16" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="22.5" y1="16" x2="22.5" y2="26" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="29.5" y1="16" x2="29.5" y2="26" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<rect x="19.5" y="48" width="13" height="8" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="19.5" y1="48" x2="19.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="32.5" y1="48" x2="32.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="19.5" y1="56" x2="32.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="22.5" y1="48" x2="22.5" y2="56" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="29.5" y1="48" x2="29.5" y2="56" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<path d="M 17.75 26 C 21.05 23.8, 23.525 23.8, 26 26 C 28.475 28.2, 30.95 28.2, 34.25 26" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 17.75 48 C 21.05 45.8, 23.525 45.8, 26 48 C 28.475 50.2, 30.95 50.2, 34.25 48" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 22.5 26 C 23.9 24.24, 24.95 24.24, 26 26 C 27.05 27.76, 28.1 27.76, 29.5 26" fill="none" stroke="#1f1e1b" stroke-width="0.16" stroke-linecap="round"/>
+<path d="M 22.5 48 C 23.9 46.24, 24.95 46.24, 26 48 C 27.05 49.76, 28.1 49.76, 29.5 48" fill="none" stroke="#1f1e1b" stroke-width="0.16" stroke-linecap="round"/>
+<text x="0" y="66" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">留太長，讀圖的人會以為是兩個零件。</text></g>
+<g transform="translate(58,0)"><rect x="19.5" y="16" width="13" height="18" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="19.5" y1="16" x2="19.5" y2="34" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="32.5" y1="16" x2="32.5" y2="34" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="19.5" y1="16" x2="32.5" y2="16" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="22.5" y1="16" x2="22.5" y2="34" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="29.5" y1="16" x2="29.5" y2="34" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<rect x="19.5" y="40" width="13" height="16" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="19.5" y1="40" x2="19.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="32.5" y1="40" x2="32.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="19.5" y1="56" x2="32.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="22.5" y1="40" x2="22.5" y2="56" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="29.5" y1="40" x2="29.5" y2="56" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<path d="M 17.75 34 C 21.05 31.8, 23.525 31.8, 26 34 C 28.475 36.2, 30.95 36.2, 34.25 34" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 17.75 40 C 21.05 37.8, 23.525 37.8, 26 40 C 28.475 42.2, 30.95 42.2, 34.25 40" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 22.5 34 C 23.9 32.24, 24.95 32.24, 26 34 C 27.05 35.76, 28.1 35.76, 29.5 34" fill="none" stroke="#1f1e1b" stroke-width="0.16" stroke-linecap="round"/>
+<path d="M 22.5 40 C 23.9 38.24, 24.95 38.24, 26 40 C 27.05 41.76, 28.1 41.76, 29.5 40" fill="none" stroke="#1f1e1b" stroke-width="0.16" stroke-linecap="round"/>
+<text x="0" y="66" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">兩端靠近，一眼看出是同一根。</text></g></svg></div><figcaption><b>省略段留太長</b><span>兩端要靠近，只留一道小縫。留太長會被讀成兩個分開的零件。</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 112 72" role="img" aria-label="錯誤對照：折斷線的線粗" preserveAspectRatio="xMidYMid meet"><line x1="56" y1="5" x2="56" y2="69" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.35"/>
+<g stroke="#9a3b28" stroke-width="0.8" stroke-linecap="round"><line x1="5.1" y1="7.1" x2="8.9" y2="10.9"/><line x1="8.9" y1="7.1" x2="5.1" y2="10.9"/></g>
+<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">用輪廓線的粗細畫</text>
+<polyline points="61,9 62.4,10.6 65.2,7" fill="none" stroke="#3f6b4a" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="68" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3f6b4a" text-anchor="start" font-weight="400">用細實線畫</text>
+<g transform="translate(2,0)"><rect x="19.5" y="16" width="13" height="16" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="19.5" y1="16" x2="19.5" y2="32" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="32.5" y1="16" x2="32.5" y2="32" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="19.5" y1="16" x2="32.5" y2="16" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="22.5" y1="16" x2="22.5" y2="32" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="29.5" y1="16" x2="29.5" y2="32" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<rect x="19.5" y="38" width="13" height="18" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="19.5" y1="38" x2="19.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="32.5" y1="38" x2="32.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="19.5" y1="56" x2="32.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="22.5" y1="38" x2="22.5" y2="56" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="29.5" y1="38" x2="29.5" y2="56" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<path d="M 17.75 32 C 21.05 29.8, 23.525 29.8, 26 32 C 28.475 34.2, 30.95 34.2, 34.25 32" fill="none" stroke="#1f1e1b" stroke-width="0.85" stroke-linecap="round"/>
+<path d="M 17.75 38 C 21.05 35.8, 23.525 35.8, 26 38 C 28.475 40.2, 30.95 40.2, 34.25 38" fill="none" stroke="#1f1e1b" stroke-width="0.85" stroke-linecap="round"/>
+<path d="M 22.5 32 C 23.9 30.24, 24.95 30.24, 26 32 C 27.05 33.76, 28.1 33.76, 29.5 32" fill="none" stroke="#1f1e1b" stroke-width="0.16" stroke-linecap="round"/>
+<path d="M 22.5 38 C 23.9 36.24, 24.95 36.24, 26 38 C 27.05 39.76, 28.1 39.76, 29.5 38" fill="none" stroke="#1f1e1b" stroke-width="0.16" stroke-linecap="round"/></g>
+<g transform="translate(58,0)"><rect x="19.5" y="16" width="13" height="16" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="19.5" y1="16" x2="19.5" y2="32" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="32.5" y1="16" x2="32.5" y2="32" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="19.5" y1="16" x2="32.5" y2="16" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="22.5" y1="16" x2="22.5" y2="32" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="29.5" y1="16" x2="29.5" y2="32" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<rect x="19.5" y="38" width="13" height="18" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="19.5" y1="38" x2="19.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="32.5" y1="38" x2="32.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="19.5" y1="56" x2="32.5" y2="56" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="22.5" y1="38" x2="22.5" y2="56" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="29.5" y1="38" x2="29.5" y2="56" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<path d="M 17.75 32 C 21.05 29.8, 23.525 29.8, 26 32 C 28.475 34.2, 30.95 34.2, 34.25 32" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 17.75 38 C 21.05 35.8, 23.525 35.8, 26 38 C 28.475 40.2, 30.95 40.2, 34.25 38" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 22.5 32 C 23.9 30.24, 24.95 30.24, 26 32 C 27.05 33.76, 28.1 33.76, 29.5 32" fill="none" stroke="#1f1e1b" stroke-width="0.16" stroke-linecap="round"/>
+<path d="M 22.5 38 C 23.9 36.24, 24.95 36.24, 26 38 C 27.05 39.76, 28.1 39.76, 29.5 38" fill="none" stroke="#1f1e1b" stroke-width="0.16" stroke-linecap="round"/>
+<text x="0" y="66" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">折斷線和尺寸線同粗。</text></g></svg></div><figcaption><b>折斷線用粗線</b><span>折斷線是細實線，和尺寸線同粗。畫成輪廓線的粗細，會被誤認為是零件的邊。</span></figcaption></figure></div>
+</section>
+
+<section>
+  <h2>05　什麼該折</h2>
+  <p class="sub">折之前先問一次</p>
+  <div class="two ok"><div><h3><em>可以折</em>這些情況</h3><ul><li>等斷面的長桿、管、型材、板材</li><li>中間完全沒有特徵的一段</li><li>長寬比大到正常比例畫不下的件</li><li>同一個零件可以折斷不只一次，但每一次都要有理由</li></ul></div>
+  <div><h3><em>不要折</em>這些情況</h3><ul><li>長寬比不大的件 —— 折了反而難讀</li><li>中間有孔、螺紋、變徑的位置</li><li>錐度件（真要折，兩端直徑都要標）</li><li>燈頭、底座這種每一段都有資訊的部位</li></ul></div></div>
+</section>
+
+<section>
+  <h2>06　用在這盞燈上</h2>
+  <p class="sub">只有一段該折</p>
+  <figure class="card wide"><div class="plate"><svg viewBox="0 0 116 122" role="img" aria-label="燈具的折斷實例：只折等斷面的燈管，中心線貫通，總高與燈管長度仍標實際尺寸" preserveAspectRatio="xMidYMid meet"><text x="4" y="11" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="3.2" fill="#1f1e1b" text-anchor="start" font-weight="400">這盞燈該怎麼折</text>
+<line x1="40" y1="14" x2="40" y2="118" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<rect x="33" y="18" width="14" height="10" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<rect x="31" y="28" width="18" height="5" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<polyline points="33,33 36,44 44,44 47,33" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="37" y="44" width="6" height="18" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="37" y1="44" x2="37" y2="62" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="43" y1="44" x2="43" y2="62" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="37" y1="44" x2="43" y2="44" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="38.2" y1="44" x2="38.2" y2="62" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="41.8" y1="44" x2="41.8" y2="62" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<rect x="37" y="70" width="6" height="26" rx="0" fill="#f6f4ee" stroke="none" stroke-width="0.18"/>
+<line x1="37" y1="70" x2="37" y2="96" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="43" y1="70" x2="43" y2="96" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="37" y1="96" x2="43" y2="96" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round"/>
+<line x1="38.2" y1="70" x2="38.2" y2="96" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="41.8" y1="70" x2="41.8" y2="96" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<path d="M 35.5 62 C 37.3 59.9, 38.65 59.9, 40 62 C 41.35 64.1, 42.7 64.1, 44.5 62" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 35.5 70 C 37.3 67.9, 38.65 67.9, 40 70 C 41.35 72.1, 42.7 72.1, 44.5 70" fill="none" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<path d="M 38.2 62 C 38.92 60.8, 39.46 60.8, 40 62 C 40.54 63.2, 41.08 63.2, 41.8 62" fill="none" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round"/>
+<path d="M 38.2 70 C 38.92 68.8, 39.46 68.8, 40 70 C 40.54 71.2, 41.08 71.2, 41.8 70" fill="none" stroke="#1f1e1b" stroke-width="0.13" stroke-linecap="round"/>
+<rect x="14" y="96" width="52" height="8" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<line x1="67" y1="18" x2="79.8" y2="18" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="67" y1="104" x2="79.8" y2="104" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="78" y1="18" x2="78" y2="104" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="78,18 77.38,20.2 78.62,20.2" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="78,104 78.62,101.8 77.38,101.8" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<g transform="translate(76.7,61) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.8" fill="#3a3833" text-anchor="middle" font-weight="400">400</text></g>
+<text x="79.6" y="70" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">總高　實長</text>
+<line x1="44" y1="44" x2="69.8" y2="44" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="44" y1="96" x2="69.8" y2="96" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="68" y1="44" x2="68" y2="96" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="68,44 67.38,46.2 68.62,46.2" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="68,96 68.62,93.8 67.38,93.8" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<g transform="translate(66.7,70) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.6" fill="#3a3833" text-anchor="middle" font-weight="400">350</text></g>
+<text x="69.6" y="80" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.1" fill="#3a3833" text-anchor="start" font-weight="400">燈管　實長</text>
+<polyline points="44.5,66 56,60 58,60" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="44.5,66 46.737,65.532 46.164,64.433" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="58.9" y="60.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="start" font-weight="400">折在這裡</text>
+<text x="58" y="64.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="1.95" fill="#3a3833" text-anchor="start" font-weight="400">上下各留一段，中間省掉</text>
+<text x="4" y="112" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="start" font-weight="400">只折燈管那一段：它是等斷面、沒有資訊。燈頭和底座一刀都不能折。</text>
+<text x="4" y="117" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="start" font-weight="400">折完之後，總高與燈管長度都照實際尺寸標，不標圖上量到的。</text></svg></div><figcaption><b>只折燈管，不折燈頭和底座</b><span>燈管是等斷面、中間完全沒有特徵，折掉不損失任何資訊。燈頭和底座每一段都有形狀變化，一刀都不能折。</span></figcaption></figure>
+</section>
+
+<footer>
+  畫法依 CNS 3 工程製圖／ISO 128。本頁為教學用圖例；圖中尺寸為示意，實際值以各組自己量測與推算的結果為準。
+</footer>
+</div>
+
+</body></html>
