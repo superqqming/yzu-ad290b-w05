@@ -1,14 +1,16 @@
-# AD290B W05 學生頁（四語）
+# AD290B 學生網頁教材
 
-元智大學 AD290B「設計製圖與 AI 表現法」第 5 週學生用單檔網頁。
+元智大學 AD290B「設計製圖與 AI 表現法」學生用網頁教材。
 每一頁都是**單一自包含 HTML**：不使用外部 CDN、第三方字型、分析碼、cookie、登入或表單，不蒐集任何資料。
 
-## 兩個頁面
+## 主要入口
 
 | 頁面 | 網址 | 內容 |
 |---|---|---|
 | 圖學基本知識速查表 | <https://superqqming.github.io/yzu-ad290b-w05/> | 製圖流程、第一角法／第三角法、線型與尺寸標註、交件前六項自查 |
 | AI 平台比較 | <https://superqqming.github.io/yzu-ad290b-w05/ai-platform-comparison/> | 對話面／執行面／驗收面、三個平台生態、免費帳號決策路徑、Markdown 交接閉環、同一驗收門 |
+| W06 燈座量測與 AI 製圖教材 | <https://superqqming.github.io/yzu-ad290b-w05/w06/> | 尺寸標註、折斷線、繪圖清單、作業參考、完整圖面與推導 |
+| W08 燈具圖面規劃 | <https://superqqming.github.io/yzu-ad290b-w05/w08/> | 將 W06 教材整合為本週單一課堂路徑，包含版面、比例、整體、爆炸關係、零件與驗證 |
 
 ### 四語深連結
 
