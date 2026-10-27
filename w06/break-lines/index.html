@@ -41,7 +41,7 @@ h2{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fla
 h2 + .sub{margin:0 0 20px;font-size:1.06rem;font-weight:700}
 .grid{display:grid;gap:20px}
 .g3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
-.g2{grid-template-columns:repeat(auto-fit,minmax(360px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(360px,100%),1fr))}
 .card{margin:0;min-width:0}
 .plate{background:var(--cardbg);border:1px solid var(--rule);padding:10px 12px}
 .plate svg{display:block;width:100%;height:auto}
@@ -50,7 +50,7 @@ figcaption b{display:block;font-size:.92rem;font-weight:700}
 figcaption span{display:block;font-size:.8rem;color:var(--ink-soft);margin-top:3px}
 .wide .plate{padding:14px 16px}
 .wide .plate svg{max-width:620px;margin:0 auto}
-.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1px;
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:1px;
   background:var(--rule);border:1px solid var(--rule)}
 .two > div{background:var(--desk);padding:18px 20px;min-width:0}
 .two h3{margin:0 0 10px;font-size:.92rem;font-weight:700}

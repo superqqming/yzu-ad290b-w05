@@ -40,7 +40,7 @@ h2{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fla
 h2 + .sub{margin:0 0 20px;font-size:1.06rem;font-weight:700}
 .grid{display:grid;gap:20px}
 .g3{grid-template-columns:repeat(auto-fit,minmax(238px,1fr))}
-.g2{grid-template-columns:repeat(auto-fit,minmax(360px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(360px,100%),1fr))}
 .card{margin:0;min-width:0}
 .plate{background:var(--cardbg);border:1px solid var(--rule);padding:10px 12px}
 .plate svg{display:block;width:100%;height:auto}
@@ -49,7 +49,7 @@ figcaption b{display:block;font-size:.92rem;font-weight:700}
 figcaption span{display:block;font-size:.8rem;color:var(--ink-soft);margin-top:3px}
 .wide .plate{padding:14px 16px}
 ol.rules{margin:0;padding-left:0;list-style:none;counter-reset:r;
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(430px,1fr));gap:1px;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(430px,100%),1fr));gap:1px;
   background:var(--rule);border:1px solid var(--rule)}
 ol.rules li{counter-increment:r;background:var(--desk);padding:13px 16px 13px 44px;
   position:relative;font-size:.86rem;min-width:0}
