@@ -1,17 +1,19 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>製圖標註圖例｜AD290B 設計製圖與 AI 表現法</title>
-<meta name="robots" content="index,follow">
-</head><body>
-
-
-<meta name="claude:viewport-fit-sides" content="cover">
-
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>尺寸標註圖例｜Dimensioning by Example</title>
+<meta name="description" content="AD290B 尺寸標註圖例：尺寸的四個組成、九個符號、三種標註方式、八組常見錯誤對照、空間不夠時的畫法。繁中／English／Bahasa Indonesia／Tiếng Việt。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2032%2032%22%3E%3Crect%20width=%2232%22%20height=%2232%22%20rx=%227%22%20fill=%22%231f2421%22/%3E%3Cpath%20d=%22M6%2022h20%22%20stroke=%22%23f6f2ea%22%20stroke-width=%222.6%22%20stroke-linecap=%22round%22/%3E%3Cpath%20d=%22M6%2019v6M26%2019v6%22%20stroke=%22%23d8572a%22%20stroke-width=%222.6%22%20stroke-linecap=%22round%22/%3E%3Cpath%20d=%22M9%2013h14v-5H9z%22%20fill=%22none%22%20stroke=%22%23f6f2ea%22%20stroke-width=%222.2%22/%3E%3C/svg%3E">
 <style>
 /* layout: a reference sheet — every rule shown as a drawn example on a paper plate */
 :root{
   --desk:#edebe3; --rule:#c8c3b4; --ink:#23221f; --ink-soft:#5e5a52;
   --flag:#9a5a28; --bad:#9a3b28; --good:#3f6b4a; --cardbg:#e9e6dc;
-  --f-text:"Noto Sans TC","Hiragino Sans","Microsoft JhengHei",system-ui,sans-serif;
-  --f-data:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --f-text:"PingFang TC","Noto Sans TC","Hiragino Sans TC","Heiti TC",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+  --f-data:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --desk:#191815; --rule:#3f3c35; --ink:#eae7de; --ink-soft:#a39d90;
@@ -58,21 +60,47 @@ footer{margin-top:50px;padding-top:16px;border-top:1px solid var(--rule);
 a{color:var(--flag);text-underline-offset:3px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
-.langbar{position:sticky;top:0;z-index:50;display:flex;flex-wrap:wrap;gap:1px;
-  background:var(--rule);border-bottom:1px solid var(--rule);
-  padding:0;margin:0 0 2px;backdrop-filter:blur(6px)}
-.langbar button{appearance:none;border:0;cursor:pointer;flex:1 1 auto;
+.skip{position:absolute;left:-9999px;top:0;padding:10px 14px;background:var(--ink);
+  color:var(--desk);z-index:100}
+.skip:focus{left:0}
+.topbar{position:sticky;top:0;z-index:50;display:flex;flex-wrap:wrap;align-items:stretch;
+  gap:1px;background:var(--rule);border-bottom:1px solid var(--rule);margin:0 0 2px}
+.langbar{display:flex;flex-wrap:wrap;gap:1px;flex:1 1 auto;background:var(--rule)}
+.langbar button,.printbtn,.navbtn{appearance:none;border:0;cursor:pointer;
   min-height:44px;padding:11px 14px;background:var(--desk);color:var(--ink-soft);
   font-family:var(--f-data);font-size:.72rem;letter-spacing:.06em;
   transition:background .12s,color .12s}
-.langbar button:hover{color:var(--ink)}
+.langbar button{flex:1 1 auto}
+.langbar button:hover,.printbtn:hover,.navbtn:hover{color:var(--ink)}
 .langbar button[aria-pressed="true"]{background:var(--ink);color:var(--desk);font-weight:600}
-.langbar button:focus-visible{outline:2px solid var(--flag);outline-offset:-3px}
+.langbar button:focus-visible,.printbtn:focus-visible,.navbtn:focus-visible{outline:2px solid var(--flag);outline-offset:-3px}
+.draft{margin-top:14px;padding-top:12px;border-top:1px dashed var(--rule);
+  font-size:.74rem;color:var(--ink-soft);max-width:72ch}
+@page{size:A4;margin:14mm 12mm}
+@media print{
+  .topbar,.skip{display:none!important}
+  [data-lang][hidden]{display:none!important}
+  .card,figure,ol.rules li,.two>div{break-inside:avoid;page-break-inside:avoid}
+  h1,h2,.sub{break-after:avoid;page-break-after:avoid}
+  body{background:#fff;color:#000;line-height:1.5}
+  .wrap{max-width:none;padding:0;margin:0}
+  .card,.plate,ol.rules li,.two{background:#fff}
+  .grid{gap:10px}
+  .g3,.g2{grid-template-columns:repeat(2,1fr)}
+  .card.wide{grid-column:1/-1}
+  section{margin-top:22px}
+  header p,.draft,footer{font-size:.8rem}
+  svg{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
 </style>
+</head>
+<body>
+<a class="skip" href="#main">跳到主要內容</a>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><pattern id="tH" width="1.5" height="1.5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="1.5" height="1.5" fill="#f4f2ec"/><line x1="0.75" y1="0" x2="0.75" y2="1.5" stroke="#5a5750" stroke-width="0.18"/></pattern></defs></svg>
-<nav class="langbar" id="langbar" aria-label="Language / 語言"><button type="button" data-set="zh" aria-pressed="true">中文</button><button type="button" data-set="en" aria-pressed="false">English</button><button type="button" data-set="vi" aria-pressed="false">Tiếng Việt</button><button type="button" data-set="id" aria-pressed="false">Bahasa Indonesia</button></nav>
+<div class="topbar"><button type="button" class="navbtn" id="backbtn" hidden>← 返回</button><nav class="langbar" id="langbar" aria-label="Language / 語言"><button type="button" data-set="zh-Hant" lang="zh-Hant" aria-pressed="true">繁中</button><button type="button" data-set="en" lang="en" aria-pressed="false">English</button><button type="button" data-set="id" lang="id" aria-pressed="false">Bahasa Indonesia</button><button type="button" data-set="vi" lang="vi" aria-pressed="false">Tiếng Việt</button></nav><button type="button" class="printbtn" id="printbtn" title="列印時只會印出目前語言">列印／另存 PDF</button></div>
+<main id="main">
 
-<div class="wrap" data-lang="zh" lang="zh">
+<div class="wrap" data-lang="zh-Hant" lang="zh-Hant">
 <header>
   <p class="stamp">設計圖學與表現法 · 標註圖例</p>
   <h1>尺寸標註圖例</h1>
@@ -173,9 +201,9 @@ a{color:var(--flag);text-underline-offset:3px}
 <line x1="34" y1="15.5" x2="34" y2="24.5" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
 <circle cx="44" cy="20" r="3" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
 <line x1="44" y1="15.5" x2="44" y2="24.5" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
-<polyline points="26.1,17.9 34,10" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="26.1,17.9 34,6.4" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
 <polygon points="26.1,17.9 24.106,19.017 24.983,19.894" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="35" y="9.6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">4×Ø6</text></svg></div><figcaption><b>重複特徵 n×</b><span>相同的孔只標一個，前面加數量。標四次不會比較清楚。</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 56 42" role="img" aria-label="角度標註：以頂點為圓心的圓弧尺寸線標註 34 度" preserveAspectRatio="xMidYMid meet"><polyline points="8,34 46,34" fill="none" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="35" y="6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">4×Ø6</text></svg></div><figcaption><b>重複特徵 n×</b><span>相同的孔只標一個，前面加數量。標四次不會比較清楚。</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 56 42" role="img" aria-label="角度標註：以頂點為圓心的圓弧尺寸線標註 34 度" preserveAspectRatio="xMidYMid meet"><polyline points="8,34 46,34" fill="none" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
 <polyline points="8,34 41,12" fill="none" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M 32 34 A 24 24 0 0 0 28.3 20.9" fill="none" stroke="#3a3833" stroke-width="0.18"/>
 <polygon points="32,34 31.38,36.2 32.62,36.2" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
@@ -695,9 +723,9 @@ a{color:var(--flag);text-underline-offset:3px}
 <line x1="34" y1="15.5" x2="34" y2="24.5" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
 <circle cx="44" cy="20" r="3" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
 <line x1="44" y1="15.5" x2="44" y2="24.5" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
-<polyline points="26.1,17.9 34,10" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="26.1,17.9 34,6.4" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
 <polygon points="26.1,17.9 24.106,19.017 24.983,19.894" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="35" y="9.6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">4×Ø6</text></svg></div><figcaption><b>Repeated feature n×</b><span>Dimension one of a set of identical holes and put the count in front. Four labels are not clearer than one.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 56 42" role="img" aria-label="Angle. The dimension line for an angle is an arc centred on the vertex, not a straight line" preserveAspectRatio="xMidYMid meet"><polyline points="8,34 46,34" fill="none" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="35" y="6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">4×Ø6</text></svg></div><figcaption><b>Repeated feature n×</b><span>Dimension one of a set of identical holes and put the count in front. Four labels are not clearer than one.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 56 42" role="img" aria-label="Angle. The dimension line for an angle is an arc centred on the vertex, not a straight line" preserveAspectRatio="xMidYMid meet"><polyline points="8,34 46,34" fill="none" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
 <polyline points="8,34 41,12" fill="none" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M 32 34 A 24 24 0 0 0 28.3 20.9" fill="none" stroke="#3a3833" stroke-width="0.18"/>
 <polygon points="32,34 31.38,36.2 32.62,36.2" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
@@ -942,7 +970,7 @@ a{color:var(--flag);text-underline-offset:3px}
 <polygon points="6,44 10.4,42.9 10.4,45.1" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
 <polygon points="46,44 43.8,43.4 43.8,44.6" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
 <text x="26" y="42.6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">40</text>
-<text x="0" y="56" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">Witness lines touch the outline; arrowheads differ.</text></g>
+<text x="0" y="56" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">Lines touch the outline; arrows differ.</text></g>
 <g transform="translate(58,0)"><rect x="6" y="16" width="40" height="18" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
 <line x1="6" y1="35" x2="6" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
 <line x1="46" y1="35" x2="46" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
@@ -969,9 +997,9 @@ a{color:var(--flag);text-underline-offset:3px}
 <polygon points="46,14 45.38,16.2 46.62,16.2" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
 <polygon points="46,38 46.62,35.8 45.38,35.8" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
 <g transform="translate(44.7,26) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">24</text></g>
-<text x="0" y="56" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">Vertical dimensions always read from the right.</text></g></svg></div><figcaption><b>Value reads the wrong way</b><span>Horizontal dimensions read from below, vertical ones from the right. Those are the only two orientations on the sheet.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 112 60" role="img" aria-label="Wrong symbol. A complete circle takes Ø, an arc takes R. These two get swapped more than any others" preserveAspectRatio="xMidYMid meet"><line x1="56" y1="5" x2="56" y2="57" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.35"/>
+<text x="0" y="56" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">Vertical dimensions read from the right.</text></g></svg></div><figcaption><b>Value reads the wrong way</b><span>Horizontal dimensions read from below, vertical ones from the right. Those are the only two orientations on the sheet.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 112 60" role="img" aria-label="Wrong symbol. A complete circle takes Ø, an arc takes R. These two get swapped more than any others" preserveAspectRatio="xMidYMid meet"><line x1="56" y1="5" x2="56" y2="57" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.35"/>
 <g stroke="#9a3b28" stroke-width="0.8" stroke-linecap="round"><line x1="5.1" y1="7.1" x2="8.9" y2="10.9"/><line x1="8.9" y1="7.1" x2="5.1" y2="10.9"/></g>
-<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">R on a circle, Ø on an arc</text>
+<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">R circle, Ø arc</text>
 <polyline points="61,9 62.4,10.6 65.2,7" fill="none" stroke="#3f6b4a" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
 <text x="68" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3f6b4a" text-anchor="start" font-weight="400">Ø on a circle, R on an arc</text>
 <g transform="translate(2,0)"><circle cx="16" cy="24" r="10" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
@@ -1116,528 +1144,6 @@ a{color:var(--flag);text-underline-offset:3px}
 </div>
 
 
-<div class="wrap" data-lang="vi" lang="vi">
-<header>
-  <p class="stamp">Hình hoạ kỹ thuật · Ghi kích thước</p>
-  <h1>Ghi kích thước qua ví dụ</h1>
-  <p>Mỗi quy tắc ở đây đều được vẽ ra, không chỉ nói suông. Mục 2 là các ký hiệu; mục 4 là tám lỗi chiếm gần hết những gì người mới hay sai.</p>
-</header>
-
-<section>
-  <h2>01　Cấu tạo</h2>
-  <p class="sub">Một kích thước gồm bốn phần</p>
-  <figure class="card wide"><div class="plate"><svg viewBox="0 0 142 96" role="img" aria-label="Đường gióng, đường kích thước, mũi tên, trị số. Cả bốn đều bắt buộc. Bốn khoảng cách — khe a, phần vượt b, khoảng đầu tiên c, bước d — phải như nhau trên cả bản vẽ" preserveAspectRatio="xMidYMid meet"><text x="6" y="12" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="3.4" fill="#1f1e1b" text-anchor="start" font-weight="400">Cấu tạo của một kích thước</text>
-<rect x="50" y="18" width="56" height="22" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<line x1="72" y1="18" x2="72" y2="40" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="50" y1="41" x2="50" y2="55.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="72" y1="41" x2="72" y2="55.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="50" y1="54" x2="72" y2="54" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="50,54 52.2,54.62 52.2,53.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="72,54 69.8,53.38 69.8,54.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="61" y="52.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">22</text>
-<line x1="50" y1="41" x2="50" y2="64.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="106" y1="41" x2="106" y2="64.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="50" y1="63" x2="106" y2="63" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="50,63 52.2,63.62 52.2,62.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="106,63 103.8,62.38 103.8,63.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="78" y="61.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">56</text>
-<line x1="50" y1="40" x2="50" y2="41" stroke="#9a3b28" stroke-width="0.9" stroke-linecap="round"/>
-<line x1="50" y1="63" x2="50" y2="64.8" stroke="#9a3b28" stroke-width="0.9" stroke-linecap="round"/>
-<polyline points="50,40.6 42,46 40,46" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
-<polygon points="50,40.6 47.83,41.317 48.523,42.345" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="39.1" y="46.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="end" font-weight="400">a  khe hở ≈1</text>
-<polyline points="50,50 42,56 40,56" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
-<polygon points="50,50 47.868,50.824 48.612,51.816" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="39.1" y="56.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="end" font-weight="400">Đường gióng</text>
-<polyline points="50,64.2 42,72 40,72" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
-<polygon points="50,64.2 47.992,65.292 48.858,66.18" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="39.1" y="72.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="end" font-weight="400">b  nhô ra ≈2</text>
-<polyline points="63,51.4 74,46 76,46" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
-<polygon points="63,51.4 65.248,50.987 64.702,49.874" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="76.9" y="46.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="start" font-weight="400">Trị số</text>
-<polyline points="90,63 96,73 98,73" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
-<polygon points="90,63 90.6,65.205 91.664,64.567" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="98.9" y="73.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="start" font-weight="400">Đường kích thước</text>
-<polyline points="106,63 110,80 112,80" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
-<polygon points="106,63 105.9,65.284 107.107,65" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="112.9" y="80.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="start" font-weight="400">Mũi tên</text>
-<line x1="107" y1="40" x2="115.8" y2="40" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="107" y1="54" x2="115.8" y2="54" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="114" y1="40" x2="114" y2="54" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="114,40 113.38,42.2 114.62,42.2" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="114,54 114.62,51.8 113.38,51.8" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<g transform="translate(112.7,47) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="middle" font-weight="400">c ≈10</text></g>
-<line x1="107" y1="54" x2="125.8" y2="54" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="107" y1="63" x2="125.8" y2="63" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="124" y1="54" x2="124" y2="63" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="124,54 123.38,56.2 124.62,56.2" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="124,63 124.62,60.8 123.38,60.8" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<g transform="translate(122.7,58.5) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="middle" font-weight="400">d ≈7</text></g>
-<text x="6" y="90" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="start" font-weight="400">Giữ a b c d như nhau trên cả bản vẽ. Kích thước nhỏ ở trong, lớn ở ngoài; không được cắt nhau.</text></svg></div><figcaption><b>Đường gióng, đường kích thước, mũi tên, trị số</b><span>Cả bốn đều bắt buộc. Bốn khoảng cách — khe a, phần vượt b, khoảng đầu tiên c, bước d — phải như nhau trên cả bản vẽ.</span></figcaption></figure>
-</section>
-
-<section>
-  <h2>02　Ký hiệu</h2>
-  <p class="sub">Chín ký hiệu luôn phải dùng</p>
-  <div class="grid g3"><figure class="card "><div class="plate"><svg viewBox="0 0 56 42" role="img" aria-label="Đường kính Ø. Vòng tròn, hình trụ và lỗ luôn ghi đường kính, không ghi bán kính. Mỗi phần tử chỉ ghi một lần, trên hình chiếu nào cũng được" preserveAspectRatio="xMidYMid meet"><circle cx="22" cy="20" r="12" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<line x1="6" y1="20" x2="38" y2="20" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
-<line x1="22" y1="4" x2="22" y2="36" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
-<line x1="6.6" y1="20" x2="37.4" y2="20" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="10,20 7.8,19.38 7.8,20.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="34,20 36.2,20.62 36.2,19.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="22" y="18.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">Ø24</text></svg></div><figcaption><b>Đường kính Ø</b><span>Vòng tròn, hình trụ và lỗ luôn ghi đường kính, không ghi bán kính. Mỗi phần tử chỉ ghi một lần, trên hình chiếu nào cũng được.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 56 42" role="img" aria-label="Bán kính R. Cung tròn ghi bán kính. Mũi tên đi từ tâm ra cung, tâm được đánh dấu bằng hai đường tâm cắt nhau" preserveAspectRatio="xMidYMid meet"><polyline points="8,34 8,16" fill="none" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M 8 16 A 14 14 0 0 1 22 2" fill="none" stroke="#1f1e1b" stroke-width="0.5"/>
-<polyline points="22,2 44,2" fill="none" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
-<line x1="22" y1="16" x2="22" y2="6" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
-<line x1="12" y1="16" x2="28" y2="16" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
-<polyline points="31,25 22,16 12.1,6.1" fill="none" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round" stroke-linejoin="round"/>
-<polygon points="12.1,6.1 10.983,4.106 10.106,4.983" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="32" y="27.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">R14</text></svg></div><figcaption><b>Bán kính R</b><span>Cung tròn ghi bán kính. Mũi tên đi từ tâm ra cung, tâm được đánh dấu bằng hai đường tâm cắt nhau.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 56 42" role="img" aria-label="Mặt cầu SØ / SR. Mặt cầu thêm chữ S phía trước. Dùng SØ khi thấy cả quả cầu, SR khi chỉ thấy một phần" preserveAspectRatio="xMidYMid meet"><rect x="8" y="14" width="20" height="14" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<path d="M 28 14 A 7 7 0 0 1 28 28" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<line x1="4" y1="21" x2="40" y2="21" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
-<polyline points="32.95,16.05 40,9" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
-<polygon points="32.95,16.05 34.944,14.933 34.067,14.056" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="41" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">SØ14</text></svg></div><figcaption><b>Mặt cầu SØ / SR</b><span>Mặt cầu thêm chữ S phía trước. Dùng SØ khi thấy cả quả cầu, SR khi chỉ thấy một phần.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 56 42" role="img" aria-label="Hình vuông □. Mặt cắt vuông chỉ cần một hình chiếu: thêm □ trước trị số là đủ, không cần vẽ hướng thứ hai" preserveAspectRatio="xMidYMid meet"><rect x="14" y="8" width="22" height="22" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<line x1="14" y1="30" x2="36" y2="8" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
-<text x="40" y="21" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">□22</text>
-<polyline points="25,19 38,19" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
-<polygon points="25,19 22.8,18.38 22.8,19.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/></svg></div><figcaption><b>Hình vuông □</b><span>Mặt cắt vuông chỉ cần một hình chiếu: thêm □ trước trị số là đủ, không cần vẽ hướng thứ hai.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 56 42" role="img" aria-label="Chiều dày t. Tấm mỏng chỉ cần một hình chiếu: ghi chiều dày bằng t là bỏ được cả hình chiếu cạnh" preserveAspectRatio="xMidYMid meet"><rect x="8" y="16" width="36" height="4" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<polyline points="26,18 36,28" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
-<polygon points="26,18 24.883,16.006 24.006,16.883" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="37" y="30.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">t4</text></svg></div><figcaption><b>Chiều dày t</b><span>Tấm mỏng chỉ cần một hình chiếu: ghi chiều dày bằng t là bỏ được cả hình chiếu cạnh.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 56 42" role="img" aria-label="Vát mép C. Vát mép 45° ghi C kèm chiều dài. Nếu không phải 45°, phải ghi riêng chiều dài và góc" preserveAspectRatio="xMidYMid meet"><polyline points="8,34 8,12 14,6 44,6" fill="none" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
-<polyline points="8,12 14,12 14,6" fill="none" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2.4 1.4"/>
-<polyline points="11,9 26,22" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
-<polygon points="11,9 9.883,7.006 9.006,7.883" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="27" y="24.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">C6</text></svg></div><figcaption><b>Vát mép C</b><span>Vát mép 45° ghi C kèm chiều dài. Nếu không phải 45°, phải ghi riêng chiều dài và góc.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 56 42" role="img" aria-label="Phần tử lặp lại n×. Trong nhóm lỗ giống nhau chỉ ghi một lỗ và đặt số lượng phía trước. Ghi bốn lần không rõ hơn" preserveAspectRatio="xMidYMid meet"><rect x="6" y="8" width="44" height="24" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<circle cx="14" cy="20" r="3" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
-<line x1="14" y1="15.5" x2="14" y2="24.5" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
-<circle cx="24" cy="20" r="3" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
-<line x1="24" y1="15.5" x2="24" y2="24.5" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
-<circle cx="34" cy="20" r="3" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
-<line x1="34" y1="15.5" x2="34" y2="24.5" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
-<circle cx="44" cy="20" r="3" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
-<line x1="44" y1="15.5" x2="44" y2="24.5" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
-<polyline points="26.1,17.9 34,10" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
-<polygon points="26.1,17.9 24.106,19.017 24.983,19.894" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="35" y="9.6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">4×Ø6</text></svg></div><figcaption><b>Phần tử lặp lại n×</b><span>Trong nhóm lỗ giống nhau chỉ ghi một lỗ và đặt số lượng phía trước. Ghi bốn lần không rõ hơn.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 56 42" role="img" aria-label="Góc. Đường kích thước của góc là một cung tròn lấy đỉnh làm tâm, không phải đường thẳng" preserveAspectRatio="xMidYMid meet"><polyline points="8,34 46,34" fill="none" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
-<polyline points="8,34 41,12" fill="none" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M 32 34 A 24 24 0 0 0 28.3 20.9" fill="none" stroke="#3a3833" stroke-width="0.18"/>
-<polygon points="32,34 31.38,36.2 32.62,36.2" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="28.3,20.9 26.306,22.017 27.183,22.894" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="33" y="24" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">34°</text></svg></div><figcaption><b>Góc</b><span>Đường kích thước của góc là một cung tròn lấy đỉnh làm tâm, không phải đường thẳng.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 56 42" role="img" aria-label="Chiều dài cung ⌒. Đường kích thước đồng tâm với cung và trị số mang ký hiệu cung, để không bị đọc nhầm thành dây cung" preserveAspectRatio="xMidYMid meet"><path d="M 9.1 29.9 A 22 22 0 0 1 42.9 29.9" fill="none" stroke="#1f1e1b" stroke-width="0.5"/>
-<path d="M 5.3 26.6 A 27 27 0 0 1 46.7 26.6" fill="none" stroke="#3a3833" stroke-width="0.18"/>
-<line x1="9.1" y1="29.9" x2="5.3" y2="26.6" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="42.9" y1="29.9" x2="46.7" y2="26.6" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="5.3,26.6 7.189,25.314 6.24,24.516" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="46.7,26.6 45.76,24.516 44.811,25.314" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="26" y="15.6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">⌌40</text>
-<line x1="26" y1="44" x2="26" y2="40" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/></svg></div><figcaption><b>Chiều dài cung ⌒</b><span>Đường kích thước đồng tâm với cung và trị số mang ký hiệu cung, để không bị đọc nhầm thành dây cung.</span></figcaption></figure></div>
-</section>
-
-<section>
-  <h2>03　Cách ghi kích thước</h2>
-  <p class="sub">Cùng một hàng lỗ, ba cách ghi</p>
-  <div class="grid g3"><figure class="card "><div class="plate"><svg viewBox="0 0 96 58" role="img" aria-label="Ghi nối tiếp. Dễ đọc, từng đoạn nối nhau — nhưng sai số dồn về sau, đoạn cuối có thể lệch nhiều" preserveAspectRatio="xMidYMid meet"><rect x="8" y="12" width="80" height="16" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<circle cx="26" cy="20" r="3.2" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
-<line x1="26" y1="15" x2="26" y2="25" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
-<circle cx="48" cy="20" r="3.2" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
-<line x1="48" y1="15" x2="48" y2="25" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
-<circle cx="70" cy="20" r="3.2" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
-<line x1="70" y1="15" x2="70" y2="25" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
-<line x1="8" y1="29" x2="8" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="26" y1="29" x2="26" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="8" y1="38" x2="26" y2="38" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="8,38 10.2,38.62 10.2,37.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="26,38 23.8,37.38 23.8,38.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="17" y="36.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">18</text>
-<line x1="26" y1="29" x2="26" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="48" y1="29" x2="48" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="26" y1="38" x2="48" y2="38" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="26,38 28.2,38.62 28.2,37.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="48,38 45.8,37.38 45.8,38.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="37" y="36.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">22</text>
-<line x1="48" y1="29" x2="48" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="70" y1="29" x2="70" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="48" y1="38" x2="70" y2="38" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="48,38 50.2,38.62 50.2,37.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="70,38 67.8,37.38 67.8,38.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="59" y="36.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">22</text>
-<line x1="8" y1="29" x2="8" y2="47.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="88" y1="29" x2="88" y2="47.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="8" y1="46" x2="88" y2="46" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="8,46 10.2,46.62 10.2,45.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="88,46 85.8,45.38 85.8,46.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="48" y="44.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">80</text></svg></div><figcaption><b>Ghi nối tiếp</b><span>Dễ đọc, từng đoạn nối nhau — nhưng sai số dồn về sau, đoạn cuối có thể lệch nhiều.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 96 60" role="img" aria-label="Ghi song song từ chuẩn. Tất cả đo từ một chuẩn nên sai số không dồn lại. Dùng cho vị trí lỗ và những gì phải thẳng hàng" preserveAspectRatio="xMidYMid meet"><rect x="8" y="12" width="80" height="16" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<circle cx="26" cy="20" r="3.2" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
-<line x1="26" y1="15" x2="26" y2="25" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
-<circle cx="48" cy="20" r="3.2" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
-<line x1="48" y1="15" x2="48" y2="25" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
-<circle cx="70" cy="20" r="3.2" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
-<line x1="70" y1="15" x2="70" y2="25" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
-<line x1="8" y1="28" x2="8" y2="54" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
-<line x1="8" y1="29" x2="8" y2="37.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="26" y1="29" x2="26" y2="37.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="8" y1="36" x2="26" y2="36" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="8,36 10.2,36.62 10.2,35.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="26,36 23.8,35.38 23.8,36.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="17" y="34.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">18</text>
-<line x1="8" y1="29" x2="8" y2="44.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="48" y1="29" x2="48" y2="44.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="8" y1="43" x2="48" y2="43" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="8,43 10.2,43.62 10.2,42.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="48,43 45.8,42.38 45.8,43.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="28" y="41.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">40</text>
-<line x1="8" y1="29" x2="8" y2="51.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="70" y1="29" x2="70" y2="51.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="8" y1="50" x2="70" y2="50" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="8,50 10.2,50.62 10.2,49.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="70,50 67.8,49.38 67.8,50.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="39" y="48.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">62</text></svg></div><figcaption><b>Ghi song song từ chuẩn</b><span>Tất cả đo từ một chuẩn nên sai số không dồn lại. Dùng cho vị trí lỗ và những gì phải thẳng hàng.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 96 60" role="img" aria-label="Ghi theo toạ độ. Chỉ ghi trị số, không vẽ đường kích thước. Thường dùng cho tấm nhiều lỗ, nhìn gọn nhất" preserveAspectRatio="xMidYMid meet"><rect x="8" y="12" width="80" height="16" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<circle cx="26" cy="20" r="3.2" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
-<line x1="26" y1="15" x2="26" y2="25" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
-<circle cx="48" cy="20" r="3.2" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
-<line x1="48" y1="15" x2="48" y2="25" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
-<circle cx="70" cy="20" r="3.2" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
-<line x1="70" y1="15" x2="70" y2="25" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
-<line x1="8" y1="28" x2="8" y2="50" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
-<line x1="8" y1="28" x2="8" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<g transform="translate(9,44) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.7" fill="#3a3833" text-anchor="end" font-weight="400">0</text></g>
-<line x1="26" y1="28" x2="26" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<g transform="translate(27,44) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.7" fill="#3a3833" text-anchor="end" font-weight="400">18</text></g>
-<line x1="48" y1="28" x2="48" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<g transform="translate(49,44) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.7" fill="#3a3833" text-anchor="end" font-weight="400">40</text></g>
-<line x1="70" y1="28" x2="70" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<g transform="translate(71,44) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.7" fill="#3a3833" text-anchor="end" font-weight="400">62</text></g>
-<line x1="88" y1="28" x2="88" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<g transform="translate(89,44) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.7" fill="#3a3833" text-anchor="end" font-weight="400">80</text></g></svg></div><figcaption><b>Ghi theo toạ độ</b><span>Chỉ ghi trị số, không vẽ đường kích thước. Thường dùng cho tấm nhiều lỗ, nhìn gọn nhất.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 92 60" role="img" aria-label="Đường kính trên hình chiếu một nửa. Khi chi tiết đối xứng chỉ vẽ một nửa, đường kích thước vượt qua trục một đoạn và chỉ có mũi tên ở đầu có vật liệu. Đầu thiếu mũi tên chính là lời nói &quot;nửa này chưa vẽ&quot;" preserveAspectRatio="xMidYMid meet"><line x1="20" y1="10" x2="20" y2="46" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
-<rect x="20" y="16" width="48" height="14" rx="0" fill="url(#tH)" stroke="#1f1e1b" stroke-width="0.5"/>
-<line x1="68" y1="31" x2="68" y2="44" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="10" y1="42" x2="68" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="68,42 70.2,42.62 70.2,41.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="42" y="40.6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">Ø96</text>
-<text x="2" y="12" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.1" fill="#3a3833" text-anchor="start" font-weight="400">Trục</text>
-<text x="2" y="51" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">Nửa hình: đường kích thước vượt qua trục,</text>
-<text x="2" y="55.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">chỉ có mũi tên ở đầu có vật liệu.</text></svg></div><figcaption><b>Đường kính trên hình chiếu một nửa</b><span>Khi chi tiết đối xứng chỉ vẽ một nửa, đường kích thước vượt qua trục một đoạn và chỉ có mũi tên ở đầu có vật liệu. Đầu thiếu mũi tên chính là lời nói "nửa này chưa vẽ".</span></figcaption></figure></div>
-</section>
-
-<section>
-  <h2>04　Lỗi thường gặp</h2>
-  <p class="sub">Bên trái sai, bên phải đúng</p>
-  <div class="grid g2"><figure class="card "><div class="plate"><svg viewBox="0 0 112 60" role="img" aria-label="Ghi trùng kích thước. Một hình có bao nhiêu kích thước độc lập thì ghi đúng bấy nhiêu. Cái ghi thừa sớm muộn cũng chống lại các cái khác" preserveAspectRatio="xMidYMid meet"><line x1="56" y1="5" x2="56" y2="57" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.35"/>
-<g stroke="#9a3b28" stroke-width="0.8" stroke-linecap="round"><line x1="5.1" y1="7.1" x2="8.9" y2="10.9"/><line x1="8.9" y1="7.1" x2="5.1" y2="10.9"/></g>
-<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">Ghi cả ba kích thước</text>
-<polyline points="61,9 62.4,10.6 65.2,7" fill="none" stroke="#3f6b4a" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="68" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3f6b4a" text-anchor="start" font-weight="400">Chỉ ghi hai cái cần thiết</text>
-<g transform="translate(2,0)"><rect x="4" y="20" width="44" height="14" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<line x1="22" y1="20" x2="22" y2="34" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="4" y1="35" x2="4" y2="43.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="22" y1="35" x2="22" y2="43.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="4" y1="42" x2="22" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="4,42 6.2,42.62 6.2,41.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="22,42 19.8,41.38 19.8,42.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="13" y="40.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">18</text>
-<line x1="22" y1="35" x2="22" y2="43.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="48" y1="35" x2="48" y2="43.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="22" y1="42" x2="48" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="22,42 24.2,42.62 24.2,41.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="48,42 45.8,41.38 45.8,42.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="35" y="40.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">26</text>
-<line x1="4" y1="35" x2="4" y2="52.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="48" y1="35" x2="48" y2="52.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="4" y1="51" x2="48" y2="51" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="4,51 6.2,51.62 6.2,50.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="48,51 45.8,50.38 45.8,51.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="26" y="49.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">44</text></g>
-<g transform="translate(58,0)"><rect x="4" y="20" width="44" height="14" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<line x1="22" y1="20" x2="22" y2="34" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="4" y1="35" x2="4" y2="43.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="22" y1="35" x2="22" y2="43.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="4" y1="42" x2="22" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="4,42 6.2,42.62 6.2,41.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="22,42 19.8,41.38 19.8,42.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="13" y="40.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">18</text>
-<line x1="4" y1="35" x2="4" y2="52.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="48" y1="35" x2="48" y2="52.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="4" y1="51" x2="48" y2="51" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="4,51 6.2,51.62 6.2,50.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="48,51 45.8,50.38 45.8,51.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="26" y="49.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">44</text>
-<text x="0" y="58" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">Cái thứ ba suy ra từ hai cái kia.</text></g></svg></div><figcaption><b>Ghi trùng kích thước</b><span>Một hình có bao nhiêu kích thước độc lập thì ghi đúng bấy nhiêu. Cái ghi thừa sớm muộn cũng chống lại các cái khác.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 112 60" role="img" aria-label="Đường kích thước vẽ vào trong hình. Đường kích thước và đường gióng luôn nằm ngoài đường bao. Bên trong chỉ để đường bao và đường tâm" preserveAspectRatio="xMidYMid meet"><line x1="56" y1="5" x2="56" y2="57" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.35"/>
-<g stroke="#9a3b28" stroke-width="0.8" stroke-linecap="round"><line x1="5.1" y1="7.1" x2="8.9" y2="10.9"/><line x1="8.9" y1="7.1" x2="5.1" y2="10.9"/></g>
-<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">Đường kích thước nằm trong hình</text>
-<polyline points="61,9 62.4,10.6 65.2,7" fill="none" stroke="#3f6b4a" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="68" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3f6b4a" text-anchor="start" font-weight="400">Đường kích thước nằm ngoài hình</text>
-<g transform="translate(2,0)"><rect x="4" y="18" width="44" height="18" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<line x1="4" y1="27" x2="48" y2="27" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="4,27 6.2,27.62 6.2,26.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="48,27 45.8,26.38 45.8,27.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="26" y="25.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">44</text></g>
-<g transform="translate(58,0)"><rect x="4" y="18" width="44" height="18" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<line x1="4" y1="37" x2="4" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="48" y1="37" x2="48" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="4" y1="44" x2="48" y2="44" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="4,44 6.2,44.62 6.2,43.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="48,44 45.8,43.38 45.8,44.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="26" y="42.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">44</text></g></svg></div><figcaption><b>Đường kích thước vẽ vào trong hình</b><span>Đường kích thước và đường gióng luôn nằm ngoài đường bao. Bên trong chỉ để đường bao và đường tâm.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 112 60" role="img" aria-label="Thứ tự kích thước đảo lộn. Kích thước nhỏ đặt gần hình, kích thước lớn ra ngoài. Đảo thứ tự thì các đường gióng sẽ cắt nhau" preserveAspectRatio="xMidYMid meet"><line x1="56" y1="5" x2="56" y2="57" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.35"/>
-<g stroke="#9a3b28" stroke-width="0.8" stroke-linecap="round"><line x1="5.1" y1="7.1" x2="8.9" y2="10.9"/><line x1="8.9" y1="7.1" x2="5.1" y2="10.9"/></g>
-<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">Kích thước lớn ở trong, đường gióng cắt nhau</text>
-<polyline points="61,9 62.4,10.6 65.2,7" fill="none" stroke="#3f6b4a" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="68" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3f6b4a" text-anchor="start" font-weight="400">Nhỏ ở trong, lớn ở ngoài</text>
-<g transform="translate(2,0)"><rect x="4" y="20" width="44" height="14" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<line x1="22" y1="20" x2="22" y2="34" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="4" y1="35" x2="4" y2="43.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="48" y1="35" x2="48" y2="43.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="4" y1="42" x2="48" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="4,42 6.2,42.62 6.2,41.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="48,42 45.8,41.38 45.8,42.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="26" y="40.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">44</text>
-<line x1="4" y1="35" x2="4" y2="52.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="22" y1="35" x2="22" y2="52.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="4" y1="51" x2="22" y2="51" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="4,51 6.2,51.62 6.2,50.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="22,51 19.8,50.38 19.8,51.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="13" y="49.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">18</text></g>
-<g transform="translate(58,0)"><rect x="4" y="20" width="44" height="14" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<line x1="22" y1="20" x2="22" y2="34" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="4" y1="35" x2="4" y2="43.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="22" y1="35" x2="22" y2="43.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="4" y1="42" x2="22" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="4,42 6.2,42.62 6.2,41.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="22,42 19.8,41.38 19.8,42.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="13" y="40.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">18</text>
-<line x1="4" y1="35" x2="4" y2="52.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="48" y1="35" x2="48" y2="52.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="4" y1="51" x2="48" y2="51" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="4,51 6.2,51.62 6.2,50.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="48,51 45.8,50.38 45.8,51.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="26" y="49.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">44</text></g></svg></div><figcaption><b>Thứ tự kích thước đảo lộn</b><span>Kích thước nhỏ đặt gần hình, kích thước lớn ra ngoài. Đảo thứ tự thì các đường gióng sẽ cắt nhau.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 112 60" role="img" aria-label="Trị số bị đường gạch mặt cắt che. Trị số luôn ở lớp trên cùng: đường gạch mặt cắt và đường tâm phải ngắt để nhường chỗ" preserveAspectRatio="xMidYMid meet"><line x1="56" y1="5" x2="56" y2="57" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.35"/>
-<g stroke="#9a3b28" stroke-width="0.8" stroke-linecap="round"><line x1="5.1" y1="7.1" x2="8.9" y2="10.9"/><line x1="8.9" y1="7.1" x2="5.1" y2="10.9"/></g>
-<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">Trị số đè lên nét gạch mặt cắt</text>
-<polyline points="61,9 62.4,10.6 65.2,7" fill="none" stroke="#3f6b4a" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="68" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3f6b4a" text-anchor="start" font-weight="400">Nét gạch ngắt quanh trị số</text>
-<g transform="translate(2,0)"><rect x="4" y="18" width="44" height="16" rx="0" fill="url(#tH)" stroke="#1f1e1b" stroke-width="0.5"/>
-<text x="26" y="28" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">24</text>
-<line x1="4" y1="26" x2="18" y2="26" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="34" y1="26" x2="48" y2="26" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="4,26 6.2,26.62 6.2,25.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="48,26 45.8,25.38 45.8,26.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/></g>
-<g transform="translate(58,0)"><rect x="4" y="18" width="44" height="16" rx="0" fill="url(#tH)" stroke="#1f1e1b" stroke-width="0.5"/>
-<rect x="18" y="22.6" width="16" height="5.4" rx="0" fill="#e9e6dc" stroke="none" stroke-width="0.18"/>
-<text x="26" y="28" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">24</text>
-<line x1="4" y1="26" x2="18" y2="26" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="34" y1="26" x2="48" y2="26" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="4,26 6.2,26.62 6.2,25.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="48,26 45.8,25.38 45.8,26.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="0" y="52" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">Nét gạch phải nhường chỗ cho trị số.</text></g></svg></div><figcaption><b>Trị số bị đường gạch mặt cắt che</b><span>Trị số luôn ở lớp trên cùng: đường gạch mặt cắt và đường tâm phải ngắt để nhường chỗ.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 112 60" role="img" aria-label="Ghi kích thước trên đường nét đứt. Nét đứt biểu thị thứ không nhìn thấy nên không ghi kích thước lên đó. Nếu cần ghi thì phải cắt ra" preserveAspectRatio="xMidYMid meet"><line x1="56" y1="5" x2="56" y2="57" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.35"/>
-<g stroke="#9a3b28" stroke-width="0.8" stroke-linecap="round"><line x1="5.1" y1="7.1" x2="8.9" y2="10.9"/><line x1="8.9" y1="7.1" x2="5.1" y2="10.9"/></g>
-<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">Ghi kích thước trên nét đứt</text>
-<polyline points="61,9 62.4,10.6 65.2,7" fill="none" stroke="#3f6b4a" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="68" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3f6b4a" text-anchor="start" font-weight="400">Cắt ra rồi mới ghi kích thước</text>
-<g transform="translate(2,0)"><rect x="4" y="16" width="44" height="20" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<line x1="18" y1="16" x2="18" y2="36" stroke="#1f1e1b" stroke-width="0.3" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
-<line x1="34" y1="16" x2="34" y2="36" stroke="#1f1e1b" stroke-width="0.3" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
-<line x1="18" y1="37" x2="18" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="34" y1="37" x2="34" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="18" y1="44" x2="34" y2="44" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="18,44 20.2,44.62 20.2,43.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="34,44 31.8,43.38 31.8,44.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="26" y="42.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">16</text></g>
-<g transform="translate(58,0)"><rect x="4" y="16" width="14" height="20" rx="0" fill="url(#tH)" stroke="#1f1e1b" stroke-width="0.5"/>
-<rect x="34" y="16" width="14" height="20" rx="0" fill="url(#tH)" stroke="#1f1e1b" stroke-width="0.5"/>
-<line x1="18" y1="16" x2="34" y2="16" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="18" y1="36" x2="34" y2="36" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="18" y1="37" x2="18" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="34" y1="37" x2="34" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="18" y1="44" x2="34" y2="44" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="18,44 20.2,44.62 20.2,43.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="34,44 31.8,43.38 31.8,44.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="26" y="42.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">16</text>
-<text x="0" y="56" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">Không nhìn thấy thì phải cắt.</text></g></svg></div><figcaption><b>Ghi kích thước trên đường nét đứt</b><span>Nét đứt biểu thị thứ không nhìn thấy nên không ghi kích thước lên đó. Nếu cần ghi thì phải cắt ra.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 112 60" role="img" aria-label="Không có khe hở, mũi tên không đều. Để khoảng 1 mm giữa đường bao và đường gióng, cho đường gióng vượt đường kích thước khoảng 2 mm. Mọi mũi tên trên bản vẽ đều cùng kích thước" preserveAspectRatio="xMidYMid meet"><line x1="56" y1="5" x2="56" y2="57" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.35"/>
-<g stroke="#9a3b28" stroke-width="0.8" stroke-linecap="round"><line x1="5.1" y1="7.1" x2="8.9" y2="10.9"/><line x1="8.9" y1="7.1" x2="5.1" y2="10.9"/></g>
-<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">Không có khe hở, mũi tên không đều</text>
-<polyline points="61,9 62.4,10.6 65.2,7" fill="none" stroke="#3f6b4a" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="68" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3f6b4a" text-anchor="start" font-weight="400">Chừa khe hở, mũi tên đều nhau</text>
-<g transform="translate(2,0)"><rect x="6" y="16" width="40" height="18" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<line x1="6" y1="34" x2="6" y2="46" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="46" y1="34" x2="46" y2="46" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="6" y1="44" x2="46" y2="44" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="6,44 10.4,42.9 10.4,45.1" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="46,44 43.8,43.4 43.8,44.6" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="26" y="42.6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">40</text>
-<text x="0" y="56" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">Đường gióng dính vào đường bao; mũi tên to nhỏ khác nhau.</text></g>
-<g transform="translate(58,0)"><rect x="6" y="16" width="40" height="18" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<line x1="6" y1="35" x2="6" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="46" y1="35" x2="46" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="6" y1="44" x2="46" y2="44" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="6,44 8.2,44.62 8.2,43.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="46,44 43.8,43.38 43.8,44.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="26" y="42.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">40</text>
-<text x="0" y="56" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">Chừa khe hở 1 mm; mũi tên đều nhau.</text></g></svg></div><figcaption><b>Không có khe hở, mũi tên không đều</b><span>Để khoảng 1 mm giữa đường bao và đường gióng, cho đường gióng vượt đường kích thước khoảng 2 mm. Mọi mũi tên trên bản vẽ đều cùng kích thước.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 112 60" role="img" aria-label="Hướng đọc trị số sai. Kích thước ngang đọc từ phía dưới, kích thước dọc đọc từ phía phải. Cả bản vẽ chỉ có hai hướng này" preserveAspectRatio="xMidYMid meet"><line x1="56" y1="5" x2="56" y2="57" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.35"/>
-<g stroke="#9a3b28" stroke-width="0.8" stroke-linecap="round"><line x1="5.1" y1="7.1" x2="8.9" y2="10.9"/><line x1="8.9" y1="7.1" x2="5.1" y2="10.9"/></g>
-<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">Trị số đọc từ bên trái</text>
-<polyline points="61,9 62.4,10.6 65.2,7" fill="none" stroke="#3f6b4a" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="68" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3f6b4a" text-anchor="start" font-weight="400">Trị số đọc từ bên phải</text>
-<g transform="translate(2,0)"><rect x="14" y="14" width="24" height="24" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<line x1="38" y1="14" x2="48" y2="14" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="38" y1="38" x2="48" y2="38" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="46" y1="14" x2="46" y2="38" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="46,14 45.38,16.2 46.62,16.2" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="46,38 46.62,35.8 45.38,35.8" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<g transform="translate(47.4,26) rotate(90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">24</text></g></g>
-<g transform="translate(58,0)"><rect x="14" y="14" width="24" height="24" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<line x1="39" y1="14" x2="47.8" y2="14" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="39" y1="38" x2="47.8" y2="38" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="46" y1="14" x2="46" y2="38" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="46,14 45.38,16.2 46.62,16.2" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="46,38 46.62,35.8 45.38,35.8" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<g transform="translate(44.7,26) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">24</text></g>
-<text x="0" y="56" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">Kích thước thẳng đứng luôn đọc từ bên phải.</text></g></svg></div><figcaption><b>Hướng đọc trị số sai</b><span>Kích thước ngang đọc từ phía dưới, kích thước dọc đọc từ phía phải. Cả bản vẽ chỉ có hai hướng này.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 112 60" role="img" aria-label="Dùng sai ký hiệu. Vòng tròn trọn vẹn dùng Ø, cung tròn dùng R. Hai ký hiệu này bị đổi chỗ nhiều nhất" preserveAspectRatio="xMidYMid meet"><line x1="56" y1="5" x2="56" y2="57" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.35"/>
-<g stroke="#9a3b28" stroke-width="0.8" stroke-linecap="round"><line x1="5.1" y1="7.1" x2="8.9" y2="10.9"/><line x1="8.9" y1="7.1" x2="5.1" y2="10.9"/></g>
-<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">R cho vòng, Ø cho cung</text>
-<polyline points="61,9 62.4,10.6 65.2,7" fill="none" stroke="#3f6b4a" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="68" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3f6b4a" text-anchor="start" font-weight="400">Ø cho vòng, R cho cung</text>
-<g transform="translate(2,0)"><circle cx="16" cy="24" r="10" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<polyline points="23,17 32,10" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
-<polygon points="23,17 21.006,18.117 21.883,18.994" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="33" y="11" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">R10</text>
-<path d="M 4 44 A 12 12 0 0 1 16 38" fill="none" stroke="#1f1e1b" stroke-width="0.5"/>
-<text x="20" y="46" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">Ø24</text></g>
-<g transform="translate(58,0)"><circle cx="16" cy="24" r="10" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<line x1="2.6" y1="24" x2="29.4" y2="24" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="6,24 3.8,23.38 3.8,24.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="26,24 28.2,24.62 28.2,23.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="16" y="22.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">Ø20</text>
-<path d="M 4 44 A 12 12 0 0 1 16 38" fill="none" stroke="#1f1e1b" stroke-width="0.5"/>
-<polyline points="10,39.6 22,44" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
-<polygon points="10,39.6 11.117,41.594 11.994,40.717" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="23" y="45.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">R12</text></g></svg></div><figcaption><b>Dùng sai ký hiệu</b><span>Vòng tròn trọn vẹn dùng Ø, cung tròn dùng R. Hai ký hiệu này bị đổi chỗ nhiều nhất.</span></figcaption></figure></div>
-</section>
-
-<section>
-  <h2>05　Khi không đủ chỗ</h2>
-  <p class="sub">Ba cách xử lý</p>
-  <div class="grid g3"><figure class="card "><div class="plate"><svg viewBox="0 0 72 54" role="img" aria-label="Mũi tên hướng ra ngoài. Khi hai đường gióng quá sát nhau, đặt mũi tên ra ngoài và cho chúng chỉ vào" preserveAspectRatio="xMidYMid meet"><rect x="6" y="14" width="18" height="16" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<rect x="27" y="14" width="39" height="16" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<line x1="24" y1="30" x2="24" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="27" y1="30" x2="27" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="14" y1="40" x2="37" y2="40" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="24,40 21.8,39.38 21.8,40.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="27,40 29.2,40.62 29.2,39.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="25.5" y="38.2" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">3</text></svg></div><figcaption><b>Mũi tên hướng ra ngoài</b><span>Khi hai đường gióng quá sát nhau, đặt mũi tên ra ngoài và cho chúng chỉ vào.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 72 56" role="img" aria-label="Dẫn trị số ra ngoài. Khi ngay cả trị số cũng không đặt được, dùng đường dẫn kéo nó ra ngoài hình" preserveAspectRatio="xMidYMid meet"><rect x="6" y="14" width="18" height="16" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<rect x="27" y="14" width="39" height="16" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<line x1="24" y1="30" x2="24" y2="40" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="27" y1="30" x2="27" y2="40" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="18" y1="38" x2="33" y2="38" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="24,38 21.8,37.38 21.8,38.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="27,38 29.2,38.62 29.2,37.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polyline points="25.5,38 34,47" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="35" y="48.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">3</text></svg></div><figcaption><b>Dẫn trị số ra ngoài</b><span>Khi ngay cả trị số cũng không đặt được, dùng đường dẫn kéo nó ra ngoài hình.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 72 58" role="img" aria-label="Xếp so le. Với một dãy kích thước nhỏ, xếp trị số so le trên dưới để chúng không dính vào nhau" preserveAspectRatio="xMidYMid meet"><rect x="6" y="14" width="56" height="14" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
-<line x1="14" y1="14" x2="14" y2="28" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="22" y1="14" x2="22" y2="28" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="30" y1="14" x2="30" y2="28" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="38" y1="14" x2="38" y2="28" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="46" y1="14" x2="46" y2="28" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="54" y1="14" x2="54" y2="28" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="6" y1="29" x2="6" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="14" y1="29" x2="14" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="3" y1="38" x2="17" y2="38" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="6,38 3.8,37.38 3.8,38.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="14,38 16.2,38.62 16.2,37.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="10" y="36.8" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.6" fill="#3a3833" text-anchor="middle" font-weight="400">8</text>
-<line x1="14" y1="29" x2="14" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="22" y1="29" x2="22" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="11" y1="44" x2="25" y2="44" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="14,44 11.8,43.38 11.8,44.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="22,44 24.2,44.62 24.2,43.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="18" y="42.8" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.6" fill="#3a3833" text-anchor="middle" font-weight="400">8</text>
-<line x1="22" y1="29" x2="22" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="30" y1="29" x2="30" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="19" y1="38" x2="33" y2="38" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="22,38 19.8,37.38 19.8,38.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="30,38 32.2,38.62 32.2,37.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="26" y="36.8" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.6" fill="#3a3833" text-anchor="middle" font-weight="400">8</text>
-<line x1="30" y1="29" x2="30" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="38" y1="29" x2="38" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="27" y1="44" x2="41" y2="44" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="30,44 27.8,43.38 27.8,44.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="38,44 40.2,44.62 40.2,43.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="34" y="42.8" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.6" fill="#3a3833" text-anchor="middle" font-weight="400">8</text>
-<line x1="38" y1="29" x2="38" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="46" y1="29" x2="46" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="35" y1="38" x2="49" y2="38" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="38,38 35.8,37.38 35.8,38.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="46,38 48.2,38.62 48.2,37.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="42" y="36.8" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.6" fill="#3a3833" text-anchor="middle" font-weight="400">8</text>
-<line x1="46" y1="29" x2="46" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="54" y1="29" x2="54" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="43" y1="44" x2="57" y2="44" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="46,44 43.8,43.38 43.8,44.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="54,44 56.2,44.62 56.2,43.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="50" y="42.8" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.6" fill="#3a3833" text-anchor="middle" font-weight="400">8</text>
-<line x1="54" y1="29" x2="54" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="62" y1="29" x2="62" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="51" y1="38" x2="65" y2="38" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="54,38 51.8,37.38 51.8,38.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="62,38 64.2,38.62 64.2,37.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="58" y="36.8" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.6" fill="#3a3833" text-anchor="middle" font-weight="400">8</text></svg></div><figcaption><b>Xếp so le</b><span>Với một dãy kích thước nhỏ, xếp trị số so le trên dưới để chúng không dính vào nhau.</span></figcaption></figure></div>
-</section>
-
-<section>
-  <h2>06　Áp dụng lên chi tiết thật</h2>
-  <p class="sub">Tất cả từ năm mục đầu, trên một bản vẽ</p>
-  <figure class="card wide"><div class="plate"><svg viewBox="0 0 160 106" role="img" aria-label="Sáu loại ghi chú cùng xuất hiện. Mặt cắt toàn phần qua đế: đế được cắt dọc giữa và ta nhìn vào mặt cắt, nơi có gạch chéo là vật liệu bị cắt qua. Mỗi đường dẫn đều ghi tên chi tiết — ghi chú phải đọc hiểu được, chỉ có số thì chưa đủ" preserveAspectRatio="xMidYMid meet"><text x="5" y="12" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="3.3" fill="#1f1e1b" text-anchor="start" font-weight="400">Sáu kiểu ghi kích thước trên một bản vẽ</text>
-<text x="5" y="19" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="start" font-weight="400">Hình cắt toàn phần của đế — cắt dọc giữa, nhìn vào mặt cắt</text>
-<line x1="76" y1="32" x2="76" y2="78" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
-<polygon points="110.5,69.1 110.793,69.071 111.074,68.986 111.333,68.847 111.561,68.661 111.747,68.433 111.886,68.174 111.971,67.893 112,67.6 112,55.6 111.977,55.197 111.91,54.799 111.798,54.411 111.643,54.038 111.448,53.685 111.215,53.355 110.946,53.054 110.645,52.785 110.315,52.552 109.962,52.357 109.589,52.202 109.201,52.09 108.803,52.023 108.4,52 79,52 79,69.1 81.4,69.1 81.4,53.56 106.84,53.56 108.94,56.2 108.94,69.1" fill="url(#tH)" stroke="#1f1e1b" stroke-width="0.5" stroke-linejoin="round"/>
-<polygon points="78.52,66.4 79,66.4 79,40 78.52,40" fill="#1f1e1b" stroke="#1f1e1b" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="80.8,70 109,70 109,70.9 80.8,70.9" fill="#d4cfc1" stroke="#1f1e1b" stroke-width="0.18" stroke-linejoin="round"/>
-<polygon points="41.5,69.1 41.207,69.071 40.926,68.986 40.667,68.847 40.439,68.661 40.253,68.433 40.114,68.174 40.029,67.893 40,67.6 40,55.6 40.023,55.197 40.09,54.799 40.202,54.411 40.357,54.038 40.552,53.685 40.785,53.355 41.054,53.054 41.355,52.785 41.685,52.552 42.038,52.357 42.411,52.202 42.799,52.09 43.197,52.023 43.6,52 73,52 73,69.1 70.6,69.1 70.6,53.56 45.16,53.56 43.06,56.2 43.06,69.1" fill="url(#tH)" stroke="#1f1e1b" stroke-width="0.5" stroke-linejoin="round"/>
-<polygon points="73.48,66.4 73,66.4 73,40 73.48,40" fill="#1f1e1b" stroke="#1f1e1b" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="71.2,70 43,70 43,70.9 71.2,70.9" fill="#d4cfc1" stroke="#1f1e1b" stroke-width="0.18" stroke-linejoin="round"/>
-<line x1="40" y1="72.5" x2="40" y2="91.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="112" y1="72.5" x2="112" y2="91.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="40" y1="90" x2="112" y2="90" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="40,90 42.2,90.62 42.2,89.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="112,90 109.8,89.38 109.8,90.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="76" y="88.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">◆ Ø120</text>
-<line x1="39" y1="70" x2="28.2" y2="70" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="39" y1="52" x2="28.2" y2="52" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<line x1="30" y1="70" x2="30" y2="52" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
-<polygon points="30,52 29.38,54.2 30.62,54.2" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<polygon points="30,70 30.62,67.8 29.38,67.8" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<g transform="translate(28.7,61) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">◆ 30</text></g>
-<polyline points="79,43.6 104,30 106,30" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
-<polygon points="79,43.6 81.229,43.093 80.636,42.004" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="106.9" y="30.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="start" font-weight="400">Ống thép  Ø10 × t0,8</text>
-<text x="106" y="34.2" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="1.95" fill="#3a3833" text-anchor="start" font-weight="400">thành chỉ 0,8 mm — quá mỏng để vẽ</text>
-<text x="106" y="37.8" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="1.95" fill="#3a3833" text-anchor="start" font-weight="400">nên mặt cắt tô đặc theo quy định.</text>
-<polyline points="110.56,53.8 120,46 122,46" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
-<polygon points="110.56,53.8 112.651,52.877 111.861,51.921" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="122.9" y="46.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.6" fill="#3a3833" text-anchor="start" font-weight="400">R6</text>
-<text x="122" y="50" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="1.95" fill="#3a3833" text-anchor="start" font-weight="400">bo cạnh trên</text>
-<polyline points="111.1,61.6 120,62 122,62" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
-<polygon points="111.1,61.6 113.27,62.318 113.326,61.079" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="122.9" y="62.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="start" font-weight="400">Vỏ ABS  t2,6</text>
-<text x="122" y="66" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="1.95" fill="#3a3833" text-anchor="start" font-weight="400">dày 2,6 mm</text>
-<polyline points="55.6,70.48 40,84 38,84" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
-<polygon points="55.6,70.48 53.531,71.452 54.344,72.389" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="37.1" y="84.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="end" font-weight="400">Đệm EVA  t1,5</text>
-<text x="38" y="88" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="1.95" fill="#3a3833" text-anchor="end" font-weight="400">đệm chống trượt; EVA = vật liệu</text>
-<text x="5" y="100" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="start" font-weight="400">Phần gạch chéo là vật liệu bị cắt qua.  ◆ = trị số IKEA công bố; còn lại là suy ra.</text></svg></div><figcaption><b>Sáu loại ghi chú cùng xuất hiện</b><span>Mặt cắt toàn phần qua đế: đế được cắt dọc giữa và ta nhìn vào mặt cắt, nơi có gạch chéo là vật liệu bị cắt qua. Mỗi đường dẫn đều ghi tên chi tiết — ghi chú phải đọc hiểu được, chỉ có số thì chưa đủ.</span></figcaption></figure>
-</section>
-
-<section>
-  <h2>07　Tra nhanh</h2>
-  <p class="sub">Xem lại mười điều này trước khi nộp bản vẽ</p>
-  <ol class="rules"><li>Một hình có bao nhiêu kích thước độc lập thì ghi đúng bấy nhiêu — không thừa, không thiếu.</li><li>Mọi đường kích thước đều nằm ngoài đường bao: nhỏ ở gần, lớn ra xa.</li><li>Đường gióng cách đường bao khoảng 1 mm và vượt đường kích thước khoảng 2 mm.</li><li>Đường kích thước đầu tiên cách đường bao khoảng 10 mm, các đường sau cách nhau khoảng 7 mm.</li><li>Kích thước ngang đọc từ phía dưới, kích thước dọc đọc từ phía phải.</li><li>Trị số ở lớp trên cùng: đường nào gặp nó cũng phải ngắt.</li><li>Vòng tròn trọn Ø, cung R, mặt cầu thêm S, mặt cắt vuông □, tấm mỏng t, vát 45° là C.</li><li>Phần tử giống nhau chỉ ghi một lần, đặt số lượng phía trước dạng n×.</li><li>Không ghi kích thước trên nét đứt; nếu cần ghi thì cắt nó ra.</li><li>Kích thước tồn tại để chế tạo được chi tiết, không phải để ghi hết những gì bạn biết.</li></ol>
-</section>
-
-<footer>
-  Ký hiệu và quy ước theo CNS 3 / ISO 129. Tài liệu giảng dạy; đèn trong hình là đế đèn bàn IKEA STRÅLA. Tên sản phẩm và thương hiệu thuộc Inter IKEA Systems B.V.
-<p style="margin-top:10px">Bản tiếng Việt là bản dịch dùng trong lớp; khi có khác biệt, lấy bản tiếng Trung phồn thể và thuật ngữ do giảng viên chỉ định làm chuẩn.</p></footer>
-</div>
-
-
 <div class="wrap" data-lang="id" lang="id">
 <header>
   <p class="stamp">Gambar Teknik · Pengukuran</p>
@@ -1739,9 +1245,9 @@ a{color:var(--flag);text-underline-offset:3px}
 <line x1="34" y1="15.5" x2="34" y2="24.5" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
 <circle cx="44" cy="20" r="3" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
 <line x1="44" y1="15.5" x2="44" y2="24.5" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
-<polyline points="26.1,17.9 34,10" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="26.1,17.9 34,6.4" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
 <polygon points="26.1,17.9 24.106,19.017 24.983,19.894" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
-<text x="35" y="9.6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">4×Ø6</text></svg></div><figcaption><b>Fitur berulang n×</b><span>Dari sekumpulan lubang identik, ukur satu saja dan beri jumlahnya di depan. Empat label tidak lebih jelas.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 56 42" role="img" aria-label="Sudut. Garis ukuran sudut berupa busur yang berpusat di titik sudut, bukan garis lurus" preserveAspectRatio="xMidYMid meet"><polyline points="8,34 46,34" fill="none" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="35" y="6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">4×Ø6</text></svg></div><figcaption><b>Fitur berulang n×</b><span>Dari sekumpulan lubang identik, ukur satu saja dan beri jumlahnya di depan. Empat label tidak lebih jelas.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 56 42" role="img" aria-label="Sudut. Garis ukuran sudut berupa busur yang berpusat di titik sudut, bukan garis lurus" preserveAspectRatio="xMidYMid meet"><polyline points="8,34 46,34" fill="none" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
 <polyline points="8,34 41,12" fill="none" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M 32 34 A 24 24 0 0 0 28.3 20.9" fill="none" stroke="#3a3833" stroke-width="0.18"/>
 <polygon points="32,34 31.38,36.2 32.62,36.2" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
@@ -1902,7 +1408,7 @@ a{color:var(--flag);text-underline-offset:3px}
 <polygon points="48,44 45.8,43.38 45.8,44.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
 <text x="26" y="42.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">44</text></g></svg></div><figcaption><b>Garis ukuran di dalam kontur</b><span>Garis ukuran dan garis bantu selalu di luar kontur. Di dalamnya hanya ada kontur dan garis sumbu.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 112 60" role="img" aria-label="Urutan ukuran terbalik. Ukuran kecil paling dekat kontur, yang besar lebih ke luar. Bila urutannya dibalik, garis bantu akan saling memotong" preserveAspectRatio="xMidYMid meet"><line x1="56" y1="5" x2="56" y2="57" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.35"/>
 <g stroke="#9a3b28" stroke-width="0.8" stroke-linecap="round"><line x1="5.1" y1="7.1" x2="8.9" y2="10.9"/><line x1="8.9" y1="7.1" x2="5.1" y2="10.9"/></g>
-<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">Ukuran besar di dalam, garis bantu bersilangan</text>
+<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">Besar di dalam, garis bantu silang</text>
 <polyline points="61,9 62.4,10.6 65.2,7" fill="none" stroke="#3f6b4a" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
 <text x="68" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3f6b4a" text-anchor="start" font-weight="400">Kecil di dalam, besar di luar</text>
 <g transform="translate(2,0)"><rect x="4" y="20" width="44" height="14" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
@@ -1986,7 +1492,7 @@ a{color:var(--flag);text-underline-offset:3px}
 <polygon points="6,44 10.4,42.9 10.4,45.1" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
 <polygon points="46,44 43.8,43.4 43.8,44.6" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
 <text x="26" y="42.6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">40</text>
-<text x="0" y="56" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">Garis bantu menempel pada tepi; mata panah berbeda ukuran.</text></g>
+<text x="0" y="56" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">Garis bantu menempel; panah tak seragam.</text></g>
 <g transform="translate(58,0)"><rect x="6" y="16" width="40" height="18" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
 <line x1="6" y1="35" x2="6" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
 <line x1="46" y1="35" x2="46" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
@@ -2015,7 +1521,7 @@ a{color:var(--flag);text-underline-offset:3px}
 <g transform="translate(44.7,26) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">24</text></g>
 <text x="0" y="56" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">Ukuran vertikal selalu dibaca dari kanan.</text></g></svg></div><figcaption><b>Arah baca nilai salah</b><span>Ukuran horizontal dibaca dari bawah, yang vertikal dari kanan. Hanya dua arah itu di seluruh gambar.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 112 60" role="img" aria-label="Simbol salah. Lingkaran utuh memakai Ø, busur memakai R. Kedua simbol inilah yang paling sering tertukar" preserveAspectRatio="xMidYMid meet"><line x1="56" y1="5" x2="56" y2="57" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.35"/>
 <g stroke="#9a3b28" stroke-width="0.8" stroke-linecap="round"><line x1="5.1" y1="7.1" x2="8.9" y2="10.9"/><line x1="8.9" y1="7.1" x2="5.1" y2="10.9"/></g>
-<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">R lingkaran, Ø busur</text>
+<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">R bulat, Ø busur</text>
 <polyline points="61,9 62.4,10.6 65.2,7" fill="none" stroke="#3f6b4a" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
 <text x="68" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3f6b4a" text-anchor="start" font-weight="400">Ø lingkaran, R busur</text>
 <g transform="translate(2,0)"><circle cx="16" cy="24" r="10" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
@@ -2156,11 +1662,535 @@ a{color:var(--flag);text-underline-offset:3px}
 
 <footer>
   Simbol dan konvensi mengikuti CNS 3 / ISO 129. Materi ajar; lampu pada gambar adalah alas lampu meja IKEA STRÅLA. Nama produk dan merek milik Inter IKEA Systems B.V.
-<p style="margin-top:10px">Versi Bahasa Indonesia adalah terjemahan untuk keperluan kelas; bila ada perbedaan, acuan utama adalah versi Tionghoa tradisional dan istilah yang ditetapkan pengajar.</p></footer>
+<div class="draft">Teks Bahasa Indonesia pada halaman ini adalah terjemahan kerja untuk keperluan kelas; istilah teknis tetap mengikuti standar yang ditetapkan dosen.</div></footer>
 </div>
 
+
+<div class="wrap" data-lang="vi" lang="vi">
+<header>
+  <p class="stamp">Hình hoạ kỹ thuật · Ghi kích thước</p>
+  <h1>Ghi kích thước qua ví dụ</h1>
+  <p>Mỗi quy tắc ở đây đều được vẽ ra, không chỉ nói suông. Mục 2 là các ký hiệu; mục 4 là tám lỗi chiếm gần hết những gì người mới hay sai.</p>
+</header>
+
+<section>
+  <h2>01　Cấu tạo</h2>
+  <p class="sub">Một kích thước gồm bốn phần</p>
+  <figure class="card wide"><div class="plate"><svg viewBox="0 0 142 96" role="img" aria-label="Đường gióng, đường kích thước, mũi tên, trị số. Cả bốn đều bắt buộc. Bốn khoảng cách — khe a, phần vượt b, khoảng đầu tiên c, bước d — phải như nhau trên cả bản vẽ" preserveAspectRatio="xMidYMid meet"><text x="6" y="12" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="3.4" fill="#1f1e1b" text-anchor="start" font-weight="400">Cấu tạo của một kích thước</text>
+<rect x="50" y="18" width="56" height="22" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<line x1="72" y1="18" x2="72" y2="40" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="50" y1="41" x2="50" y2="55.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="72" y1="41" x2="72" y2="55.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="50" y1="54" x2="72" y2="54" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="50,54 52.2,54.62 52.2,53.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="72,54 69.8,53.38 69.8,54.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="61" y="52.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">22</text>
+<line x1="50" y1="41" x2="50" y2="64.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="106" y1="41" x2="106" y2="64.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="50" y1="63" x2="106" y2="63" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="50,63 52.2,63.62 52.2,62.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="106,63 103.8,62.38 103.8,63.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="78" y="61.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">56</text>
+<line x1="50" y1="40" x2="50" y2="41" stroke="#9a3b28" stroke-width="0.9" stroke-linecap="round"/>
+<line x1="50" y1="63" x2="50" y2="64.8" stroke="#9a3b28" stroke-width="0.9" stroke-linecap="round"/>
+<polyline points="50,40.6 42,46 40,46" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="50,40.6 47.83,41.317 48.523,42.345" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="39.1" y="46.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="end" font-weight="400">a  khe hở ≈1</text>
+<polyline points="50,50 42,56 40,56" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="50,50 47.868,50.824 48.612,51.816" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="39.1" y="56.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="end" font-weight="400">Đường gióng</text>
+<polyline points="50,64.2 42,72 40,72" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="50,64.2 47.992,65.292 48.858,66.18" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="39.1" y="72.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="end" font-weight="400">b  nhô ra ≈2</text>
+<polyline points="63,51.4 74,46 76,46" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="63,51.4 65.248,50.987 64.702,49.874" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="76.9" y="46.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="start" font-weight="400">Trị số</text>
+<polyline points="90,63 96,73 98,73" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="90,63 90.6,65.205 91.664,64.567" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="98.9" y="73.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="start" font-weight="400">Đường kích thước</text>
+<polyline points="106,63 110,80 112,80" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="106,63 105.9,65.284 107.107,65" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="112.9" y="80.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="start" font-weight="400">Mũi tên</text>
+<line x1="107" y1="40" x2="115.8" y2="40" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="107" y1="54" x2="115.8" y2="54" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="114" y1="40" x2="114" y2="54" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="114,40 113.38,42.2 114.62,42.2" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="114,54 114.62,51.8 113.38,51.8" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<g transform="translate(112.7,47) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="middle" font-weight="400">c ≈10</text></g>
+<line x1="107" y1="54" x2="125.8" y2="54" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="107" y1="63" x2="125.8" y2="63" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="124" y1="54" x2="124" y2="63" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="124,54 123.38,56.2 124.62,56.2" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="124,63 124.62,60.8 123.38,60.8" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<g transform="translate(122.7,58.5) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="middle" font-weight="400">d ≈7</text></g>
+<text x="6" y="90" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="start" font-weight="400">Giữ a b c d như nhau trên cả bản vẽ. Kích thước nhỏ ở trong, lớn ở ngoài; không được cắt nhau.</text></svg></div><figcaption><b>Đường gióng, đường kích thước, mũi tên, trị số</b><span>Cả bốn đều bắt buộc. Bốn khoảng cách — khe a, phần vượt b, khoảng đầu tiên c, bước d — phải như nhau trên cả bản vẽ.</span></figcaption></figure>
+</section>
+
+<section>
+  <h2>02　Ký hiệu</h2>
+  <p class="sub">Chín ký hiệu luôn phải dùng</p>
+  <div class="grid g3"><figure class="card "><div class="plate"><svg viewBox="0 0 56 42" role="img" aria-label="Đường kính Ø. Vòng tròn, hình trụ và lỗ luôn ghi đường kính, không ghi bán kính. Mỗi phần tử chỉ ghi một lần, trên hình chiếu nào cũng được" preserveAspectRatio="xMidYMid meet"><circle cx="22" cy="20" r="12" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<line x1="6" y1="20" x2="38" y2="20" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<line x1="22" y1="4" x2="22" y2="36" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<line x1="6.6" y1="20" x2="37.4" y2="20" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="10,20 7.8,19.38 7.8,20.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="34,20 36.2,20.62 36.2,19.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="22" y="18.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">Ø24</text></svg></div><figcaption><b>Đường kính Ø</b><span>Vòng tròn, hình trụ và lỗ luôn ghi đường kính, không ghi bán kính. Mỗi phần tử chỉ ghi một lần, trên hình chiếu nào cũng được.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 56 42" role="img" aria-label="Bán kính R. Cung tròn ghi bán kính. Mũi tên đi từ tâm ra cung, tâm được đánh dấu bằng hai đường tâm cắt nhau" preserveAspectRatio="xMidYMid meet"><polyline points="8,34 8,16" fill="none" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 8 16 A 14 14 0 0 1 22 2" fill="none" stroke="#1f1e1b" stroke-width="0.5"/>
+<polyline points="22,2 44,2" fill="none" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="22" y1="16" x2="22" y2="6" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<line x1="12" y1="16" x2="28" y2="16" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<polyline points="31,25 22,16 12.1,6.1" fill="none" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="12.1,6.1 10.983,4.106 10.106,4.983" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="32" y="27.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">R14</text></svg></div><figcaption><b>Bán kính R</b><span>Cung tròn ghi bán kính. Mũi tên đi từ tâm ra cung, tâm được đánh dấu bằng hai đường tâm cắt nhau.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 56 42" role="img" aria-label="Mặt cầu SØ / SR. Mặt cầu thêm chữ S phía trước. Dùng SØ khi thấy cả quả cầu, SR khi chỉ thấy một phần" preserveAspectRatio="xMidYMid meet"><rect x="8" y="14" width="20" height="14" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<path d="M 28 14 A 7 7 0 0 1 28 28" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<line x1="4" y1="21" x2="40" y2="21" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<polyline points="32.95,16.05 40,9" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="32.95,16.05 34.944,14.933 34.067,14.056" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="41" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">SØ14</text></svg></div><figcaption><b>Mặt cầu SØ / SR</b><span>Mặt cầu thêm chữ S phía trước. Dùng SØ khi thấy cả quả cầu, SR khi chỉ thấy một phần.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 56 42" role="img" aria-label="Hình vuông □. Mặt cắt vuông chỉ cần một hình chiếu: thêm □ trước trị số là đủ, không cần vẽ hướng thứ hai" preserveAspectRatio="xMidYMid meet"><rect x="14" y="8" width="22" height="22" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<line x1="14" y1="30" x2="36" y2="8" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<text x="40" y="21" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">□22</text>
+<polyline points="25,19 38,19" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="25,19 22.8,18.38 22.8,19.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/></svg></div><figcaption><b>Hình vuông □</b><span>Mặt cắt vuông chỉ cần một hình chiếu: thêm □ trước trị số là đủ, không cần vẽ hướng thứ hai.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 56 42" role="img" aria-label="Chiều dày t. Tấm mỏng chỉ cần một hình chiếu: ghi chiều dày bằng t là bỏ được cả hình chiếu cạnh" preserveAspectRatio="xMidYMid meet"><rect x="8" y="16" width="36" height="4" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<polyline points="26,18 36,28" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="26,18 24.883,16.006 24.006,16.883" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="37" y="30.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">t4</text></svg></div><figcaption><b>Chiều dày t</b><span>Tấm mỏng chỉ cần một hình chiếu: ghi chiều dày bằng t là bỏ được cả hình chiếu cạnh.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 56 42" role="img" aria-label="Vát mép C. Vát mép 45° ghi C kèm chiều dài. Nếu không phải 45°, phải ghi riêng chiều dài và góc" preserveAspectRatio="xMidYMid meet"><polyline points="8,34 8,12 14,6 44,6" fill="none" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="8,12 14,12 14,6" fill="none" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2.4 1.4"/>
+<polyline points="11,9 26,22" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="11,9 9.883,7.006 9.006,7.883" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="27" y="24.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">C6</text></svg></div><figcaption><b>Vát mép C</b><span>Vát mép 45° ghi C kèm chiều dài. Nếu không phải 45°, phải ghi riêng chiều dài và góc.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 56 42" role="img" aria-label="Phần tử lặp lại n×. Trong nhóm lỗ giống nhau chỉ ghi một lỗ và đặt số lượng phía trước. Ghi bốn lần không rõ hơn" preserveAspectRatio="xMidYMid meet"><rect x="6" y="8" width="44" height="24" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<circle cx="14" cy="20" r="3" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
+<line x1="14" y1="15.5" x2="14" y2="24.5" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<circle cx="24" cy="20" r="3" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
+<line x1="24" y1="15.5" x2="24" y2="24.5" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<circle cx="34" cy="20" r="3" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
+<line x1="34" y1="15.5" x2="34" y2="24.5" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<circle cx="44" cy="20" r="3" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
+<line x1="44" y1="15.5" x2="44" y2="24.5" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<polyline points="26.1,17.9 34,6.4" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="26.1,17.9 24.106,19.017 24.983,19.894" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="35" y="6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">4×Ø6</text></svg></div><figcaption><b>Phần tử lặp lại n×</b><span>Trong nhóm lỗ giống nhau chỉ ghi một lỗ và đặt số lượng phía trước. Ghi bốn lần không rõ hơn.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 56 42" role="img" aria-label="Góc. Đường kích thước của góc là một cung tròn lấy đỉnh làm tâm, không phải đường thẳng" preserveAspectRatio="xMidYMid meet"><polyline points="8,34 46,34" fill="none" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="8,34 41,12" fill="none" stroke="#1f1e1b" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 32 34 A 24 24 0 0 0 28.3 20.9" fill="none" stroke="#3a3833" stroke-width="0.18"/>
+<polygon points="32,34 31.38,36.2 32.62,36.2" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="28.3,20.9 26.306,22.017 27.183,22.894" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="33" y="24" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">34°</text></svg></div><figcaption><b>Góc</b><span>Đường kích thước của góc là một cung tròn lấy đỉnh làm tâm, không phải đường thẳng.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 56 42" role="img" aria-label="Chiều dài cung ⌒. Đường kích thước đồng tâm với cung và trị số mang ký hiệu cung, để không bị đọc nhầm thành dây cung" preserveAspectRatio="xMidYMid meet"><path d="M 9.1 29.9 A 22 22 0 0 1 42.9 29.9" fill="none" stroke="#1f1e1b" stroke-width="0.5"/>
+<path d="M 5.3 26.6 A 27 27 0 0 1 46.7 26.6" fill="none" stroke="#3a3833" stroke-width="0.18"/>
+<line x1="9.1" y1="29.9" x2="5.3" y2="26.6" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="42.9" y1="29.9" x2="46.7" y2="26.6" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="5.3,26.6 7.189,25.314 6.24,24.516" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="46.7,26.6 45.76,24.516 44.811,25.314" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="26" y="15.6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">⌌40</text>
+<line x1="26" y1="44" x2="26" y2="40" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/></svg></div><figcaption><b>Chiều dài cung ⌒</b><span>Đường kích thước đồng tâm với cung và trị số mang ký hiệu cung, để không bị đọc nhầm thành dây cung.</span></figcaption></figure></div>
+</section>
+
+<section>
+  <h2>03　Cách ghi kích thước</h2>
+  <p class="sub">Cùng một hàng lỗ, ba cách ghi</p>
+  <div class="grid g3"><figure class="card "><div class="plate"><svg viewBox="0 0 96 58" role="img" aria-label="Ghi nối tiếp. Dễ đọc, từng đoạn nối nhau — nhưng sai số dồn về sau, đoạn cuối có thể lệch nhiều" preserveAspectRatio="xMidYMid meet"><rect x="8" y="12" width="80" height="16" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<circle cx="26" cy="20" r="3.2" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
+<line x1="26" y1="15" x2="26" y2="25" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<circle cx="48" cy="20" r="3.2" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
+<line x1="48" y1="15" x2="48" y2="25" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<circle cx="70" cy="20" r="3.2" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
+<line x1="70" y1="15" x2="70" y2="25" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<line x1="8" y1="29" x2="8" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="26" y1="29" x2="26" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="8" y1="38" x2="26" y2="38" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="8,38 10.2,38.62 10.2,37.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="26,38 23.8,37.38 23.8,38.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="17" y="36.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">18</text>
+<line x1="26" y1="29" x2="26" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="48" y1="29" x2="48" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="26" y1="38" x2="48" y2="38" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="26,38 28.2,38.62 28.2,37.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="48,38 45.8,37.38 45.8,38.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="37" y="36.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">22</text>
+<line x1="48" y1="29" x2="48" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="70" y1="29" x2="70" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="48" y1="38" x2="70" y2="38" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="48,38 50.2,38.62 50.2,37.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="70,38 67.8,37.38 67.8,38.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="59" y="36.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">22</text>
+<line x1="8" y1="29" x2="8" y2="47.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="88" y1="29" x2="88" y2="47.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="8" y1="46" x2="88" y2="46" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="8,46 10.2,46.62 10.2,45.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="88,46 85.8,45.38 85.8,46.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="48" y="44.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">80</text></svg></div><figcaption><b>Ghi nối tiếp</b><span>Dễ đọc, từng đoạn nối nhau — nhưng sai số dồn về sau, đoạn cuối có thể lệch nhiều.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 96 60" role="img" aria-label="Ghi song song từ chuẩn. Tất cả đo từ một chuẩn nên sai số không dồn lại. Dùng cho vị trí lỗ và những gì phải thẳng hàng" preserveAspectRatio="xMidYMid meet"><rect x="8" y="12" width="80" height="16" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<circle cx="26" cy="20" r="3.2" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
+<line x1="26" y1="15" x2="26" y2="25" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<circle cx="48" cy="20" r="3.2" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
+<line x1="48" y1="15" x2="48" y2="25" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<circle cx="70" cy="20" r="3.2" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
+<line x1="70" y1="15" x2="70" y2="25" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<line x1="8" y1="28" x2="8" y2="54" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<line x1="8" y1="29" x2="8" y2="37.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="26" y1="29" x2="26" y2="37.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="8" y1="36" x2="26" y2="36" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="8,36 10.2,36.62 10.2,35.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="26,36 23.8,35.38 23.8,36.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="17" y="34.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">18</text>
+<line x1="8" y1="29" x2="8" y2="44.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="48" y1="29" x2="48" y2="44.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="8" y1="43" x2="48" y2="43" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="8,43 10.2,43.62 10.2,42.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="48,43 45.8,42.38 45.8,43.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="28" y="41.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">40</text>
+<line x1="8" y1="29" x2="8" y2="51.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="70" y1="29" x2="70" y2="51.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="8" y1="50" x2="70" y2="50" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="8,50 10.2,50.62 10.2,49.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="70,50 67.8,49.38 67.8,50.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="39" y="48.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">62</text></svg></div><figcaption><b>Ghi song song từ chuẩn</b><span>Tất cả đo từ một chuẩn nên sai số không dồn lại. Dùng cho vị trí lỗ và những gì phải thẳng hàng.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 96 60" role="img" aria-label="Ghi theo toạ độ. Chỉ ghi trị số, không vẽ đường kích thước. Thường dùng cho tấm nhiều lỗ, nhìn gọn nhất" preserveAspectRatio="xMidYMid meet"><rect x="8" y="12" width="80" height="16" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<circle cx="26" cy="20" r="3.2" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
+<line x1="26" y1="15" x2="26" y2="25" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<circle cx="48" cy="20" r="3.2" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
+<line x1="48" y1="15" x2="48" y2="25" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<circle cx="70" cy="20" r="3.2" fill="#e9e6dc" stroke="#1f1e1b" stroke-width="0.18"/>
+<line x1="70" y1="15" x2="70" y2="25" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<line x1="8" y1="28" x2="8" y2="50" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<line x1="8" y1="28" x2="8" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<g transform="translate(9,44) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.7" fill="#3a3833" text-anchor="end" font-weight="400">0</text></g>
+<line x1="26" y1="28" x2="26" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<g transform="translate(27,44) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.7" fill="#3a3833" text-anchor="end" font-weight="400">18</text></g>
+<line x1="48" y1="28" x2="48" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<g transform="translate(49,44) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.7" fill="#3a3833" text-anchor="end" font-weight="400">40</text></g>
+<line x1="70" y1="28" x2="70" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<g transform="translate(71,44) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.7" fill="#3a3833" text-anchor="end" font-weight="400">62</text></g>
+<line x1="88" y1="28" x2="88" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<g transform="translate(89,44) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.7" fill="#3a3833" text-anchor="end" font-weight="400">80</text></g></svg></div><figcaption><b>Ghi theo toạ độ</b><span>Chỉ ghi trị số, không vẽ đường kích thước. Thường dùng cho tấm nhiều lỗ, nhìn gọn nhất.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 92 60" role="img" aria-label="Đường kính trên hình chiếu một nửa. Khi chi tiết đối xứng chỉ vẽ một nửa, đường kích thước vượt qua trục một đoạn và chỉ có mũi tên ở đầu có vật liệu. Đầu thiếu mũi tên chính là lời nói &quot;nửa này chưa vẽ&quot;" preserveAspectRatio="xMidYMid meet"><line x1="20" y1="10" x2="20" y2="46" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<rect x="20" y="16" width="48" height="14" rx="0" fill="url(#tH)" stroke="#1f1e1b" stroke-width="0.5"/>
+<line x1="68" y1="31" x2="68" y2="44" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="10" y1="42" x2="68" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="68,42 70.2,42.62 70.2,41.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="42" y="40.6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">Ø96</text>
+<text x="2" y="12" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.1" fill="#3a3833" text-anchor="start" font-weight="400">Trục</text>
+<text x="2" y="51" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">Nửa hình: đường kích thước vượt qua trục,</text>
+<text x="2" y="55.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">chỉ có mũi tên ở đầu có vật liệu.</text></svg></div><figcaption><b>Đường kính trên hình chiếu một nửa</b><span>Khi chi tiết đối xứng chỉ vẽ một nửa, đường kích thước vượt qua trục một đoạn và chỉ có mũi tên ở đầu có vật liệu. Đầu thiếu mũi tên chính là lời nói "nửa này chưa vẽ".</span></figcaption></figure></div>
+</section>
+
+<section>
+  <h2>04　Lỗi thường gặp</h2>
+  <p class="sub">Bên trái sai, bên phải đúng</p>
+  <div class="grid g2"><figure class="card "><div class="plate"><svg viewBox="0 0 112 60" role="img" aria-label="Ghi trùng kích thước. Một hình có bao nhiêu kích thước độc lập thì ghi đúng bấy nhiêu. Cái ghi thừa sớm muộn cũng chống lại các cái khác" preserveAspectRatio="xMidYMid meet"><line x1="56" y1="5" x2="56" y2="57" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.35"/>
+<g stroke="#9a3b28" stroke-width="0.8" stroke-linecap="round"><line x1="5.1" y1="7.1" x2="8.9" y2="10.9"/><line x1="8.9" y1="7.1" x2="5.1" y2="10.9"/></g>
+<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">Ghi cả ba kích thước</text>
+<polyline points="61,9 62.4,10.6 65.2,7" fill="none" stroke="#3f6b4a" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="68" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3f6b4a" text-anchor="start" font-weight="400">Chỉ ghi hai cái cần thiết</text>
+<g transform="translate(2,0)"><rect x="4" y="20" width="44" height="14" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<line x1="22" y1="20" x2="22" y2="34" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="4" y1="35" x2="4" y2="43.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="22" y1="35" x2="22" y2="43.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="4" y1="42" x2="22" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="4,42 6.2,42.62 6.2,41.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="22,42 19.8,41.38 19.8,42.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="13" y="40.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">18</text>
+<line x1="22" y1="35" x2="22" y2="43.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="48" y1="35" x2="48" y2="43.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="22" y1="42" x2="48" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="22,42 24.2,42.62 24.2,41.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="48,42 45.8,41.38 45.8,42.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="35" y="40.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">26</text>
+<line x1="4" y1="35" x2="4" y2="52.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="48" y1="35" x2="48" y2="52.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="4" y1="51" x2="48" y2="51" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="4,51 6.2,51.62 6.2,50.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="48,51 45.8,50.38 45.8,51.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="26" y="49.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">44</text></g>
+<g transform="translate(58,0)"><rect x="4" y="20" width="44" height="14" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<line x1="22" y1="20" x2="22" y2="34" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="4" y1="35" x2="4" y2="43.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="22" y1="35" x2="22" y2="43.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="4" y1="42" x2="22" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="4,42 6.2,42.62 6.2,41.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="22,42 19.8,41.38 19.8,42.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="13" y="40.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">18</text>
+<line x1="4" y1="35" x2="4" y2="52.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="48" y1="35" x2="48" y2="52.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="4" y1="51" x2="48" y2="51" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="4,51 6.2,51.62 6.2,50.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="48,51 45.8,50.38 45.8,51.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="26" y="49.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">44</text>
+<text x="0" y="58" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">Cái thứ ba suy ra từ hai cái kia.</text></g></svg></div><figcaption><b>Ghi trùng kích thước</b><span>Một hình có bao nhiêu kích thước độc lập thì ghi đúng bấy nhiêu. Cái ghi thừa sớm muộn cũng chống lại các cái khác.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 112 60" role="img" aria-label="Đường kích thước vẽ vào trong hình. Đường kích thước và đường gióng luôn nằm ngoài đường bao. Bên trong chỉ để đường bao và đường tâm" preserveAspectRatio="xMidYMid meet"><line x1="56" y1="5" x2="56" y2="57" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.35"/>
+<g stroke="#9a3b28" stroke-width="0.8" stroke-linecap="round"><line x1="5.1" y1="7.1" x2="8.9" y2="10.9"/><line x1="8.9" y1="7.1" x2="5.1" y2="10.9"/></g>
+<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">Đường kích thước nằm trong hình</text>
+<polyline points="61,9 62.4,10.6 65.2,7" fill="none" stroke="#3f6b4a" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="68" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3f6b4a" text-anchor="start" font-weight="400">Đường kích thước nằm ngoài hình</text>
+<g transform="translate(2,0)"><rect x="4" y="18" width="44" height="18" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<line x1="4" y1="27" x2="48" y2="27" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="4,27 6.2,27.62 6.2,26.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="48,27 45.8,26.38 45.8,27.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="26" y="25.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">44</text></g>
+<g transform="translate(58,0)"><rect x="4" y="18" width="44" height="18" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<line x1="4" y1="37" x2="4" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="48" y1="37" x2="48" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="4" y1="44" x2="48" y2="44" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="4,44 6.2,44.62 6.2,43.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="48,44 45.8,43.38 45.8,44.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="26" y="42.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">44</text></g></svg></div><figcaption><b>Đường kích thước vẽ vào trong hình</b><span>Đường kích thước và đường gióng luôn nằm ngoài đường bao. Bên trong chỉ để đường bao và đường tâm.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 112 60" role="img" aria-label="Thứ tự kích thước đảo lộn. Kích thước nhỏ đặt gần hình, kích thước lớn ra ngoài. Đảo thứ tự thì các đường gióng sẽ cắt nhau" preserveAspectRatio="xMidYMid meet"><line x1="56" y1="5" x2="56" y2="57" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.35"/>
+<g stroke="#9a3b28" stroke-width="0.8" stroke-linecap="round"><line x1="5.1" y1="7.1" x2="8.9" y2="10.9"/><line x1="8.9" y1="7.1" x2="5.1" y2="10.9"/></g>
+<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">Lớn ở trong, đường gióng cắt nhau</text>
+<polyline points="61,9 62.4,10.6 65.2,7" fill="none" stroke="#3f6b4a" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="68" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3f6b4a" text-anchor="start" font-weight="400">Nhỏ ở trong, lớn ở ngoài</text>
+<g transform="translate(2,0)"><rect x="4" y="20" width="44" height="14" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<line x1="22" y1="20" x2="22" y2="34" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="4" y1="35" x2="4" y2="43.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="48" y1="35" x2="48" y2="43.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="4" y1="42" x2="48" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="4,42 6.2,42.62 6.2,41.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="48,42 45.8,41.38 45.8,42.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="26" y="40.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">44</text>
+<line x1="4" y1="35" x2="4" y2="52.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="22" y1="35" x2="22" y2="52.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="4" y1="51" x2="22" y2="51" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="4,51 6.2,51.62 6.2,50.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="22,51 19.8,50.38 19.8,51.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="13" y="49.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">18</text></g>
+<g transform="translate(58,0)"><rect x="4" y="20" width="44" height="14" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<line x1="22" y1="20" x2="22" y2="34" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="4" y1="35" x2="4" y2="43.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="22" y1="35" x2="22" y2="43.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="4" y1="42" x2="22" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="4,42 6.2,42.62 6.2,41.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="22,42 19.8,41.38 19.8,42.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="13" y="40.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">18</text>
+<line x1="4" y1="35" x2="4" y2="52.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="48" y1="35" x2="48" y2="52.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="4" y1="51" x2="48" y2="51" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="4,51 6.2,51.62 6.2,50.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="48,51 45.8,50.38 45.8,51.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="26" y="49.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">44</text></g></svg></div><figcaption><b>Thứ tự kích thước đảo lộn</b><span>Kích thước nhỏ đặt gần hình, kích thước lớn ra ngoài. Đảo thứ tự thì các đường gióng sẽ cắt nhau.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 112 60" role="img" aria-label="Trị số bị đường gạch mặt cắt che. Trị số luôn ở lớp trên cùng: đường gạch mặt cắt và đường tâm phải ngắt để nhường chỗ" preserveAspectRatio="xMidYMid meet"><line x1="56" y1="5" x2="56" y2="57" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.35"/>
+<g stroke="#9a3b28" stroke-width="0.8" stroke-linecap="round"><line x1="5.1" y1="7.1" x2="8.9" y2="10.9"/><line x1="8.9" y1="7.1" x2="5.1" y2="10.9"/></g>
+<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">Trị số đè lên nét gạch mặt cắt</text>
+<polyline points="61,9 62.4,10.6 65.2,7" fill="none" stroke="#3f6b4a" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="68" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3f6b4a" text-anchor="start" font-weight="400">Nét gạch ngắt quanh trị số</text>
+<g transform="translate(2,0)"><rect x="4" y="18" width="44" height="16" rx="0" fill="url(#tH)" stroke="#1f1e1b" stroke-width="0.5"/>
+<text x="26" y="28" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">24</text>
+<line x1="4" y1="26" x2="18" y2="26" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="34" y1="26" x2="48" y2="26" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="4,26 6.2,26.62 6.2,25.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="48,26 45.8,25.38 45.8,26.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/></g>
+<g transform="translate(58,0)"><rect x="4" y="18" width="44" height="16" rx="0" fill="url(#tH)" stroke="#1f1e1b" stroke-width="0.5"/>
+<rect x="18" y="22.6" width="16" height="5.4" rx="0" fill="#e9e6dc" stroke="none" stroke-width="0.18"/>
+<text x="26" y="28" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">24</text>
+<line x1="4" y1="26" x2="18" y2="26" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="34" y1="26" x2="48" y2="26" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="4,26 6.2,26.62 6.2,25.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="48,26 45.8,25.38 45.8,26.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="0" y="52" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">Nét gạch phải nhường chỗ cho trị số.</text></g></svg></div><figcaption><b>Trị số bị đường gạch mặt cắt che</b><span>Trị số luôn ở lớp trên cùng: đường gạch mặt cắt và đường tâm phải ngắt để nhường chỗ.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 112 60" role="img" aria-label="Ghi kích thước trên đường nét đứt. Nét đứt biểu thị thứ không nhìn thấy nên không ghi kích thước lên đó. Nếu cần ghi thì phải cắt ra" preserveAspectRatio="xMidYMid meet"><line x1="56" y1="5" x2="56" y2="57" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.35"/>
+<g stroke="#9a3b28" stroke-width="0.8" stroke-linecap="round"><line x1="5.1" y1="7.1" x2="8.9" y2="10.9"/><line x1="8.9" y1="7.1" x2="5.1" y2="10.9"/></g>
+<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">Ghi kích thước trên nét đứt</text>
+<polyline points="61,9 62.4,10.6 65.2,7" fill="none" stroke="#3f6b4a" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="68" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3f6b4a" text-anchor="start" font-weight="400">Cắt ra rồi mới ghi kích thước</text>
+<g transform="translate(2,0)"><rect x="4" y="16" width="44" height="20" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<line x1="18" y1="16" x2="18" y2="36" stroke="#1f1e1b" stroke-width="0.3" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="34" y1="16" x2="34" y2="36" stroke="#1f1e1b" stroke-width="0.3" stroke-linecap="round" stroke-dasharray="2.4 1.4"/>
+<line x1="18" y1="37" x2="18" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="34" y1="37" x2="34" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="18" y1="44" x2="34" y2="44" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="18,44 20.2,44.62 20.2,43.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="34,44 31.8,43.38 31.8,44.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="26" y="42.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">16</text></g>
+<g transform="translate(58,0)"><rect x="4" y="16" width="14" height="20" rx="0" fill="url(#tH)" stroke="#1f1e1b" stroke-width="0.5"/>
+<rect x="34" y="16" width="14" height="20" rx="0" fill="url(#tH)" stroke="#1f1e1b" stroke-width="0.5"/>
+<line x1="18" y1="16" x2="34" y2="16" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="18" y1="36" x2="34" y2="36" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="18" y1="37" x2="18" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="34" y1="37" x2="34" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="18" y1="44" x2="34" y2="44" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="18,44 20.2,44.62 20.2,43.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="34,44 31.8,43.38 31.8,44.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="26" y="42.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">16</text>
+<text x="0" y="56" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">Không nhìn thấy thì phải cắt.</text></g></svg></div><figcaption><b>Ghi kích thước trên đường nét đứt</b><span>Nét đứt biểu thị thứ không nhìn thấy nên không ghi kích thước lên đó. Nếu cần ghi thì phải cắt ra.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 112 60" role="img" aria-label="Không có khe hở, mũi tên không đều. Để khoảng 1 mm giữa đường bao và đường gióng, cho đường gióng vượt đường kích thước khoảng 2 mm. Mọi mũi tên trên bản vẽ đều cùng kích thước" preserveAspectRatio="xMidYMid meet"><line x1="56" y1="5" x2="56" y2="57" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.35"/>
+<g stroke="#9a3b28" stroke-width="0.8" stroke-linecap="round"><line x1="5.1" y1="7.1" x2="8.9" y2="10.9"/><line x1="8.9" y1="7.1" x2="5.1" y2="10.9"/></g>
+<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">Không có khe hở, mũi tên không đều</text>
+<polyline points="61,9 62.4,10.6 65.2,7" fill="none" stroke="#3f6b4a" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="68" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3f6b4a" text-anchor="start" font-weight="400">Chừa khe hở, mũi tên đều nhau</text>
+<g transform="translate(2,0)"><rect x="6" y="16" width="40" height="18" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<line x1="6" y1="34" x2="6" y2="46" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="46" y1="34" x2="46" y2="46" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="6" y1="44" x2="46" y2="44" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="6,44 10.4,42.9 10.4,45.1" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="46,44 43.8,43.4 43.8,44.6" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="26" y="42.6" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">40</text>
+<text x="0" y="56" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">Gióng dính đường bao; mũi tên khác cỡ.</text></g>
+<g transform="translate(58,0)"><rect x="6" y="16" width="40" height="18" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<line x1="6" y1="35" x2="6" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="46" y1="35" x2="46" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="6" y1="44" x2="46" y2="44" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="6,44 8.2,44.62 8.2,43.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="46,44 43.8,43.38 43.8,44.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="26" y="42.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">40</text>
+<text x="0" y="56" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">Chừa khe hở 1 mm; mũi tên đều nhau.</text></g></svg></div><figcaption><b>Không có khe hở, mũi tên không đều</b><span>Để khoảng 1 mm giữa đường bao và đường gióng, cho đường gióng vượt đường kích thước khoảng 2 mm. Mọi mũi tên trên bản vẽ đều cùng kích thước.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 112 60" role="img" aria-label="Hướng đọc trị số sai. Kích thước ngang đọc từ phía dưới, kích thước dọc đọc từ phía phải. Cả bản vẽ chỉ có hai hướng này" preserveAspectRatio="xMidYMid meet"><line x1="56" y1="5" x2="56" y2="57" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.35"/>
+<g stroke="#9a3b28" stroke-width="0.8" stroke-linecap="round"><line x1="5.1" y1="7.1" x2="8.9" y2="10.9"/><line x1="8.9" y1="7.1" x2="5.1" y2="10.9"/></g>
+<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">Trị số đọc từ bên trái</text>
+<polyline points="61,9 62.4,10.6 65.2,7" fill="none" stroke="#3f6b4a" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="68" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3f6b4a" text-anchor="start" font-weight="400">Trị số đọc từ bên phải</text>
+<g transform="translate(2,0)"><rect x="14" y="14" width="24" height="24" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<line x1="38" y1="14" x2="48" y2="14" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="38" y1="38" x2="48" y2="38" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="46" y1="14" x2="46" y2="38" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="46,14 45.38,16.2 46.62,16.2" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="46,38 46.62,35.8 45.38,35.8" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<g transform="translate(47.4,26) rotate(90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">24</text></g></g>
+<g transform="translate(58,0)"><rect x="14" y="14" width="24" height="24" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<line x1="39" y1="14" x2="47.8" y2="14" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="39" y1="38" x2="47.8" y2="38" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="46" y1="14" x2="46" y2="38" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="46,14 45.38,16.2 46.62,16.2" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="46,38 46.62,35.8 45.38,35.8" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<g transform="translate(44.7,26) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">24</text></g>
+<text x="0" y="56" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.2" fill="#3a3833" text-anchor="start" font-weight="400">Kích thước thẳng đứng luôn đọc từ bên phải.</text></g></svg></div><figcaption><b>Hướng đọc trị số sai</b><span>Kích thước ngang đọc từ phía dưới, kích thước dọc đọc từ phía phải. Cả bản vẽ chỉ có hai hướng này.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 112 60" role="img" aria-label="Dùng sai ký hiệu. Vòng tròn trọn vẹn dùng Ø, cung tròn dùng R. Hai ký hiệu này bị đổi chỗ nhiều nhất" preserveAspectRatio="xMidYMid meet"><line x1="56" y1="5" x2="56" y2="57" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" opacity="0.35"/>
+<g stroke="#9a3b28" stroke-width="0.8" stroke-linecap="round"><line x1="5.1" y1="7.1" x2="8.9" y2="10.9"/><line x1="8.9" y1="7.1" x2="5.1" y2="10.9"/></g>
+<text x="12" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#9a3b28" text-anchor="start" font-weight="400">R vòng, Ø cung</text>
+<polyline points="61,9 62.4,10.6 65.2,7" fill="none" stroke="#3f6b4a" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="68" y="10.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.5" fill="#3f6b4a" text-anchor="start" font-weight="400">Ø cho vòng, R cho cung</text>
+<g transform="translate(2,0)"><circle cx="16" cy="24" r="10" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<polyline points="23,17 32,10" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="23,17 21.006,18.117 21.883,18.994" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="33" y="11" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">R10</text>
+<path d="M 4 44 A 12 12 0 0 1 16 38" fill="none" stroke="#1f1e1b" stroke-width="0.5"/>
+<text x="20" y="46" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">Ø24</text></g>
+<g transform="translate(58,0)"><circle cx="16" cy="24" r="10" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<line x1="2.6" y1="24" x2="29.4" y2="24" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="6,24 3.8,23.38 3.8,24.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="26,24 28.2,24.62 28.2,23.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="16" y="22.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">Ø20</text>
+<path d="M 4 44 A 12 12 0 0 1 16 38" fill="none" stroke="#1f1e1b" stroke-width="0.5"/>
+<polyline points="10,39.6 22,44" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="10,39.6 11.117,41.594 11.994,40.717" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="23" y="45.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">R12</text></g></svg></div><figcaption><b>Dùng sai ký hiệu</b><span>Vòng tròn trọn vẹn dùng Ø, cung tròn dùng R. Hai ký hiệu này bị đổi chỗ nhiều nhất.</span></figcaption></figure></div>
+</section>
+
+<section>
+  <h2>05　Khi không đủ chỗ</h2>
+  <p class="sub">Ba cách xử lý</p>
+  <div class="grid g3"><figure class="card "><div class="plate"><svg viewBox="0 0 72 54" role="img" aria-label="Mũi tên hướng ra ngoài. Khi hai đường gióng quá sát nhau, đặt mũi tên ra ngoài và cho chúng chỉ vào" preserveAspectRatio="xMidYMid meet"><rect x="6" y="14" width="18" height="16" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<rect x="27" y="14" width="39" height="16" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<line x1="24" y1="30" x2="24" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="27" y1="30" x2="27" y2="42" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="14" y1="40" x2="37" y2="40" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="24,40 21.8,39.38 21.8,40.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="27,40 29.2,40.62 29.2,39.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="25.5" y="38.2" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">3</text></svg></div><figcaption><b>Mũi tên hướng ra ngoài</b><span>Khi hai đường gióng quá sát nhau, đặt mũi tên ra ngoài và cho chúng chỉ vào.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 72 56" role="img" aria-label="Dẫn trị số ra ngoài. Khi ngay cả trị số cũng không đặt được, dùng đường dẫn kéo nó ra ngoài hình" preserveAspectRatio="xMidYMid meet"><rect x="6" y="14" width="18" height="16" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<rect x="27" y="14" width="39" height="16" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<line x1="24" y1="30" x2="24" y2="40" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="27" y1="30" x2="27" y2="40" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="18" y1="38" x2="33" y2="38" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="24,38 21.8,37.38 21.8,38.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="27,38 29.2,38.62 29.2,37.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polyline points="25.5,38 34,47" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="35" y="48.4" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="start" font-weight="400">3</text></svg></div><figcaption><b>Dẫn trị số ra ngoài</b><span>Khi ngay cả trị số cũng không đặt được, dùng đường dẫn kéo nó ra ngoài hình.</span></figcaption></figure><figure class="card "><div class="plate"><svg viewBox="0 0 72 58" role="img" aria-label="Xếp so le. Với một dãy kích thước nhỏ, xếp trị số so le trên dưới để chúng không dính vào nhau" preserveAspectRatio="xMidYMid meet"><rect x="6" y="14" width="56" height="14" rx="0" fill="#f6f4ee" stroke="#1f1e1b" stroke-width="0.5"/>
+<line x1="14" y1="14" x2="14" y2="28" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="22" y1="14" x2="22" y2="28" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="30" y1="14" x2="30" y2="28" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="38" y1="14" x2="38" y2="28" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="46" y1="14" x2="46" y2="28" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="54" y1="14" x2="54" y2="28" stroke="#1f1e1b" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="6" y1="29" x2="6" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="14" y1="29" x2="14" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="3" y1="38" x2="17" y2="38" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="6,38 3.8,37.38 3.8,38.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="14,38 16.2,38.62 16.2,37.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="10" y="36.8" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.6" fill="#3a3833" text-anchor="middle" font-weight="400">8</text>
+<line x1="14" y1="29" x2="14" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="22" y1="29" x2="22" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="11" y1="44" x2="25" y2="44" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="14,44 11.8,43.38 11.8,44.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="22,44 24.2,44.62 24.2,43.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="18" y="42.8" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.6" fill="#3a3833" text-anchor="middle" font-weight="400">8</text>
+<line x1="22" y1="29" x2="22" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="30" y1="29" x2="30" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="19" y1="38" x2="33" y2="38" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="22,38 19.8,37.38 19.8,38.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="30,38 32.2,38.62 32.2,37.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="26" y="36.8" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.6" fill="#3a3833" text-anchor="middle" font-weight="400">8</text>
+<line x1="30" y1="29" x2="30" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="38" y1="29" x2="38" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="27" y1="44" x2="41" y2="44" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="30,44 27.8,43.38 27.8,44.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="38,44 40.2,44.62 40.2,43.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="34" y="42.8" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.6" fill="#3a3833" text-anchor="middle" font-weight="400">8</text>
+<line x1="38" y1="29" x2="38" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="46" y1="29" x2="46" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="35" y1="38" x2="49" y2="38" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="38,38 35.8,37.38 35.8,38.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="46,38 48.2,38.62 48.2,37.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="42" y="36.8" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.6" fill="#3a3833" text-anchor="middle" font-weight="400">8</text>
+<line x1="46" y1="29" x2="46" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="54" y1="29" x2="54" y2="45.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="43" y1="44" x2="57" y2="44" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="46,44 43.8,43.38 43.8,44.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="54,44 56.2,44.62 56.2,43.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="50" y="42.8" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.6" fill="#3a3833" text-anchor="middle" font-weight="400">8</text>
+<line x1="54" y1="29" x2="54" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="62" y1="29" x2="62" y2="39.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="51" y1="38" x2="65" y2="38" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="54,38 51.8,37.38 51.8,38.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="62,38 64.2,38.62 64.2,37.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="58" y="36.8" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.6" fill="#3a3833" text-anchor="middle" font-weight="400">8</text></svg></div><figcaption><b>Xếp so le</b><span>Với một dãy kích thước nhỏ, xếp trị số so le trên dưới để chúng không dính vào nhau.</span></figcaption></figure></div>
+</section>
+
+<section>
+  <h2>06　Áp dụng lên chi tiết thật</h2>
+  <p class="sub">Tất cả từ năm mục đầu, trên một bản vẽ</p>
+  <figure class="card wide"><div class="plate"><svg viewBox="0 0 160 106" role="img" aria-label="Sáu loại ghi chú cùng xuất hiện. Mặt cắt toàn phần qua đế: đế được cắt dọc giữa và ta nhìn vào mặt cắt, nơi có gạch chéo là vật liệu bị cắt qua. Mỗi đường dẫn đều ghi tên chi tiết — ghi chú phải đọc hiểu được, chỉ có số thì chưa đủ" preserveAspectRatio="xMidYMid meet"><text x="5" y="12" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="3.3" fill="#1f1e1b" text-anchor="start" font-weight="400">Sáu kiểu ghi kích thước trên một bản vẽ</text>
+<text x="5" y="19" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="start" font-weight="400">Hình cắt toàn phần của đế — cắt dọc giữa, nhìn vào mặt cắt</text>
+<line x1="76" y1="32" x2="76" y2="78" stroke="#45423c" stroke-width="0.13" stroke-linecap="round" stroke-dasharray="6 1.4 1.1 1.4"/>
+<polygon points="110.5,69.1 110.793,69.071 111.074,68.986 111.333,68.847 111.561,68.661 111.747,68.433 111.886,68.174 111.971,67.893 112,67.6 112,55.6 111.977,55.197 111.91,54.799 111.798,54.411 111.643,54.038 111.448,53.685 111.215,53.355 110.946,53.054 110.645,52.785 110.315,52.552 109.962,52.357 109.589,52.202 109.201,52.09 108.803,52.023 108.4,52 79,52 79,69.1 81.4,69.1 81.4,53.56 106.84,53.56 108.94,56.2 108.94,69.1" fill="url(#tH)" stroke="#1f1e1b" stroke-width="0.5" stroke-linejoin="round"/>
+<polygon points="78.52,66.4 79,66.4 79,40 78.52,40" fill="#1f1e1b" stroke="#1f1e1b" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="80.8,70 109,70 109,70.9 80.8,70.9" fill="#d4cfc1" stroke="#1f1e1b" stroke-width="0.18" stroke-linejoin="round"/>
+<polygon points="41.5,69.1 41.207,69.071 40.926,68.986 40.667,68.847 40.439,68.661 40.253,68.433 40.114,68.174 40.029,67.893 40,67.6 40,55.6 40.023,55.197 40.09,54.799 40.202,54.411 40.357,54.038 40.552,53.685 40.785,53.355 41.054,53.054 41.355,52.785 41.685,52.552 42.038,52.357 42.411,52.202 42.799,52.09 43.197,52.023 43.6,52 73,52 73,69.1 70.6,69.1 70.6,53.56 45.16,53.56 43.06,56.2 43.06,69.1" fill="url(#tH)" stroke="#1f1e1b" stroke-width="0.5" stroke-linejoin="round"/>
+<polygon points="73.48,66.4 73,66.4 73,40 73.48,40" fill="#1f1e1b" stroke="#1f1e1b" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="71.2,70 43,70 43,70.9 71.2,70.9" fill="#d4cfc1" stroke="#1f1e1b" stroke-width="0.18" stroke-linejoin="round"/>
+<line x1="40" y1="72.5" x2="40" y2="91.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="112" y1="72.5" x2="112" y2="91.8" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="40" y1="90" x2="112" y2="90" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="40,90 42.2,90.62 42.2,89.38" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="112,90 109.8,89.38 109.8,90.62" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="76" y="88.7" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">◆ Ø120</text>
+<line x1="39" y1="70" x2="28.2" y2="70" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="39" y1="52" x2="28.2" y2="52" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<line x1="30" y1="70" x2="30" y2="52" stroke="#3a3833" stroke-width="0.18" stroke-linecap="round"/>
+<polygon points="30,52 29.38,54.2 30.62,54.2" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<polygon points="30,70 30.62,67.8 29.38,67.8" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<g transform="translate(28.7,61) rotate(-90)"><text x="0" y="0" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.9" fill="#3a3833" text-anchor="middle" font-weight="400">◆ 30</text></g>
+<polyline points="79,43.6 104,30 106,30" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="79,43.6 81.229,43.093 80.636,42.004" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="106.9" y="30.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="start" font-weight="400">Ống thép  Ø10 × t0,8</text>
+<text x="106" y="34.2" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="1.95" fill="#3a3833" text-anchor="start" font-weight="400">thành chỉ 0,8 mm — quá mỏng để vẽ</text>
+<text x="106" y="37.8" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="1.95" fill="#3a3833" text-anchor="start" font-weight="400">nên mặt cắt tô đặc theo quy định.</text>
+<polyline points="110.56,53.8 120,46 122,46" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="110.56,53.8 112.651,52.877 111.861,51.921" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="122.9" y="46.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.6" fill="#3a3833" text-anchor="start" font-weight="400">R6</text>
+<text x="122" y="50" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="1.95" fill="#3a3833" text-anchor="start" font-weight="400">bo cạnh trên</text>
+<polyline points="111.1,61.6 120,62 122,62" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="111.1,61.6 113.27,62.318 113.326,61.079" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="122.9" y="62.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="start" font-weight="400">Vỏ ABS  t2,6</text>
+<text x="122" y="66" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="1.95" fill="#3a3833" text-anchor="start" font-weight="400">dày 2,6 mm</text>
+<polyline points="55.6,70.48 40,84 38,84" fill="none" stroke="#3a3833" stroke-width="0.13" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="55.6,70.48 53.531,71.452 54.344,72.389" fill="#3a3833" stroke="#3a3833" stroke-width="0.05" stroke-linejoin="round"/>
+<text x="37.1" y="84.9" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="end" font-weight="400">Đệm EVA  t1,5</text>
+<text x="38" y="88" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="1.95" fill="#3a3833" text-anchor="end" font-weight="400">đệm chống trượt; EVA = vật liệu</text>
+<text x="5" y="100" font-family="'Noto Sans TC','Noto Sans CJK TC','Hiragino Sans',Inter,'Helvetica Neue',Arial,sans-serif" font-size="2.4" fill="#3a3833" text-anchor="start" font-weight="400">Phần gạch chéo là vật liệu bị cắt qua.  ◆ = trị số IKEA công bố; còn lại là suy ra.</text></svg></div><figcaption><b>Sáu loại ghi chú cùng xuất hiện</b><span>Mặt cắt toàn phần qua đế: đế được cắt dọc giữa và ta nhìn vào mặt cắt, nơi có gạch chéo là vật liệu bị cắt qua. Mỗi đường dẫn đều ghi tên chi tiết — ghi chú phải đọc hiểu được, chỉ có số thì chưa đủ.</span></figcaption></figure>
+</section>
+
+<section>
+  <h2>07　Tra nhanh</h2>
+  <p class="sub">Xem lại mười điều này trước khi nộp bản vẽ</p>
+  <ol class="rules"><li>Một hình có bao nhiêu kích thước độc lập thì ghi đúng bấy nhiêu — không thừa, không thiếu.</li><li>Mọi đường kích thước đều nằm ngoài đường bao: nhỏ ở gần, lớn ra xa.</li><li>Đường gióng cách đường bao khoảng 1 mm và vượt đường kích thước khoảng 2 mm.</li><li>Đường kích thước đầu tiên cách đường bao khoảng 10 mm, các đường sau cách nhau khoảng 7 mm.</li><li>Kích thước ngang đọc từ phía dưới, kích thước dọc đọc từ phía phải.</li><li>Trị số ở lớp trên cùng: đường nào gặp nó cũng phải ngắt.</li><li>Vòng tròn trọn Ø, cung R, mặt cầu thêm S, mặt cắt vuông □, tấm mỏng t, vát 45° là C.</li><li>Phần tử giống nhau chỉ ghi một lần, đặt số lượng phía trước dạng n×.</li><li>Không ghi kích thước trên nét đứt; nếu cần ghi thì cắt nó ra.</li><li>Kích thước tồn tại để chế tạo được chi tiết, không phải để ghi hết những gì bạn biết.</li></ol>
+</section>
+
+<footer>
+  Ký hiệu và quy ước theo CNS 3 / ISO 129. Tài liệu giảng dạy; đèn trong hình là đế đèn bàn IKEA STRÅLA. Tên sản phẩm và thương hiệu thuộc Inter IKEA Systems B.V.
+<div class="draft">Phần tiếng Việt của trang này là bản dịch dùng trong lớp học; thuật ngữ chuyên môn vẫn theo tiêu chuẩn do giảng viên chỉ định.</div></footer>
+</div>
+
+</main>
 <script>
 (function(){
+  var LANGS = ["zh-Hant","en","id","vi"], KEY = 'ad290b.lang';
   var bar = document.getElementById('langbar');
   var panes = {}, btns = {};
   Array.prototype.forEach.call(document.querySelectorAll('[data-lang]'), function(p){
@@ -2168,19 +2198,37 @@ a{color:var(--flag);text-underline-offset:3px}
   Array.prototype.forEach.call(bar.querySelectorAll('button'), function(b){
     btns[b.dataset.set] = b; });
 
-  function show(l, save){
-    if (!panes[l]) l = 'zh';
+  function show(code, save){
+    if (LANGS.indexOf(code) < 0) code = 'zh-Hant';
     for (var k in panes){
-      panes[k].hidden = (k !== l);
-      btns[k].setAttribute('aria-pressed', k === l ? 'true' : 'false');
+      panes[k].hidden = (k !== code);
+      btns[k].setAttribute('aria-pressed', k === code ? 'true' : 'false');
     }
-    document.documentElement.setAttribute('lang', l === 'zh' ? 'zh-Hant' : l);
-    if (save){ try { localStorage.setItem('dwg.lang', l); } catch(e){} }
+    document.documentElement.setAttribute('lang', code);
+    if (save){
+      try { localStorage.setItem(KEY, code); } catch (e) {}
+      try {
+        var u = new URL(location.href);
+        u.searchParams.set('lang', code);
+        history.replaceState(null, '', u);
+      } catch (e) {}
+    }
     sendHeight();
   }
   bar.addEventListener('click', function(e){
     var b = e.target.closest('button'); if (b) show(b.dataset.set, true);
   });
+  var pb = document.getElementById('printbtn');
+  if (pb) pb.addEventListener('click', function(){ window.print(); });
+
+  // 直接開啟檔案時沒有上一頁可回，那種情況就不顯示這個鍵
+  var bb = document.getElementById('backbtn');
+  // history.length 在剛開的分頁也可能是 2，不可靠；用 referrer 判斷才準。
+  // 嵌在 iframe 裡時由外層平台自己導覽，這個鍵就不出現。
+  if (bb && document.referrer && window.parent === window){
+    bb.hidden = false;
+    bb.addEventListener('click', function(){ history.back(); });
+  }
 
   // an embedding page can size the iframe from this
   var last = 0;
@@ -2189,32 +2237,25 @@ a{color:var(--flag);text-underline-offset:3px}
     var h = Math.ceil(document.documentElement.scrollHeight);
     if (Math.abs(h - last) < 2) return;
     last = h;
-    try { window.parent.postMessage({ type: 'dwg:height', height: h }, '*'); } catch(e){}
+    try { window.parent.postMessage({ type: 'ad290b:height', height: h }, '*'); } catch (e) {}
   }
 
-  // ?lang=vi preselects a language; ?bar=0 hides the switcher (one language per embed)
-  var q = {};
-  (location.search || '').replace(/^\?/, '').split('&').forEach(function(p){
-    var kv = p.split('='); if (kv[0]) q[kv[0]] = decodeURIComponent(kv[1] || '');
-  });
-  if (q.bar === '0' || q.bar === 'none') bar.hidden = true;
+  var sp = null, hasParam = false, q = null;
+  try { sp = new URL(location.href).searchParams; hasParam = sp.has('lang'); q = sp.get('lang'); } catch (e) {}
+  if (hasParam && sp.get('bar') === '0') bar.hidden = true;
+  else if (sp && sp.get('bar') === '0') bar.hidden = true;
 
-  function norm(v){ v=(v||'').toLowerCase();
-    if(!v) return null;
-    if(v.indexOf('zh')===0) return 'zh';
-    if(v.indexOf('en')===0) return 'en';
-    if(v.indexOf('vi')===0) return 'vi';
-    if(v.indexOf('id')===0||v.indexOf('ms')===0) return 'id';
-    return null; }
-  var qn = norm(q.lang);
-  var start = qn && panes[qn] ? qn : null;
-  if (!start){ try { start = localStorage.getItem('dwg.lang'); } catch(e){} }
-  if (!start){
-    var n = (navigator.language || '').toLowerCase();
-    start = n.indexOf('vi') === 0 ? 'vi'
-          : n.indexOf('id') === 0 || n.indexOf('ms') === 0 ? 'id'
-          : n.indexOf('zh') === 0 ? 'zh'
-          : n.indexOf('en') === 0 ? 'en' : 'zh';
+  var start;
+  if (hasParam){
+    start = LANGS.indexOf(q) >= 0 ? q : 'zh-Hant';   // 網址指定優先；未知值安全回到繁中
+  } else {
+    try { start = localStorage.getItem(KEY); } catch (e) {}
+    if (LANGS.indexOf(start) < 0){
+      var n = (navigator.language || '').toLowerCase();
+      start = n.indexOf('vi') === 0 ? 'vi'
+            : n.indexOf('id') === 0 || n.indexOf('ms') === 0 ? 'id'
+            : n.indexOf('en') === 0 ? 'en' : 'zh-Hant';
+    }
   }
   show(start, false);
 
@@ -2223,5 +2264,5 @@ a{color:var(--flag);text-underline-offset:3px}
   if (window.ResizeObserver) new ResizeObserver(sendHeight).observe(document.body);
 })();
 </script>
-
-</body></html>
+</body>
+</html>
