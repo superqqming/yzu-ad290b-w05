@@ -1,0 +1,161 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AD290B W12 · 工具版面範例</title><style>/* Apply these classes to interface containers. Drawing geometry stays in the existing renderer. */
+:root {
+  --ui-accent: #155e58;
+  --ui-background: #eceee9;
+  --ui-surface: #ffffff;
+  --ui-text: #20332f;
+  --ui-muted: #53645e;
+  --ui-border: #cbd4cd;
+  --ui-radius: 14px;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--ui-background); color: var(--ui-text); font: 16px/1.6 system-ui, "PingFang TC", sans-serif; }
+[hidden] { display: none !important; }
+.studio { max-width: 1440px; margin: auto; padding: clamp(16px, 3vw, 36px); }
+.studio-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 24px; }
+.course-tag { margin: 0 0 6px; color: var(--ui-accent); font: 700 12px/1.5 ui-monospace, monospace; letter-spacing: .12em; }
+h1 { margin: 0; font-size: clamp(25px, 4vw, 38px); line-height: 1.2; letter-spacing: -.035em; }
+h2 { margin: 0 0 14px; font-size: 18px; }
+h3 { margin: 0; font-size: 15px; }
+p { margin: 8px 0 14px; }
+.toolbar, .actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.studio-workspace { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 20px; align-items: start; }
+.studio-parameters, .studio-drawings, .studio-export, .studio-verification, .studio-guide { background: var(--ui-surface); border: 1px solid var(--ui-border); border-radius: var(--ui-radius); padding: 22px; min-width: 0; }
+.parameter-field { margin: 18px 0; }
+.parameter-field label { display: flex; justify-content: space-between; gap: 12px; font-weight: 650; font-size: 14px; }
+.parameter-field code { color: var(--ui-muted); font-size: 12px; }
+.parameter-input { display: flex; align-items: center; gap: 10px; margin-top: 7px; }
+input[type=number], input[type=text], select, textarea { width: 100%; min-width: 0; border: 1px solid var(--ui-border); border-radius: 7px; background: var(--ui-surface); color: var(--ui-text); padding: 9px 11px; font: inherit; }
+input[type=number] { font-family: ui-monospace, monospace; }
+textarea { min-height: 80px; resize: vertical; }
+small, .muted { color: var(--ui-muted); font-size: 13px; }
+button { cursor: pointer; padding: 9px 14px; border: 1px solid var(--ui-border); border-radius: 7px; background: var(--ui-surface); color: var(--ui-text); font: 650 14px/1.5 system-ui, sans-serif; }
+button.primary, button[aria-pressed=true] { color: #fff; background: var(--ui-accent); border-color: var(--ui-accent); }
+button:hover { filter: brightness(.96); }
+:focus-visible { outline: 3px solid var(--ui-accent); outline-offset: 3px; }
+.drawing-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
+.drawing-card { min-width: 0; border: 1px solid var(--ui-border); border-radius: 9px; padding: 14px; }
+.drawing-scroll { overflow: auto; }
+/* Interface palette never supplies SVG stroke/fill or changes viewBox and geometry. */
+.drawing-scroll svg { display: block; width: 100%; height: auto; background: #fff; }
+.studio-bottom { margin-top: 20px; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.7fr); gap: 20px; }
+.check-row { display: grid; grid-template-columns: minmax(0,1fr) 150px; align-items: center; gap: 10px; padding: 8px 0; }
+.studio-guide { margin-top: 20px; }
+pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--ui-background); padding: 16px; border-radius: 8px; font: 14px/1.7 ui-monospace, monospace; }
+summary { cursor: pointer; font-weight: 700; color: var(--ui-accent); }
+.theme-controls { padding-top: 14px; border-top: 1px solid var(--ui-border); margin-top: 22px; }
+.theme-controls label { display: flex; align-items: center; justify-content: space-between; margin: 8px 0; font-size: 13px; }
+input[type=color] { width: 42px; height: 30px; padding: 2px; border: 1px solid var(--ui-border); border-radius: 5px; background: white; }
+[role=status] { display: block; margin-top: 8px; color: var(--ui-accent); font-size: 13px; }
+@media (max-width: 900px) { .studio-workspace { grid-template-columns: 250px minmax(0,1fr); } .drawing-grid { grid-template-columns: 1fr; } }
+@media (max-width: 650px) { .studio-workspace, .studio-bottom { grid-template-columns: 1fr; } .check-row { grid-template-columns: 1fr 135px; } .studio-parameters, .studio-drawings, .studio-export, .studio-verification, .studio-guide { padding: 17px; } }
+</style></head>
+<body><div class="studio">
+<header class="studio-header"><div><p class="course-tag">AD290B · W12 / 2026.11.24</p><h1 data-zh="讓圖面更容易驗收" data-en="A workspace for checking drawings">讓圖面更容易驗收</h1><p class="muted" data-zh="版面練習範例 · 底座外徑與厚度" data-en="Layout practice · Base diameter and thickness">版面練習範例 · 底座外徑與厚度</p></div><div class="toolbar"><button data-language="zh-Hant" aria-pressed="true">繁中</button><button data-language="en" aria-pressed="false">English</button></div></header>
+<div class="studio-workspace">
+<aside class="studio-parameters"><h2 data-zh="參數" data-en="Parameters">參數</h2><p class="muted" data-zh="教師示範值。套用版面時，保留你自己的尺寸與來源。" data-en="Instructor demo values. Keep your own dimensions and sources when applying the layout.">教師示範值。套用版面時，保留你自己的尺寸與來源。</p>
+<div class="parameter-field"><label for="baseDiameter"><span data-zh="底座外徑" data-en="Base diameter">底座外徑</span><code>P03</code></label><div class="parameter-input"><input id="baseDiameter" required type="number" value="150" min="50" max="200" step="1"><span>mm</span></div><small>50–200 mm</small></div>
+<div class="parameter-field"><label for="baseThickness"><span data-zh="底座厚度" data-en="Base thickness">底座厚度</span><code>P20</code></label><div class="parameter-input"><input id="baseThickness" required type="number" value="17" min="1" max="50" step="1"><span>mm</span></div><small>1–50 mm</small></div>
+<button id="reset" data-zh="恢復 150 / 17 mm" data-en="Restore 150 / 17 mm">恢復 150 / 17 mm</button><p id="parameterStatus" role="status"></p>
+<div class="theme-controls"><h3 data-zh="換個配色" data-en="Choose your palette">換個配色</h3><label><span data-zh="重點色" data-en="Accent">重點色</span><input id="accentColor" type="color" value="#155e58"></label><label><span data-zh="背景色" data-en="Background">背景色</span><input id="backgroundColor" type="color" value="#eceee9"></label><div class="actions"><button id="resetTheme" data-zh="恢復配色" data-en="Reset palette">恢復配色</button><button id="downloadCss" data-zh="下載目前 CSS" data-en="Download CSS">下載目前 CSS</button></div></div>
+</aside>
+<section class="studio-drawings"><h2 data-zh="圖面" data-en="Drawings">圖面</h2><div class="drawing-grid">
+<div class="drawing-card"><h3 data-zh="底座正視圖" data-en="Base front view">底座正視圖</h3><div class="drawing-scroll"><svg id="frontView" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 270" role="img" aria-label="Base front view"></svg></div></div>
+<div class="drawing-card"><h3 data-zh="底座俯視圖" data-en="Base top view">底座俯視圖</h3><div class="drawing-scroll"><svg id="topView" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 270" role="img" aria-label="Base top view"></svg></div></div>
+</div><p class="muted" data-zh="兩個視圖共用 1 px/mm 示範座標；畫面會隨視窗縮放。A4 實尺比例需另外列印量測。" data-en="Both views use a demo coordinate scale of 1 px/mm. Screen display resizes with the viewport. Verify physical A4 print scale separately.">兩個視圖共用 1 px/mm 示範座標；畫面會隨視窗縮放。A4 實尺比例需另外列印量測。</p></section>
+</div>
+<div class="studio-bottom">
+<section class="studio-export"><h2 data-zh="匯出" data-en="Export">匯出</h2><label for="exportView" data-zh="選擇圖面" data-en="Select a view">選擇圖面</label><select id="exportView"><option value="frontView" data-zh="底座正視圖" data-en="Base front view">底座正視圖</option><option value="topView" data-zh="底座俯視圖" data-en="Base top view">底座俯視圖</option></select><div class="actions" style="margin-top:14px"><button id="exportJpeg" class="primary" data-zh="下載 JPEG" data-en="Download JPEG">下載 JPEG</button></div><p class="muted" data-zh="本範例提供 JPEG。套用到你的工具時，把已有的 DXF 等匯出功能放在這裡。" data-en="This example exports JPEG. When applying the layout, place your existing DXF and other export controls here.">本範例提供 JPEG。套用到你的工具時，把已有的 DXF 等匯出功能放在這裡。</p><span id="exportStatus" role="status"></span></section>
+<section class="studio-verification"><h2 data-zh="驗收紀錄" data-en="Verification record">驗收紀錄</h2><p class="muted" data-zh="改值後親手填寫。切換配色時，留意文字是否清楚；紀錄請複製保存。" data-en="Fill this in after testing. Check legibility when changing colors. Copy your record to keep it.">改值後親手填寫。切換配色時，留意文字是否清楚；紀錄請複製保存。</p><div class="check-row"><label for="check-front" data-zh="正視輪廓" data-en="Front-view geometry">正視輪廓</label><select id="check-front"><option value="untested" data-zh="未測" data-en="Not tested">未測</option><option value="pass" data-zh="通過" data-en="Passed">通過</option><option value="fix" data-zh="待修正" data-en="Needs revision">待修正</option></select></div><div class="check-row"><label for="check-top" data-zh="俯視輪廓" data-en="Top-view geometry">俯視輪廓</label><select id="check-top"><option value="untested" data-zh="未測" data-en="Not tested">未測</option><option value="pass" data-zh="通過" data-en="Passed">通過</option><option value="fix" data-zh="待修正" data-en="Needs revision">待修正</option></select></div><div class="check-row"><label for="check-labels" data-zh="尺寸標註" data-en="Dimension labels">尺寸標註</label><select id="check-labels"><option value="untested" data-zh="未測" data-en="Not tested">未測</option><option value="pass" data-zh="通過" data-en="Passed">通過</option><option value="fix" data-zh="待修正" data-en="Needs revision">待修正</option></select></div><div class="check-row"><label for="check-export" data-zh="匯出重開" data-en="Reopened export">匯出重開</label><select id="check-export"><option value="untested" data-zh="未測" data-en="Not tested">未測</option><option value="pass" data-zh="通過" data-en="Passed">通過</option><option value="fix" data-zh="待修正" data-en="Needs revision">待修正</option></select></div>
+<label for="notes" class="muted" data-zh="測試值、觀察與下一步" data-en="Test values, observations, next step">測試值、觀察與下一步</label><textarea id="notes" placeholder="150 → 180 → 150 mm"></textarea><button id="copyRecord" style="margin-top:10px" data-zh="複製驗收紀錄" data-en="Copy record">複製驗收紀錄</button><span id="recordStatus" role="status"></span></section>
+</div>
+<section class="studio-guide"><details open><summary data-zh="把這個版面套到自己的 HTML" data-en="Apply this layout to your own HTML">把這個版面套到自己的 HTML</summary><p data-zh="將你的 HTML 和這份範例一起交給 AI，再貼上以下指令。" data-en="Attach your HTML and this example to the AI chat, then paste this prompt.">將你的 HTML 和這份範例一起交給 AI，再貼上以下指令。</p><button id="copyPrompt" data-zh="複製 AI 套用指令" data-en="Copy AI prompt">複製 AI 套用指令</button><span id="promptStatus" role="status"></span><pre id="promptText"></pre></details></section>
+</div>
+<script>
+const prompts = {"zh-Hant": "請將我附上的 CSS 版面範例套用到我的既有 HTML。\n先讀現有檔案，列出尺寸輸入、各視圖、匯出及驗收區的對應位置，再開始修改。\n\n1. 桌面左側放參數、右側放圖面，下方放匯出及驗收紀錄，手機改為上下排列。\n2. 沿用我的參數名稱、單位、數值、公式、DOM id、事件及繪圖函式。需要調整容器時，同時確認原有選取器和事件仍有效。\n3. 色彩與間距使用 --ui-accent、--ui-background、--ui-surface、--ui-text、--ui-muted、--ui-border、--ui-radius。讓我能修改配色。\n4. CSS 只套到介面容器，圖面的 stroke、fill、線寬、字級、viewBox、座標與列印比例沿用原來的工程圖設定。圖框留足標註空間。\n5. 把我已有的匯出按鈕放進匯出區。沿用真實匯出函式，缺少的格式標待開發。\n6. 驗收區列出正視輪廓、俯視輪廓、尺寸標註、匯出重開，各項初始為「未測」，由我操作後填寫。\n請另存完整工作版 HTML，告訴我改了哪些容器及 CSS。\n最後列出我應親手重做的檢查：改一個原有參數、觀察各視圖和標註、恢復原值、匯出重開。\n", "en": "Apply the attached CSS layout example to my existing HTML.\nFirst locate the parameter inputs, views, export controls, and verification area, then make the changes.\n\n1. Place parameters on the left and drawings on the right on desktop. Put export and verification below. Stack panels on mobile.\n2. Reuse my parameter names, units, values, formulas, DOM IDs, event handlers, and drawing functions. Check selectors and events when moving containers.\n3. Use --ui-accent, --ui-background, --ui-surface, --ui-text, --ui-muted, --ui-border, and --ui-radius so I can change the interface palette.\n4. Scope CSS to the interface containers. Preserve engineering drawing strokes, fills, line widths, text sizes, viewBox, coordinates, and print scale. Leave room for annotations.\n5. Move existing export buttons into the export area and retain their actual export functions. Mark missing formats as pending development.\n6. Provide verification fields for front-view geometry, top-view geometry, dimension labels, and reopened exports. Start each at “Not tested” for me to fill after testing.\nSave a complete working copy and explain the container and CSS changes.\nList the hands-on checks I should repeat: change an existing parameter, inspect views and labels, restore the original value, and reopen an export.\n"};
+const labels = {"zh-Hant": ["正視輪廓", "俯視輪廓", "尺寸標註", "匯出重開"], "en": ["Front-view geometry", "Top-view geometry", "Dimension labels", "Reopened export"]};
+let language = "zh-Hant";
+const $ = id => document.getElementById(id);
+function setLanguage(next) {
+  language = next;
+  document.documentElement.lang = next;
+  for (const node of document.querySelectorAll("[data-zh]")) node.textContent = next === "en" ? node.dataset.en : node.dataset.zh;
+  for (const button of document.querySelectorAll("[data-language]")) button.setAttribute("aria-pressed", String(button.dataset.language === next));
+  $("promptText").textContent = prompts[next];
+  for (const id of ["parameterStatus","exportStatus","recordStatus","promptStatus"]) $(id).textContent = "";
+}
+function dimensions() {
+  const d = $("baseDiameter"), t = $("baseThickness");
+  if (!d.checkValidity() || !t.checkValidity()) return null;
+  return { diameter: Number(d.value), thickness: Number(t.value) };
+}
+function render() {
+  const values = dimensions();
+  if (!values) {
+    $("parameterStatus").textContent = language === "en" ? "Enter values within the displayed ranges. The previous drawing is retained." : "請輸入標示範圍內的數值，圖面暫保留上一次有效值。";
+    return;
+  }
+  $("parameterStatus").textContent = "";
+  const {diameter:d, thickness:t} = values;
+  const start=150-d/2, end=150+d/2;
+  const centre='<line x1="150" y1="20" x2="150" y2="225" stroke="#7b8791" stroke-width="1" stroke-dasharray="10 3 2 3"/>';
+  const text=(x,y,value)=>'<text x="'+x+'" y="'+y+'" text-anchor="middle" font-size="13" fill="#18232b" font-family="sans-serif">'+value+'</text>';
+  $("frontView").innerHTML=centre+'<rect x="'+start+'" y="'+(140-t)+'" width="'+d+'" height="'+t+'" fill="#e6e9ec" stroke="#18232b" stroke-width="1.5"/><path d="M '+start+' 153 V 175 M '+end+' 153 V 175 M '+start+' 167 H '+end+'" fill="none" stroke="#18232b" stroke-width="1"/>'+text(150,190,'Ø'+d+' mm')+text(150,100,'t = '+t+' mm');
+  $("topView").innerHTML=centre+'<line x1="25" y1="130" x2="275" y2="130" stroke="#7b8791" stroke-width="1" stroke-dasharray="10 3 2 3"/><circle cx="150" cy="130" r="'+d/2+'" fill="#e6e9ec" stroke="#18232b" stroke-width="1.5"/>'+text(150,250,'Ø'+d+' mm');
+}
+function download(blob,name) {
+  const url=URL.createObjectURL(blob), link=document.createElement("a");
+  link.href=url; link.download=name; link.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+async function copyText(text,status) {
+  try { await navigator.clipboard.writeText(text); $(status).textContent=language==="en"?"Copied":"已複製"; }
+  catch {
+    const area=document.createElement("textarea");
+    area.value=text; area.style.cssText="position:fixed;top:10%;left:5%;width:90%;height:60%;z-index:9999;background:white;color:black";
+    area.setAttribute("aria-label",language==="en"?"Select and copy text":"請選取並複製文字");
+    document.body.append(area); area.focus(); area.select();
+    $(status).textContent=language==="en"?"Copy the selected text. Close with Escape.":"請複製已選取文字，按 Escape 關閉。";
+    area.addEventListener("keydown",event=>{if(event.key==="Escape") area.remove();});
+    area.addEventListener("blur",()=>area.remove(),{once:true});
+  }
+}
+for(const button of document.querySelectorAll("[data-language]")) button.addEventListener("click",()=>setLanguage(button.dataset.language));
+for(const id of ["baseDiameter","baseThickness"]) $(id).addEventListener("input",render);
+$("reset").addEventListener("click",()=>{$("baseDiameter").value=150;$("baseThickness").value=17;render();});
+function updateTheme() {
+  document.documentElement.style.setProperty("--ui-accent",$("accentColor").value);
+  document.documentElement.style.setProperty("--ui-background",$("backgroundColor").value);
+}
+for(const id of ["accentColor","backgroundColor"]) $(id).addEventListener("input",updateTheme);
+$("resetTheme").addEventListener("click",()=>{$("accentColor").value="#155e58";$("backgroundColor").value="#eceee9";updateTheme();});
+$("downloadCss").addEventListener("click",()=>{
+  const override="\n:root { --ui-accent: "+$("accentColor").value+"; --ui-background: "+$("backgroundColor").value+"; }\n";
+  download(new Blob([document.querySelector("style").textContent,override],{type:"text/css;charset=utf-8"}),"ad290b-studio.css");
+});
+$("copyPrompt").addEventListener("click",()=>copyText(prompts[language],"promptStatus"));
+$("copyRecord").addEventListener("click",()=>{
+  const lines=labels[language].map((name,i)=>name+" — "+$("check-"+["front","top","labels","export"][i]).selectedOptions[0].textContent);
+  lines.push($("notes").value);
+  copyText(lines.join("\n"),"recordStatus");
+});
+$("exportJpeg").addEventListener("click",()=>{
+  if (!dimensions()) { $("baseDiameter").reportValidity(); $("baseThickness").reportValidity(); return; }
+  const svg=$($("exportView").value), values=dimensions();
+  const url=URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(svg)],{type:"image/svg+xml;charset=utf-8"}));
+  const image=new Image();
+  image.onload=()=>{
+    const canvas=document.createElement("canvas");canvas.width=1200;canvas.height=1080;
+    const ctx=canvas.getContext("2d");ctx.fillStyle="#fff";ctx.fillRect(0,0,1200,1080);ctx.drawImage(image,0,0,1200,1080);
+    URL.revokeObjectURL(url);
+    canvas.toBlob(blob=>{
+      if(blob){download(blob,"base_"+svg.id+"_D"+values.diameter+"_t"+values.thickness+".jpg");$("exportStatus").textContent=language==="en"?"Reopen the JPEG to check outlines and labels.":"請重開 JPEG，檢查輪廓與標註。";}
+    },"image/jpeg",0.95);
+  };
+  image.onerror=()=>{URL.revokeObjectURL(url);$("exportStatus").textContent=language==="en"?"Export failed. Try again.":"匯出失敗，請再試一次。";};
+  image.src=url;
+});
+setLanguage(new URLSearchParams(location.search).get("lang")==="en"?"en":"zh-Hant");
+render();
+
+</script></body></html>
