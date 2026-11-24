@@ -1,0 +1,51 @@
+/* Apply these classes to interface containers. Drawing geometry stays in the existing renderer. */
+:root {
+  --ui-accent: #155e58;
+  --ui-background: #eceee9;
+  --ui-surface: #ffffff;
+  --ui-text: #20332f;
+  --ui-muted: #53645e;
+  --ui-border: #cbd4cd;
+  --ui-radius: 14px;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--ui-background); color: var(--ui-text); font: 16px/1.6 system-ui, "PingFang TC", sans-serif; }
+[hidden] { display: none !important; }
+.studio { max-width: 1440px; margin: auto; padding: clamp(16px, 3vw, 36px); }
+.studio-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 24px; }
+.course-tag { margin: 0 0 6px; color: var(--ui-accent); font: 700 12px/1.5 ui-monospace, monospace; letter-spacing: .12em; }
+h1 { margin: 0; font-size: clamp(25px, 4vw, 38px); line-height: 1.2; letter-spacing: -.035em; }
+h2 { margin: 0 0 14px; font-size: 18px; }
+h3 { margin: 0; font-size: 15px; }
+p { margin: 8px 0 14px; }
+.toolbar, .actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.studio-workspace { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 20px; align-items: start; }
+.studio-parameters, .studio-drawings, .studio-export, .studio-verification, .studio-guide { background: var(--ui-surface); border: 1px solid var(--ui-border); border-radius: var(--ui-radius); padding: 22px; min-width: 0; }
+.parameter-field { margin: 18px 0; }
+.parameter-field label { display: flex; justify-content: space-between; gap: 12px; font-weight: 650; font-size: 14px; }
+.parameter-field code { color: var(--ui-muted); font-size: 12px; }
+.parameter-input { display: flex; align-items: center; gap: 10px; margin-top: 7px; }
+input[type=number], input[type=text], select, textarea { width: 100%; min-width: 0; border: 1px solid var(--ui-border); border-radius: 7px; background: var(--ui-surface); color: var(--ui-text); padding: 9px 11px; font: inherit; }
+input[type=number] { font-family: ui-monospace, monospace; }
+textarea { min-height: 80px; resize: vertical; }
+small, .muted { color: var(--ui-muted); font-size: 13px; }
+button { cursor: pointer; padding: 9px 14px; border: 1px solid var(--ui-border); border-radius: 7px; background: var(--ui-surface); color: var(--ui-text); font: 650 14px/1.5 system-ui, sans-serif; }
+button.primary, button[aria-pressed=true] { color: #fff; background: var(--ui-accent); border-color: var(--ui-accent); }
+button:hover { filter: brightness(.96); }
+:focus-visible { outline: 3px solid var(--ui-accent); outline-offset: 3px; }
+.drawing-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
+.drawing-card { min-width: 0; border: 1px solid var(--ui-border); border-radius: 9px; padding: 14px; }
+.drawing-scroll { overflow: auto; }
+/* Interface palette never supplies SVG stroke/fill or changes viewBox and geometry. */
+.drawing-scroll svg { display: block; width: 100%; height: auto; background: #fff; }
+.studio-bottom { margin-top: 20px; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.7fr); gap: 20px; }
+.check-row { display: grid; grid-template-columns: minmax(0,1fr) 150px; align-items: center; gap: 10px; padding: 8px 0; }
+.studio-guide { margin-top: 20px; }
+pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--ui-background); padding: 16px; border-radius: 8px; font: 14px/1.7 ui-monospace, monospace; }
+summary { cursor: pointer; font-weight: 700; color: var(--ui-accent); }
+.theme-controls { padding-top: 14px; border-top: 1px solid var(--ui-border); margin-top: 22px; }
+.theme-controls label { display: flex; align-items: center; justify-content: space-between; margin: 8px 0; font-size: 13px; }
+input[type=color] { width: 42px; height: 30px; padding: 2px; border: 1px solid var(--ui-border); border-radius: 5px; background: white; }
+[role=status] { display: block; margin-top: 8px; color: var(--ui-accent); font-size: 13px; }
+@media (max-width: 900px) { .studio-workspace { grid-template-columns: 250px minmax(0,1fr); } .drawing-grid { grid-template-columns: 1fr; } }
+@media (max-width: 650px) { .studio-workspace, .studio-bottom { grid-template-columns: 1fr; } .check-row { grid-template-columns: 1fr 135px; } .studio-parameters, .studio-drawings, .studio-export, .studio-verification, .studio-guide { padding: 17px; } }
